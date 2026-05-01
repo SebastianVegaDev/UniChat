@@ -1,0 +1,17 @@
+.home-grid {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    line-height: 1.3;
+}
+
+.home-grid > div {
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    border-radius: 10px;
+    padding: 14px;
+    min-height: 0;
+}

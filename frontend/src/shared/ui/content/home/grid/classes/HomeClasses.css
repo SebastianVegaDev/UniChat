@@ -1,0 +1,66 @@
+.home-grid-classes {
+    grid-column: 1 / 4;
+    grid-row: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.home-grid-classes > p {
+    color: #f37021;
+    font-family: "Oswald";
+    font-size: 20px;
+}
+
+.home-grid-class {
+    display: flex;
+    border: 2px solid #dde3ea;
+    justify-content: space-between;
+    padding: 15px 10px;
+    border-radius: 8px;
+}
+
+.home-grid-class > div {
+    display: flex;
+    gap: 35px;
+    padding: 0px 20px;
+    align-items: center;
+}
+
+.home-grid-class-time {
+    color: #f37021;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.home-grid-class-info {
+    border-left: 3px solid #2563eb;
+}
+
+.home-grid-class-course {
+    font-size: 18px;
+    font-family: "Inter";
+    font-weight: bolder;
+}
+
+.home-grid-class-description {
+    font-size: 16px;
+    color: rgb(114, 114, 114);
+}
+
+.home-grid-class-classroom {
+    background-color: rgba(243, 112, 33, 0.15);
+    color: #f37021;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.home-grid-class-state {
+    background-color: rgba(37, 99, 235, 0.15);
+    color: #2563eb;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+}

@@ -1,0 +1,42 @@
+.home-grid-news {
+    grid-column: 4;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.home-grid-news > p{
+    color: #f37021;
+    font-family: "Oswald";
+    font-size: 19px;
+    font-weight: 450;
+    margin-bottom: 10px;
+}
+
+.home-grid-news > div {
+    border: 2px solid #dde3ea;
+    background-color: #f0f3f6;
+    padding: 13px 15px;
+    border-radius: 15px;
+}
+
+.home-grid-new {
+    border-left: 3.8px solid#f37021;
+    padding-left: 12px
+}
+
+.home-grid-new > h4 {
+    color: gray;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.home-grid-new > p {
+    color: gray;
+    font-weight: 600;
+    font-size: 15px;
+}

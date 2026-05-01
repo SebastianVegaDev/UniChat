@@ -1,0 +1,80 @@
+.home-quick-access {
+    position: relative;
+    height: 100%;
+}
+
+.home-quick-access-list {
+    display: flex;
+    gap: 15px;
+    height: 100%;
+}
+
+.home-quick-access-course {
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    flex: 0 0 calc((100% - 45px) / 4);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-quick-access-course > div {
+    display: flex;
+    gap: 8px;
+}
+
+.home-quick-access-course-icon {
+    background-color: #f37021;
+    color: white;
+    font-weight: bold;
+    font-size: 19px;
+    align-content: center;
+    padding: 12px;
+    margin: 6px;
+    border-radius: 6px;
+}
+
+.home-quick-access-course-title {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.home-quick-access-course-teacher {
+    color: gray;
+    font-size: 17px;
+}
+
+.home-quick-access-course-classroom {
+    font-size: 17px;
+}
+
+.home-quick-access-course > button {
+    background-color: #f9fafb;
+    border: none;
+    cursor: pointer;
+}
+
+.home-quick-access-back,
+.home-quick-access-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f37021;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.home-quick-access-back {
+    left: 0;
+}
+
+.home-quick-access-next {
+    right: 0;
+}
