@@ -1,0 +1,23 @@
+.section-hero {
+    line-height: 0.4;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #dde3ea;
+}
+
+.section-hero > p {
+    color: #f37021;
+    font-family: "Oswald";
+    font-size: 20px;
+}
+
+.section-hero > h2 {
+    font-family: "Gravitas One";
+    font-size: 36px;
+}
+
+.section-hero > span {
+    color: gray;
+    font-family: "Oswald";
+    font-size: 20px;
+}
+

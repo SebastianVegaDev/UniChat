@@ -1,0 +1,69 @@
+.app-sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 17px;
+    flex: 0 0 87px;
+    gap: 15px;
+    background-color: #f9fafb;
+    border-right: 2px solid #dde3ea;
+}
+
+.app-sidebar-course {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+    border: none;
+    width: 100%;
+    height: 55px;
+    border-radius: 12px;
+    background-color: #f0f3f6;
+    border: 2px solid #dde3ea;
+    color: #5f5f5f;
+    font-family: "Bungee";
+    font-size: 18px;
+
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.app-sidebar-course span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-sidebar-course:hover {
+    cursor: pointer;
+    background-color: rgba(253, 158, 99, 0.2);
+    border: 2px solid #fb8c2e;
+    color: #fb8c2e;
+}
+
+.app-sidebar-section {
+    background-color: #f37021;
+    border: none;
+    color: white;
+}
+
+.app-sidebar-course.active::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 3px;
+    height: 34px;
+    border-radius: 999px;
+    background-color: #f37021;
+}
+
+.app-sidebar-course.active {
+    background-color: rgba(253, 158, 99, 0.2);
+    border: 2px solid #fb8c2e;
+    color: #fb8c2e;
+}
