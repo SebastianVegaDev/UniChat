@@ -9,10 +9,10 @@
 }
 
 .home-grid-news > p{
-    color: #f37021;
-    font-family: "Oswald";
-    font-size: 19px;
-    font-weight: 450;
+    color: #d96722;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 700;
     margin-bottom: 10px;
 }
 
@@ -29,14 +29,23 @@
 }
 
 .home-grid-new > h4 {
-    color: gray;
-    font-weight: 600;
-    font-size: 17px;
+    color: #475569;
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 15px;
     margin-bottom: 7px;
 }
 
 .home-grid-new > p {
-    color: gray;
-    font-weight: 600;
-    font-size: 15px;
+    color: #64748b;
+    font-family: "Inter";
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.home-grid-new > h3 {
+    color: #1f2937;
+    font-family: "Inter";
+    font-size: 17px;
+    font-weight: 700;
 }

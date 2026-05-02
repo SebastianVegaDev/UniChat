@@ -5,19 +5,22 @@
 }
 
 .section-hero > p {
-    color: #f37021;
-    font-family: "Oswald";
-    font-size: 20px;
+    color: #d96722;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 650;
 }
 
 .section-hero > h2 {
-    font-family: "Gravitas One";
-    font-size: 36px;
+    color: #1f2937;
+    font-family: "Inter";
+    font-size: 34px;
+    font-weight: 750;
 }
 
 .section-hero > span {
-    color: gray;
-    font-family: "Oswald";
-    font-size: 20px;
+    color: #64748b;
+    font-family: "Inter";
+    font-size: 17px;
+    font-weight: 400;
 }
-

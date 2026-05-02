@@ -28,8 +28,9 @@
 .home-quick-access-course-icon {
     background-color: #f37021;
     color: white;
-    font-weight: bold;
-    font-size: 19px;
+    font-family: "Inter";
+    font-weight: 750;
+    font-size: 16px;
     align-content: center;
     padding: 12px;
     margin: 6px;
@@ -37,17 +38,24 @@
 }
 
 .home-quick-access-course-title {
-    font-size: 19px;
-    font-weight: bold;
+    color: #1f2937;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 700;
 }
 
 .home-quick-access-course-teacher {
-    color: gray;
-    font-size: 17px;
+    color: #64748b;
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .home-quick-access-course-classroom {
-    font-size: 17px;
+    color: #475569;
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .home-quick-access-course > button {

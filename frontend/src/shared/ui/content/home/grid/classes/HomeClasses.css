@@ -8,9 +8,10 @@
 }
 
 .home-grid-classes > p {
-    color: #f37021;
-    font-family: "Oswald";
-    font-size: 20px;
+    color: #d96722;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .home-grid-class {
@@ -29,9 +30,9 @@
 }
 
 .home-grid-class-time {
-    color: #f37021;
-    font-size: 24px;
-    font-weight: bolder;
+    color: #d96722;
+    font-size: 22px;
+    font-weight: 750;
 }
 
 .home-grid-class-info {
@@ -39,22 +40,25 @@
 }
 
 .home-grid-class-course {
-    font-size: 18px;
+    color: #1f2937;
+    font-size: 17px;
     font-family: "Inter";
-    font-weight: bolder;
+    font-weight: 700;
 }
 
 .home-grid-class-description {
-    font-size: 16px;
-    color: rgb(114, 114, 114);
+    font-size: 15px;
+    color: #64748b;
+    font-weight: 400;
 }
 
 .home-grid-class-classroom {
     background-color: rgba(243, 112, 33, 0.15);
-    color: #f37021;
+    color: #c75f1b;
     padding: 10px;
     border-radius: 20px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 650;
 }
 
 .home-grid-class-state {
@@ -62,5 +66,6 @@
     color: #2563eb;
     padding: 8px 14px;
     border-radius: 20px;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: 650;
 }

@@ -5,22 +5,26 @@
 }
 
 .home-grid-next-class > h3 {
-    color: #f37021;
-    font-family: "Oswald";
-    font-size: 19px;
-    font-weight: 450;
+    color: #d96722;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .home-grid-next-class > h2 {
-    font-size: 20px;
+    color: #1f2937;
+    font-family: "Inter";
+    font-size: 19px;
+    font-weight: 700;
     padding-bottom: 7px
 }
 
 .home-grid-next-class > p {
-    font-family: "Lato";
-    font-size: 17px;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 400;
     padding-bottom: 7px;
-    color: gray;
+    color: #64748b;
 }
 
 .home-grid-next-class > button {
@@ -28,7 +32,8 @@
     border: none;
     padding: 10px;
     color: white;
-    font-weight: bold;
+    font-family: "Inter";
+    font-weight: 650;
     font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
