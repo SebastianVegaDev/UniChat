@@ -6,7 +6,8 @@ function NewsPage() {
     return (
         <SectionLayout>
             <SectionHero
-                title={"News"}
+                eyebrow={"News"}
+                title={"News of the University"}
                 description={"Announcements published by offices and academic departments."}
             />
             <NewsContent/>

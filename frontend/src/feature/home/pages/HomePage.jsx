@@ -6,6 +6,7 @@ function HomePage() {
     return (
         <SectionLayout>
             <SectionHero
+                eyebrow={"Welcome"}
                 title={"My Day"}
                 description={"Wednesday, Apr 29 · 4 enrolled courses · 1 class in progress"}
             />

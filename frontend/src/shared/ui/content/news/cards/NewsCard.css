@@ -17,8 +17,8 @@
 
 .news-card-header > h3 {
     font-size: 16px;
-    font-weight: 650;
-    color: #d96722;
+    font-weight: 730;
+    color: #f37021;
     font-family: "Inter";
 }
 
@@ -33,13 +33,13 @@
     color: #1f2937;
     font-family: "Inter";
     font-size: 21px;
-    font-weight: 750;
+    font-weight: 700;
 }
 
 .news-card-body > p {
-    color: #475569;
+    color: gray;
     font-family: "Inter";
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 400;
 }
 
@@ -49,13 +49,13 @@
     align-items: center;
     margin-top: auto;
     border-top: 1px solid #dde3ea;
-    padding-top: 15px;
+    padding-top: 14px;
     color: #64748b;
 }
 
 .news-card-footer > h4 {
     font-family: "Inter";
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     color: #64748b;
 }

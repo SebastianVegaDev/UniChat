@@ -3,13 +3,16 @@
     gap: 20px;
 }
 
-.course-actions > div {
+.course-action {
     width: 50%;
     padding: 20px;
     display: flex;
     align-items: center;
     border-radius: 7px;
     justify-content: space-between;
+    box-sizing: border-box;
+    color: inherit;
+    text-decoration: none;
 }
 
 .course-action-info {
@@ -42,6 +45,9 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
+    color: inherit;
+    display: flex;
+    align-items: center;
 }
 
 .course-action-calendar {
