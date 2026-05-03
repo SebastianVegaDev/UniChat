@@ -1,0 +1,52 @@
+.course-information {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    padding: 16px;
+    border-radius: 8px;
+    gap: 15px;
+}
+
+.course-information > p {
+    color: #f37021;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: "Inter";
+}
+
+.course-information-week {
+    background-color: #fde9da;
+    border: 2px solid #f3702133;
+    border-radius: 9px;
+    padding: 15px;
+}
+
+.course-information-week > h3 {
+    color: #f0772c;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "Inter";
+}
+
+.course-information-week > h4 {
+    font-weight: 350;
+    font-family: "Inter";
+}
+
+.course-information-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.course-information-details > div {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f0f3f6;
+    border: 2px solid #dde3ea;
+    border-radius: 6px;
+    padding: 9px;
+    font-size: 14px;
+}

@@ -10,13 +10,13 @@ function HomeClasses() {
                         <p className="home-grid-class-time">08:00 - 09:40</p>
                     </div>
                     <div>
-                        <p className="home-grid-class-course">Diseno X</p>
-                        <p className="home-grid-class-description">Revision de avances</p>
+                        <p className="home-grid-class-course">X Design</p>
+                        <p className="home-grid-class-description">Progress review</p>
                     </div>
                 </div>
                 <div className="home-grid-class-badges">
-                    <p className="home-grid-class-classroom">Aula 405</p>
-                    <p className="home-grid-class-state">Ahora</p>
+                    <p className="home-grid-class-classroom">Room 405</p>
+                    <p className="home-grid-class-state">Now</p>
                 </div>
             </div>
         </div>

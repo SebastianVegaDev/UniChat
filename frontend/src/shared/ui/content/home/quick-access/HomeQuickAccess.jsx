@@ -7,34 +7,34 @@ function HomeQuickAccess() {
 
     const courses = [
         {
-            shortName: "Ux",
-            title: "Diseno UX",
-            teacher: "Proff. Andrea",
-            classroom: "Aula 303",
+            shortName: "UX",
+            title: "UX Design",
+            teacher: "Prof. Andrea",
+            classroom: "Room 303",
         },
         {
-            shortName: "Ux",
-            title: "Diseno UX",
-            teacher: "Proff. Andrea",
-            classroom: "Aula 303",
+            shortName: "UX",
+            title: "UX Design",
+            teacher: "Prof. Andrea",
+            classroom: "Room 303",
         },
         {
-            shortName: "Ux",
-            title: "Diseno UX",
-            teacher: "Proff. Andrea",
-            classroom: "Aula 303",
+            shortName: "UX",
+            title: "UX Design",
+            teacher: "Prof. Andrea",
+            classroom: "Room 303",
         },
         {
-            shortName: "Ux",
-            title: "Diseno UX",
-            teacher: "Proff. Andrea",
-            classroom: "Aula 303",
+            shortName: "UX",
+            title: "UX Design",
+            teacher: "Prof. Andrea",
+            classroom: "Room 303",
         },
         {
-            shortName: "Ux",
-            title: "Diseno USSX",
-            teacher: "Proff. Andrea",
-            classroom: "Aula 303",
+            shortName: "UX",
+            title: "USSX Design",
+            teacher: "Prof. Andrea",
+            classroom: "Room 303",
         },
     ];
 
@@ -45,8 +45,8 @@ function HomeQuickAccess() {
     return (
         <div className="home-quick-access">
             <div className="home-quick-access-list">
-                {visibleCourses.map((course) => (
-                    <div className="home-quick-access-course" key={course.title}>
+                {visibleCourses.map((course, index) => (
+                    <div className="home-quick-access-course" key={`${course.title}-${index}`}>
                         <div>
                             <span className="home-quick-access-course-icon">{course.shortName}</span>
                             <div>

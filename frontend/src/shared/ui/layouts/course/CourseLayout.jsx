@@ -1,9 +1,11 @@
-import "./CourseLayout.css"
+import "./CourseLayout.css";
 
-function CourseLayout() {
+function CourseLayout({children}) {
     return (
-        <p>CourseLayout</p>
-    )
+        <div className="course-layout">
+            {children}
+        </div>
+    );
 }
 
-export default CourseLayout
+export default CourseLayout;

@@ -1,0 +1,94 @@
+.course-resources {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    border-radius: 8px;
+    margin-top: 20px;
+    padding: 15px;
+}
+
+.course-resources-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-resources-header > p {
+    color: #f37021;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: "Inter";
+}
+
+.course-resources-header > span {
+    color: rgb(145, 145, 145);
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.course-resource {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f3f6;
+    border: 2px solid #dde3ea;
+    border-radius: 9px;
+    padding: 15px;
+    gap: 8px;
+}
+
+.course-resource > p {
+    font-weight: 650;
+    font-family: "Inter";
+}
+
+.course-resource-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 17px;
+}
+
+.course-resource-file {
+    border: 2px solid #dde3ea;
+    width: calc((100% - 17px) / 2);
+    border-radius: 9px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    align-items: center;
+}
+
+.course-resource-file-info {
+    display: flex;
+    align-items: center;
+    line-height: 1.35;
+}
+
+.course-resource-file-info > span {
+    color: #f37021;
+    margin-right: 17px;
+}
+
+.course-resource-file-info > div > h4 {
+    font-size: 17px;
+    font-weight: 580;
+}
+
+.course-resource-file-info > div > p {
+    font-weight: 250;
+    font-size: 15px;
+}
+
+.course-resource-file-info > div > span {
+    font-size: 13px;
+    color: gray;
+}
+
+.course-resource-file-state {
+    background-color: #d8f3e6;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #14895f;
+    font-weight: bold;
+    border-radius: 14px;
+}
