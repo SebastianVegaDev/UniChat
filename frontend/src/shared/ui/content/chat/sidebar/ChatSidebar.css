@@ -1,0 +1,125 @@
+.chat-content-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 18%;
+    min-width: 280px;
+    height: 100%;
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+.chat-content-sidebar-course {
+    display: flex;
+    padding: 10px;
+    border: 1px solid #dde3ea;
+    background-color: #f0f3f6;
+    border-radius: 6px;
+}
+
+.chat-content-sidebar-course > span {
+    background-color: #f37021;
+    border-radius: 7px;
+    padding: 13px;
+    align-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: "Inter";
+}
+
+.chat-content-sidebar-course-info {
+    margin-left: 12px;
+    line-height: 1.2;
+    align-content: center;
+}
+
+.chat-content-sidebar-course-info > p {
+    font-weight: 700;
+}
+
+.chat-content-sidebar-course-info > span {
+    font-weight: 350;
+    font-size: 14px;
+}
+
+.chat-content-sidebar-button {
+    display: flex;
+    background-color: #f37021;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    width: 100%;
+    gap: 8px;
+}
+
+.chat-content-sidebar-search-container {
+    position: relative;
+    width: 100%;
+}
+
+.chat-content-sidebar-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #64748b;
+}
+
+.chat-content-sidebar-search {
+    border: 2px solid #dde3ea;
+    background-color: #f0f3f6;
+    border-radius: 7px;
+    width: 100%;
+    padding: 12px 12px 12px 38px;
+    box-sizing: border-box;
+    font-size: 15px
+}
+
+.chat-content-sidebar-chat {
+    display: flex;
+    border: 2px solid #dde3ea;
+    border-radius: 8px;
+    padding: 13px;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.chat-content-sidebar-chat.select{
+    background-color: #fde9da;
+    border: 2px solid #f3702133;
+}
+
+.chat-content-sidebar-chat.select > span {
+    color: #f37021;
+}
+
+.chat-content-sidebar-chat.select > div > p {
+    color: #f37021;
+}
+
+.chat-content-sidebar-chat-info > p{
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.chat-content-sidebar-chat-info > p{
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.chat-content-sidebar-chat-info > span{
+    font-size: 13.5px;
+    font-weight: 350;
+    color: gray;
+}

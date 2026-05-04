@@ -1,7 +1,7 @@
 .home-grid-next-class {
     grid-column: 4;
     grid-row: 1;
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
 .home-grid-next-class > h3 {

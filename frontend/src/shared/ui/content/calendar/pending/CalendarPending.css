@@ -31,7 +31,7 @@
 .calendar-pending-card {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 6px;
     border-radius: 9px;
     border: 2px solid #dde3ea;
     background-color: #f0f3f6;
