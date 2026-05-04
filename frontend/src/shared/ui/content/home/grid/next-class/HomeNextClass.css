@@ -1,0 +1,44 @@
+.home-grid-next-class {
+    grid-column: 4;
+    grid-row: 1;
+    line-height: 1.6;
+}
+
+.home-grid-next-class > h3 {
+    color: #d96722;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.home-grid-next-class > h2 {
+    color: #1f2937;
+    font-family: "Inter";
+    font-size: 19px;
+    font-weight: 700;
+    padding-bottom: 7px
+}
+
+.home-grid-next-class > p {
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 400;
+    padding-bottom: 7px;
+    color: #64748b;
+}
+
+.home-grid-next-class > button {
+    background-color: #f37021;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-family: "Inter";
+    font-weight: 650;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.home-grid-next-class > button:hover {
+    background-color: #d85f16;
+}

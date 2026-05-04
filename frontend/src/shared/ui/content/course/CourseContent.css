@@ -1,0 +1,13 @@
+.course-content {
+    display: flex;
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.course-body {
+    width: 80%;
+}

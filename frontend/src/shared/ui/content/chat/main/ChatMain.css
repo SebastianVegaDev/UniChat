@@ -1,0 +1,209 @@
+.chat-content-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    background-color: #f9fafb;
+    border: 2px solid #dde3ea;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 18px;
+}
+
+.chat-content-main-header {
+    border-bottom: 2px solid #dde3ea;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+}
+
+.chat-content-main-header > h4 {
+    font-size: 17px;
+    color: gray;
+    font-weight: 420;
+}
+
+.chat-content-main-header > h3 {
+    font-size: 23px;
+    font-weight: 650;
+}
+
+/*MESSAGES*/
+
+.chat-content-main-messages {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.chat-content-main-message-fixed {
+    background-color: #fff7ed;
+    border: 2px solid #f3702138;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    max-width: 630px;
+    min-width: 560px;
+}
+
+.chat-content-main-message-fixed > h4{
+    color: #f37021;
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.chat-content-main-message-fixed > p{
+    font-size: 17px;
+    font-weight: 360;
+}
+
+.chat-content-main-message-fixed > span{
+    font-size: 14px;
+    font-weight: 400;
+    color: gray;
+}
+
+.chat-content-main-message-date {
+    display: flex;
+    color: gray;
+    font-size: 15px;
+    font-weight: bold;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-content-main-message-date::before,
+.chat-content-main-message-date::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background-color: #dde3ea;
+}
+
+.chat-content-main-message-resource {
+    display: flex;
+    background-color: #e9edf2;
+    color: #6b7280;
+    border-radius: 13px;
+    padding: 8px 14px;
+    width: fit-content;
+    font-size: 13px;
+    font-weight: bold;
+    align-self: center;
+}
+
+.chat-content-main-message {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 8px;
+}
+
+.chat-content-main-message > div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.chat-content-main-message-other {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.chat-content-main-message-other > span {
+    background-color: #f37021;
+    color: white;
+    padding: 1px;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    text-align: center;
+    align-content: center;
+    margin-bottom: 5px;
+}
+
+.chat-content-main-message-me {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.chat-content-main-message-me > span {
+    background-color: #257e13;
+    color: white;
+    padding: 1px;
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    text-align: center;
+    align-content: center;
+    margin-bottom: 5px;
+}
+
+.chat-content-main-message-other .chat-content-main-message{
+    border: 2px solid #dde3ea;
+    width: fit-content;
+    max-width: 360px;
+}
+
+.chat-content-main-message-me .chat-content-main-message{
+    background-color: #f37021;
+    color: white;
+    width: fit-content;
+    max-width: 360px;
+}
+
+/**/
+
+.chat-content-main-tabbar {
+    border-top: 2px solid #dde3ea;
+    padding-top: 10px;
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.chat-content-main-tabbar-clip {
+    border: 2px solid #dde3ea;
+    background-color: #f0f3f6;
+    color: gray;
+    padding: 11px;
+    padding-top: 14px;
+    border-radius: 10px;
+    align-items: end;
+    cursor: pointer;
+
+}
+
+.chat-content-main-tabbar-input {
+    min-width: 0;
+    flex: 1;
+    border: 2px solid #dde3ea;
+    background-color: #f0f3f6;
+    padding: 0px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.chat-content-main-tabbar-send {
+    background-color: #f37021;
+    color: white;
+    padding: 11px 15px;
+    padding-top: 14px;
+    border: none;
+    border-radius: 10px;
+    align-items: end;
+    cursor: pointer;
+}
