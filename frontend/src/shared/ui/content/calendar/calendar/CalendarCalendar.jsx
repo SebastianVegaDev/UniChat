@@ -2,7 +2,7 @@ import "./CalendarCalendar.css";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 
-function CalendarCalendar() {
+function CalendarCalendar({events = []}) {
     return (
         <div className="calendar-calendar">
             <FullCalendar
@@ -12,10 +12,7 @@ function CalendarCalendar() {
                 expandRows={true}
                 fixedWeekCount={false}
                 dayMaxEvents={2}
-                events={[
-                    { title: "Programming exam", date: "2026-05-10" },
-                    { title: "Project submission", date: "2026-05-15" },
-                ]}
+                events={events}
             />
         </div>
     );

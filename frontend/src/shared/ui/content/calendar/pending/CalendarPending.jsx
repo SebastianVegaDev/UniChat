@@ -1,38 +1,19 @@
 import "./CalendarPending.css";
 
-function CalendarPending() {
+function CalendarPending({pendingItems}) {
     return (
         <div className="calendar-pending">
             <p>Pending this month</p>
             <div className="calendar-pending-cards">
-                <div className="calendar-pending-card">
-                    <span>3 Apr</span>
-                    <div className="calendar-pending-card-info">
-                        <p>Classroom 3</p>
-                        <span>Practice</span>
+                { pendingItems.map((pending) => (
+                    <div className="calendar-pending-card" key={pending.id}>
+                        <span>{pending.dateLabel}</span>
+                        <div className="calendar-pending-card-info">
+                            <p>{pending.title}</p>
+                            <span>{pending.detail}</span>
+                        </div>
                     </div>
-                </div>
-                <div className="calendar-pending-card">
-                    <span>3 Apr</span>
-                    <div className="calendar-pending-card-info">
-                        <p>Classroom 3</p>
-                        <span>Practice</span>
-                    </div>
-                </div>
-                <div className="calendar-pending-card">
-                    <span>3 Apr</span>
-                    <div className="calendar-pending-card-info">
-                        <p>Classroom 3</p>
-                        <span>Practice</span>
-                    </div>
-                </div>
-                <div className="calendar-pending-card">
-                    <span>3 Apr</span>
-                    <div className="calendar-pending-card-info">
-                        <p>Classroom 3</p>
-                        <span>Practice</span>
-                    </div>
-                </div>
+                ))}
             </div>
         </div>
     );

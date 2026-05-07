@@ -1,42 +1,36 @@
 import "./CourseResources.css";
 import { FileText } from "lucide-react";
+import { NavLink } from "react-router-dom"
 
-function CourseResources() {
+function CourseResources({ resourcesSummary, resourcesByWeek }) {
     return (
         <div className="course-resources">
             <div className="course-resources-header">
                 <p>RESOURCES BY WEEK</p>
-                <span>8 folders - 2 pending</span>
+                <span>{resourcesSummary.foldersCount} folders - {resourcesSummary.pendingCount} pending</span>
             </div>
-            <div className="course-resource">
-                <p>Week 1</p>
-                <div>
-                    <div className="course-resource-files">
-                        <div className="course-resource-file">
-                            <div className="course-resource-file-info">
-                                <span><FileText /></span>
-                                <div>
-                                    <h4>Syllabus and course rules</h4>
-                                    <p>Official PDF · 1.2 MB · 18 Mar</p>
-                                    <span>Uploaded by Coordination</span>
-                                </div>
-                            </div>
-                            <p className="course-resource-file-state">View</p>
-                        </div>
-                        <div className="course-resource-file">
-                            <div className="course-resource-file-info">
-                                <span><FileText /></span>
-                                <div>
-                                    <h4>Syllabus and course rules</h4>
-                                    <p>Official PDF · 1.2 MB · 18 Mar</p>
-                                    <span>Uploaded by Coordination</span>
-                                </div>
-                            </div>
-                            <p className="course-resource-file-state">View</p>
+            { resourcesByWeek.map((resourcesItem) => (
+                <div className="course-resource" key={resourcesItem.id}>
+                    <p>Week {resourcesItem.weekNumber}</p>
+                    <div>
+                        <div className="course-resource-files">
+                            { resourcesItem.files.map((resource) => (
+                                <NavLink to={resource.url} className="course-resource-file" key={resource.id}>
+                                    <div className="course-resource-file-info">
+                                        <span><FileText /></span>
+                                        <div>
+                                            <h4>{resource.title}</h4>
+                                            <p>{resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}</p>
+                                            <span>Uploaded by {resource.uploadedBy}</span>
+                                        </div>
+                                    </div>
+                                    <p className="course-resource-file-state">{resource.statusLabel}</p>
+                                </NavLink>
+                            ))}
                         </div>
                     </div>
                 </div>
-            </div>
+            ))}
         </div>
     );
 }

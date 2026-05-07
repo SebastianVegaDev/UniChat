@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "eyebrow": "News",
+    "title": "News of the University",
+    "description": "Announcements published by offices and academic departments."
+  },
+  "news": [
+    {
+      "id": "news-001",
+      "title": "Semana de parciales inicia el lunes",
+      "body": "Las evaluaciones se publicaran por curso durante esta semana. Revisa cada calendario antes de confirmar trabajos pendientes.",
+      "dateLabel": "29 Abr",
+      "readTimeLabel": "3 min",
+      "category": "Academico",
+      "author": "Direccion Academica"
+    }
+  ]
+}

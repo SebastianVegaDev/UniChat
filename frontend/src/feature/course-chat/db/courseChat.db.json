@@ -1,0 +1,58 @@
+{
+  "course": {
+    "id": "course-programming-2",
+    "shortName": "P2",
+    "title": "Programacion II",
+    "route": "/course/mate",
+    "classroom": "Lab 302"
+  },
+  "channels": [
+    {
+      "id": "chat-grupal",
+      "title": "Chat grupal",
+      "description": "Estudiantes y profesores"
+    },
+    {
+      "id": "dudes-arrays",
+      "title": "Dudas sobre arrays",
+      "description": "Practica y ejercicios"
+    }
+  ],
+  "activeChannel": {
+    "name": "Dudas sobre arrays",
+    "type": "Chat grupal"
+  },
+  "pinnedMessage": {
+    "body": "El parcial sera presencial. Revisen el calendario antes del viernes.",
+    "timeLabel": "09:48",
+    "author": "Prof. Diego Salazar"
+  },
+  "timeline": [
+    {
+      "id": "date-001",
+      "type": "date",
+      "label": "Hoy"
+    },
+    {
+      "id": "message-001",
+      "type": "message-other",
+      "body": "Profesor, no entiendo como recorrer el array con map.",
+      "timeLabel": "10:15",
+      "author": "Professor"
+    },
+    {
+      "id": "message-002",
+      "type": "message-me",
+      "body": "Piensa en map como transformar cada item en algo nuevo.",
+      "timeLabel": "10:18",
+      "author": "Yo"
+    },
+    {
+      "id": "message-003",
+      "type": "message-other",
+      "body": "Recuerden revisar los recursos antes de clase.",
+      "timeLabel": "10:22",
+      "author": "Delegada"
+    }
+  ]
+}

@@ -2,11 +2,18 @@ import "./ChatContent.css";
 import ChatMain from "./main/ChatMain.jsx";
 import ChatSidebar from "./sidebar/ChatSidebar.jsx";
 
-function ChatContent() {
+function ChatContent({course, channels, pinnedMessage, timeline, activeChannel}) {
     return (
         <div className="chat-content">
-            <ChatSidebar />
-            <ChatMain />
+            <ChatSidebar 
+                course={course}
+                channels={channels}
+            />
+            <ChatMain 
+                pinnedMessage={pinnedMessage}
+                timeline={timeline}
+                activeChannel={activeChannel}
+            />
         </div>
     );
 }

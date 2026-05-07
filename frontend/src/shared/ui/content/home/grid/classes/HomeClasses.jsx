@@ -1,24 +1,29 @@
 import "./HomeClasses.css";
+import { Link } from "react-router-dom";
 
-function HomeClasses() {
+function HomeClasses({todayClasses}) {
+
     return (
         <div className="home-grid-classes">
             <p>Classes</p>
-            <div className="home-grid-class">
-                <div className="home-grid-class-info">
-                    <div>
-                        <p className="home-grid-class-time">08:00 - 09:40</p>
+            { todayClasses.map((classItem) => (
+                <Link to={classItem.route} className="home-grid-class" key={classItem.id}>
+                    <div className="home-grid-class-info">
+                        <div>
+                            <p className="home-grid-class-time">{classItem.startTime} - {classItem.endTime}</p>
+                        </div>
+                        <div>
+                            <p className="home-grid-class-course">{classItem.title}</p>
+                            <p className="home-grid-class-description">{classItem.topic}</p>
+                        </div>
                     </div>
-                    <div>
-                        <p className="home-grid-class-course">X Design</p>
-                        <p className="home-grid-class-description">Progress review</p>
+                    <div className="home-grid-class-badges">
+                        <p className="home-grid-class-classroom">{classItem.classroom}</p>
+                        <p className="home-grid-class-state">{classItem.statusLabel}</p>
                     </div>
-                </div>
-                <div className="home-grid-class-badges">
-                    <p className="home-grid-class-classroom">Room 405</p>
-                    <p className="home-grid-class-state">Now</p>
-                </div>
-            </div>
+                </Link>
+            )) }
+
         </div>
     );
 }

@@ -1,16 +1,19 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import SectionHero from "../../../shared/ui/heroes/section/SectionHero.jsx";
 import NewsContent from "../../../shared/ui/content/news/NewsContent.jsx";
+import { hero, news } from "../db/news.db.json";
 
 function NewsPage() {
     return (
         <SectionLayout>
             <SectionHero
-                eyebrow={"News"}
-                title={"News of the University"}
-                description={"Announcements published by offices and academic departments."}
+                eyebrow={hero.eyebrow}
+                title={hero.title}
+                description={hero.description}
             />
-            <NewsContent/>
+            <NewsContent
+                news={news}
+            />
         </SectionLayout>
     );
 }

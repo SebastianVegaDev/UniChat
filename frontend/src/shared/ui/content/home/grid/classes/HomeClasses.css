@@ -18,8 +18,14 @@
     display: flex;
     border: 2px solid #dde3ea;
     justify-content: space-between;
+    align-items: center;
     padding: 15px 10px;
     border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    gap: 20px;
+    flex: 0 0 auto;
+    min-width: 0;
 }
 
 .home-grid-class > div {
@@ -37,6 +43,18 @@
 
 .home-grid-class-info {
     border-left: 3px solid #2563eb;
+    flex: 1;
+    min-width: 0;
+}
+
+.home-grid-class-info > div:first-child {
+    width: 150px;
+    flex-shrink: 0;
+}
+
+.home-grid-class-info > div:last-child {
+    flex: 1;
+    min-width: 0;
 }
 
 .home-grid-class-course {
@@ -52,20 +70,40 @@
     font-weight: 400;
 }
 
+.home-grid-class > .home-grid-class-badges {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 8px 0 0;
+}
+
 .home-grid-class-classroom {
     background-color: rgba(243, 112, 33, 0.15);
     color: #c75f1b;
-    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 82px;
+    padding: 8px 12px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 650;
+    white-space: nowrap;
 }
 
 .home-grid-class-state {
     background-color: rgba(37, 99, 235, 0.15);
     color: #2563eb;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 82px;
     padding: 8px 14px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 650;
+    white-space: nowrap;
 }
