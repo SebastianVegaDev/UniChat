@@ -7,7 +7,7 @@ function CourseHero({course}) {
             <div className="course-hero-info">
                 <p>Course</p>
                 <h1>{course.title}</h1>
-                <h3>{course.teacher} · {course.classroom} · {course.timeLabel}</h3>
+                <h3>{course.teacher} · {course.classroom}</h3>
                 <div className="course-hero-badges">
                     <span>{course.studentsCount} students</span>
                     <span>{course.delegatesCount} delegates</span>

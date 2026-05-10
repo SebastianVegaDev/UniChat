@@ -1,11 +1,10 @@
 import "./HomeQuickAccess.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function HomeQuickAccess({courses}) {
     const [start, setStart] = useState(0);
-    const navigate = useNavigate();
 
     const visibleCourses = courses.slice(start, start + 4);
     const canMoveBack = start > 0;
@@ -14,7 +13,7 @@ function HomeQuickAccess({courses}) {
         <div className="home-quick-access">
             <div className="home-quick-access-list">
                 {visibleCourses.map((course) => (
-                    <div className="home-quick-access-course" key={course.id}>
+                    <Link to={course.route} className="home-quick-access-course" key={course.id}>
                         <div>
                             <span className="home-quick-access-course-icon">{course.shortName}</span>
                             <div>
@@ -23,8 +22,8 @@ function HomeQuickAccess({courses}) {
                                 <p className="home-quick-access-course-teacher">{course.classroom}</p>
                             </div>
                         </div>
-                        <button onClick={() => navigate(course.route)}><ChevronRight /></button>
-                    </div>
+                        <ChevronRight />
+                    </Link>
                 ))}
             </div>
             {canMoveBack && (

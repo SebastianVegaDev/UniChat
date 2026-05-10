@@ -29,7 +29,7 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                         case "message-other":
                         return (
                             <div className="chat-content-main-message-other" key={message.id}>
-                                <span>D</span>
+                                <span>{message.initial}</span>
                                 <div  className="chat-content-main-message">
                                     <div>
                                         <h4>{message.author}</h4>
@@ -44,14 +44,16 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                             <div className="chat-content-main-message-me" key={message.id}>
                                 <div className="chat-content-main-message">
                                     <div>
-                                        <h4>Delegada</h4>
-                                        <span>10:12</span>
+                                        <h4>{message.author}</h4>
+                                        <span>{message.timeLabel}</span>
                                     </div>
-                                    <p>Recuerden revisar los recursos antes de clase</p>
+                                    <p>{message.body}</p>
                                 </div>
-                                <span>D</span>
+                                <span>{message.initial}</span>
                             </div>
                         );
+                        default:
+                        return null;
                     }
                 })}
             </div>

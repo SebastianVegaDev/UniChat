@@ -2,7 +2,7 @@ import "./ChatSidebar.css";
 import { ChevronLeft, Search, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-function ChatSidebar({course, channels}) {
+function ChatSidebar({course, channels, activeChannelId, setActiveChannelId}) {
     const navigate = useNavigate()
 
     return (
@@ -20,11 +20,15 @@ function ChatSidebar({course, channels}) {
                 <input className="chat-content-sidebar-search" placeholder="Search chat"/>
             </div>
             { channels.map((channel) => (
-                <div className="chat-content-sidebar-chat" key={channel.id}>
+                <div
+                    className={`chat-content-sidebar-chat ${channel.id === activeChannelId ? "select" : ""}`}
+                    key={channel.id}
+                    onClick={() => setActiveChannelId(channel.id)}
+                >
                     <span><MessageCircle /></span>
                     <div className="chat-content-sidebar-chat-info">
                         <p>{channel.title}</p>
-                        <span>Estudiantes y profesors</span>
+                        <span>{channel.description}</span>
                     </div>
                 </div>
             ))}

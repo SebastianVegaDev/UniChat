@@ -93,6 +93,12 @@
     padding: 13px;
     gap: 10px;
     cursor: pointer;
+    transition: transform 0.2 ease,
+}
+
+.chat-content-sidebar-chat:hover {
+    transform: translateY(-2px);
+    background-color: #1f29370f;
 }
 
 .chat-content-sidebar-chat.select{

@@ -8,7 +8,7 @@
 }
 
 .home-grid-classes > p {
-    color: #d96722;
+    color: #f37021;
     font-family: "Inter";
     font-size: 15px;
     font-weight: 700;
@@ -19,36 +19,54 @@
     border: 2px solid #dde3ea;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 10px;
+    padding: 12px 10px;
     border-radius: 8px;
     text-decoration: none;
     color: inherit;
-    gap: 20px;
+    gap: 14px;
     flex: 0 0 auto;
     min-width: 0;
+    transition: transform 0.2 ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.home-grid-class:hover {
+    transform: translateY(-2px);
+    background-color: #1f29370f;
 }
 
 .home-grid-class > div {
     display: flex;
-    gap: 35px;
-    padding: 0px 20px;
+    gap: 0px;
+    padding: 0px 14px;
     align-items: center;
 }
 
 .home-grid-class-time {
-    color: #d96722;
-    font-size: 22px;
-    font-weight: 750;
+    color: #f37021;
+    font-size: 18px;
+    font-weight: 650;
 }
 
 .home-grid-class-info {
-    border-left: 3px solid #2563eb;
     flex: 1;
     min-width: 0;
 }
 
+.home-grid-class-info.finished {
+    border-left: 3px solid #6b7280;
+}
+
+.home-grid-class-info.now {
+    border-left: 3px solid #14895f;
+}
+
+.home-grid-class-info.upcoming {
+    border-left: 3px solid #2563eb;
+}
+
+
 .home-grid-class-info > div:first-child {
-    width: 150px;
+    width: 128px;
     flex-shrink: 0;
 }
 
@@ -59,13 +77,13 @@
 
 .home-grid-class-course {
     color: #1f2937;
-    font-size: 17px;
+    font-size: 16px;
     font-family: "Inter";
     font-weight: 700;
 }
 
 .home-grid-class-description {
-    font-size: 15px;
+    font-size: 14px;
     color: #64748b;
     font-weight: 400;
 }
@@ -86,24 +104,38 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 82px;
-    padding: 8px 12px;
+    min-width: 72px;
+    padding: 6px 10px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 650;
     white-space: nowrap;
 }
 
 .home-grid-class-state {
-    background-color: rgba(37, 99, 235, 0.15);
-    color: #2563eb;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 82px;
-    padding: 8px 14px;
+    min-width: 72px;
+    padding: 6px 10px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 650;
     white-space: nowrap;
 }
+
+.home-grid-class-state.finished {
+    color: #6b7280;
+    background-color: #e3e3e4;
+}
+
+.home-grid-class-state.now {
+    color: #14895f;
+    background-color: #ccf3e1;
+}
+
+.home-grid-class-state.upcoming {
+    color: #2563eb;
+    background-color: #d0e4f8;
+}
+

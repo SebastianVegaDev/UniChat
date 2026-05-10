@@ -1,33 +1,59 @@
 import "./CourseResources.css";
 import { FileText } from "lucide-react";
-import { NavLink } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function CourseResources({ resourcesSummary, resourcesByWeek }) {
+    const navigate = useNavigate();
+
+    function handleResourceClick(resource) {
+        const isUnavailable = resource.statusLabel === "unavailable";
+
+        if (isUnavailable) return;
+
+        navigate(resource.url);
+    }
+
     return (
         <div className="course-resources">
             <div className="course-resources-header">
                 <p>RESOURCES BY WEEK</p>
-                <span>{resourcesSummary.foldersCount} folders - {resourcesSummary.pendingCount} pending</span>
+                <span>{resourcesSummary.foldersCount} folders</span>
             </div>
-            { resourcesByWeek.map((resourcesItem) => (
+
+            {resourcesByWeek.map((resourcesItem) => (
                 <div className="course-resource" key={resourcesItem.id}>
                     <p>Week {resourcesItem.weekNumber}</p>
-                    <div>
-                        <div className="course-resource-files">
-                            { resourcesItem.files.map((resource) => (
-                                <NavLink to={resource.url} className="course-resource-file" key={resource.id}>
+
+                    <div className="course-resource-files">
+                        {resourcesItem.files.map((resource) => {
+                            const isUnavailable = resource.statusLabel === "unavailable";
+
+                            return (
+                                <div
+                                    className={`course-resource-file ${isUnavailable ? "unavailable-file" : "available-file"}`}
+                                    key={resource.id}
+                                    onClick={() => handleResourceClick(resource)}
+                                >
                                     <div className="course-resource-file-info">
-                                        <span><FileText /></span>
+                                        <span>
+                                            <FileText />
+                                        </span>
+
                                         <div>
                                             <h4>{resource.title}</h4>
-                                            <p>{resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}</p>
+                                            <p>
+                                                {resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}
+                                            </p>
                                             <span>Uploaded by {resource.uploadedBy}</span>
                                         </div>
                                     </div>
-                                    <p className="course-resource-file-state">{resource.statusLabel}</p>
-                                </NavLink>
-                            ))}
-                        </div>
+
+                                    <p className={`course-resource-file-state ${isUnavailable ? "unavailable" : "available"}`}>
+                                        {resource.statusLabel}
+                                    </p>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             ))}
