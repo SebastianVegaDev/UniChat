@@ -1,17 +1,17 @@
 import "./CourseHero.css";
 
-function CourseHero() {
+function CourseHero({course}) {
     return (
         <div className="course-hero">
-            <span className="course-hero-icon">UX</span>
+            <span className="course-hero-icon">{course.shortName}</span>
             <div className="course-hero-info">
                 <p>Course</p>
-                <h1>UX Design</h1>
-                <h3>Prof. Andrea Salas · Room 405 · 08:00 - 09:40</h3>
+                <h1>{course.title}</h1>
+                <h3>{course.teacher} · {course.classroom}</h3>
                 <div className="course-hero-badges">
-                    <span>28 students</span>
-                    <span>2 delegates</span>
-                    <span>Updated 18 min ago</span>
+                    <span>{course.studentsCount} students</span>
+                    <span>{course.delegatesCount} delegates</span>
+                    <span>{course.lastActivityLabel}</span>
                 </div>
             </div>
         </div>

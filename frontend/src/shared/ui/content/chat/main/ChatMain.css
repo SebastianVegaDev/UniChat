@@ -30,8 +30,6 @@
     font-weight: 650;
 }
 
-/*MESSAGES*/
-
 .chat-content-main-messages {
     flex: 1;
     min-height: 0;
@@ -41,7 +39,7 @@
     gap: 20px;
 }
 
-.chat-content-main-message-fixed {
+.chat-content-main-message-pinned {
     background-color: #fff7ed;
     border: 2px solid #f3702138;
     border-radius: 8px;
@@ -53,18 +51,18 @@
     min-width: 560px;
 }
 
-.chat-content-main-message-fixed > h4{
+.chat-content-main-message-pinned > h4{
     color: #f37021;
     font-size: 16px;
     font-weight: 650;
 }
 
-.chat-content-main-message-fixed > p{
+.chat-content-main-message-pinned > p{
     font-size: 17px;
     font-weight: 360;
 }
 
-.chat-content-main-message-fixed > span{
+.chat-content-main-message-pinned > span{
     font-size: 14px;
     font-weight: 400;
     color: gray;
@@ -165,9 +163,7 @@
     max-width: 360px;
 }
 
-/**/
-
-.chat-content-main-tabbar {
+.chat-content-main-toolbar {
     border-top: 2px solid #dde3ea;
     padding-top: 10px;
     display: flex;
@@ -175,7 +171,38 @@
     margin-top: 25px;
 }
 
-.chat-content-main-tabbar-clip {
+.chat-content-main-toolbar-clip-wrapper {
+    position: relative;
+}
+
+.chat-content-main-toolbar-options {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+    background-color: white;
+    border: 2px solid #dde3ea;
+    border-radius: 10px;
+    padding: 10px;
+    width: 150px;
+    z-index: 20;
+}
+
+.chat-content-main-toolbar-options p {
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.chat-content-main-toolbar-option:hover {
+    background-color: rgb(233, 233, 233);
+}
+
+.chat-content-main-toolbar-clip {
     border: 2px solid #dde3ea;
     background-color: #f0f3f6;
     color: gray;
@@ -184,10 +211,19 @@
     border-radius: 10px;
     align-items: end;
     cursor: pointer;
-
+    transition: transform 0.2s ease;
 }
 
-.chat-content-main-tabbar-input {
+.chat-content-main-toolbar-clip:active { 
+    transform: scale(0.93);
+    background-color: #f0f3f6;
+}
+
+.chat-content-main-toolbar-clip:hover { 
+    background-color: #e2e2e2;
+}
+
+.chat-content-main-toolbar-input {
     min-width: 0;
     flex: 1;
     border: 2px solid #dde3ea;
@@ -197,7 +233,7 @@
     font-size: 16px;
 }
 
-.chat-content-main-tabbar-send {
+.chat-content-main-toolbar-send {
     background-color: #f37021;
     color: white;
     padding: 11px 15px;
@@ -206,4 +242,13 @@
     border-radius: 10px;
     align-items: end;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.chat-content-main-toolbar-send:hover {
+    background-color: #db6820;
+}
+
+.chat-content-main-toolbar-send:active {
+    transform: scale(0.93);
 }

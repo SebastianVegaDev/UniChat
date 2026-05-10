@@ -1,0 +1,194 @@
+.loading-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    background-color: transparent;
+}
+
+.loading-layout-pencil {
+    display: block;
+    width: 200px;
+    height: 200px;
+    color: #f37021;
+}
+
+.loading-layout-pencil-body-primary,
+.loading-layout-pencil-body-secondary,
+.loading-layout-pencil-body-shadow,
+.loading-layout-pencil-eraser,
+.loading-layout-pencil-eraser-skew,
+.loading-layout-pencil-point,
+.loading-layout-pencil-rotate,
+.loading-layout-pencil-stroke {
+    animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.loading-layout-pencil-body-primary,
+.loading-layout-pencil-body-secondary,
+.loading-layout-pencil-body-shadow {
+    transform: rotate(-90deg);
+}
+
+.loading-layout-pencil-body-primary {
+    animation-name: loading-pencil-body-primary;
+}
+
+.loading-layout-pencil-body-secondary {
+    animation-name: loading-pencil-body-secondary;
+}
+
+.loading-layout-pencil-body-shadow {
+    animation-name: loading-pencil-body-shadow;
+}
+
+.loading-layout-pencil-eraser {
+    animation-name: loading-pencil-eraser;
+    transform: rotate(-90deg) translate(49px, 0);
+}
+
+.loading-layout-pencil-eraser-skew {
+    animation-name: loading-pencil-eraser-skew;
+    animation-timing-function: ease-in-out;
+}
+
+.loading-layout-pencil-point {
+    animation-name: loading-pencil-point;
+    transform: rotate(-90deg) translate(49px, -30px);
+}
+
+.loading-layout-pencil-rotate {
+    animation-name: loading-pencil-rotate;
+}
+
+.loading-layout-pencil-stroke {
+    animation-name: loading-pencil-stroke;
+    transform: translate(100px, 100px) rotate(-113deg);
+}
+
+@keyframes loading-pencil-body-primary {
+    from,
+    to {
+        stroke-dashoffset: 351.86;
+        transform: rotate(-90deg);
+    }
+
+    50% {
+        stroke-dashoffset: 150.8;
+        transform: rotate(-225deg);
+    }
+}
+
+@keyframes loading-pencil-body-secondary {
+    from,
+    to {
+        stroke-dashoffset: 406.84;
+        transform: rotate(-90deg);
+    }
+
+    50% {
+        stroke-dashoffset: 174.36;
+        transform: rotate(-225deg);
+    }
+}
+
+@keyframes loading-pencil-body-shadow {
+    from,
+    to {
+        stroke-dashoffset: 296.88;
+        transform: rotate(-90deg);
+    }
+
+    50% {
+        stroke-dashoffset: 127.23;
+        transform: rotate(-225deg);
+    }
+}
+
+@keyframes loading-pencil-eraser {
+    from,
+    to {
+        transform: rotate(-45deg) translate(49px, 0);
+    }
+
+    50% {
+        transform: rotate(0deg) translate(49px, 0);
+    }
+}
+
+@keyframes loading-pencil-eraser-skew {
+    from,
+    32.5%,
+    67.5%,
+    to {
+        transform: skewX(0);
+    }
+
+    35%,
+    65% {
+        transform: skewX(-4deg);
+    }
+
+    37.5%,
+    62.5% {
+        transform: skewX(8deg);
+    }
+
+    40%,
+    45%,
+    50%,
+    55%,
+    60% {
+        transform: skewX(-15deg);
+    }
+
+    42.5%,
+    47.5%,
+    52.5%,
+    57.5% {
+        transform: skewX(15deg);
+    }
+}
+
+@keyframes loading-pencil-point {
+    from,
+    to {
+        transform: rotate(-90deg) translate(49px, -30px);
+    }
+
+    50% {
+        transform: rotate(-225deg) translate(49px, -30px);
+    }
+}
+
+@keyframes loading-pencil-rotate {
+    from {
+        transform: translate(100px, 100px) rotate(0);
+    }
+
+    to {
+        transform: translate(100px, 100px) rotate(720deg);
+    }
+}
+
+@keyframes loading-pencil-stroke {
+    from {
+        stroke-dashoffset: 439.82;
+        transform: translate(100px, 100px) rotate(-113deg);
+    }
+
+    50% {
+        stroke-dashoffset: 164.93;
+        transform: translate(100px, 100px) rotate(-113deg);
+    }
+
+    75%,
+    to {
+        stroke-dashoffset: 439.82;
+        transform: translate(100px, 100px) rotate(112deg);
+    }
+}

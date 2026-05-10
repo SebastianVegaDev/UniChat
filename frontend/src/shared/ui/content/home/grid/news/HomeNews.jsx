@@ -1,15 +1,17 @@
 import "./HomeNews.css";
 
-function HomeNews() {
+function HomeNews({ news = [] }) {
     return (
         <div className="home-grid-news">
             <p>Latest news</p>
-            <div>
-                <div className="home-grid-new">
-                    <h3>Biblioteca</h3>
-                    <h4>Atencion hasta las 10:00 p.m. por semana de entregas.</h4>
-                    <p>29 Abr</p>
-                </div>
+            <div className="home-grid-news-list">
+                {news.map((newsItem) => (
+                    <article className="home-grid-new" key={newsItem.id}>
+                        <h3>{newsItem.title}</h3>
+                        <h4>{newsItem.description}</h4>
+                        <p>{newsItem.dateLabel}</p>
+                    </article>
+                ))}
             </div>
         </div>
     );

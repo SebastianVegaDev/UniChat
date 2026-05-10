@@ -1,62 +1,29 @@
 import "./HomeQuickAccess.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function HomeQuickAccess() {
+function HomeQuickAccess({courses}) {
     const [start, setStart] = useState(0);
-
-    const courses = [
-        {
-            shortName: "UX",
-            title: "UX Design",
-            teacher: "Prof. Andrea",
-            classroom: "Room 303",
-        },
-        {
-            shortName: "UX",
-            title: "UX Design",
-            teacher: "Prof. Andrea",
-            classroom: "Room 303",
-        },
-        {
-            shortName: "UX",
-            title: "UX Design",
-            teacher: "Prof. Andrea",
-            classroom: "Room 303",
-        },
-        {
-            shortName: "UX",
-            title: "UX Design",
-            teacher: "Prof. Andrea",
-            classroom: "Room 303",
-        },
-        {
-            shortName: "UX",
-            title: "USSX Design",
-            teacher: "Prof. Andrea",
-            classroom: "Room 303",
-        },
-    ];
 
     const visibleCourses = courses.slice(start, start + 4);
     const canMoveBack = start > 0;
     const canMoveNext = start + 4 < courses.length;
-
     return (
         <div className="home-quick-access">
             <div className="home-quick-access-list">
-                {visibleCourses.map((course, index) => (
-                    <div className="home-quick-access-course" key={`${course.title}-${index}`}>
+                {visibleCourses.map((course) => (
+                    <Link to={course.route} className="home-quick-access-course" key={course.id}>
                         <div>
                             <span className="home-quick-access-course-icon">{course.shortName}</span>
                             <div>
                                 <p className="home-quick-access-course-title">{course.title}</p>
                                 <p className="home-quick-access-course-teacher">{course.teacher}</p>
-                                <p className="home-quick-access-course-classroom">{course.classroom}</p>
+                                <p className="home-quick-access-course-teacher">{course.classroom}</p>
                             </div>
                         </div>
-                        <button><ChevronRight /></button>
-                    </div>
+                        <ChevronRight />
+                    </Link>
                 ))}
             </div>
             {canMoveBack && (

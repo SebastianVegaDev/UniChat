@@ -2,11 +2,15 @@ import "./CalendarContent.css";
 import CalendarCalendar from "./calendar/CalendarCalendar.jsx";
 import CalendarPending from "./pending/CalendarPending.jsx";
 
-function CalendarContent() {
+function CalendarContent({events, pendingItems}) {
     return (
         <div className="calendar-content">
-            <CalendarCalendar />
-            <CalendarPending />
+            <CalendarCalendar 
+                events={events}
+            />
+            <CalendarPending 
+                pendingItems={pendingItems}
+            />
         </div>
     );
 }

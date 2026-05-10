@@ -1,10 +1,12 @@
 import "./NewsContent.css";
 import NewsCard from "./cards/NewsCard.jsx";
 
-function NewsContent() {
+function NewsContent({news}) {
     return (
         <div className="news-content">
-            <NewsCard />
+            <NewsCard 
+                news={news}
+            />
         </div>
     );
 }

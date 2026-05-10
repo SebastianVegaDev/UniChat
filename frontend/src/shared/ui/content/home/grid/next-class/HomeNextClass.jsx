@@ -1,12 +1,14 @@
 import "./HomeNextClass.css";
+import { useNavigate } from "react-router-dom";
 
-function HomeNextClass() {
+function HomeNextClass({nextClass}) {
+    const navigate = useNavigate();
     return (
         <div className="home-grid-next-class">
             <h3>Next Class</h3>
-            <h2>Programacion II</h2>
-            <p>10:00 - 11:40 · Lab 302 · Practica de arrays</p>
-            <button>Open Course</button>
+            <h2>{nextClass.title}</h2>
+            <p>{nextClass.startTime} - {nextClass.endTime} · {nextClass.classroom} · {nextClass.teacher}</p>
+            <button onClick={() => { navigate(nextClass.route) }}>Open Course</button>
         </div>
     );
 }
