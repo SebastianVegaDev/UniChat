@@ -1,17 +1,18 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import SectionHero from "../../../shared/ui/heroes/section/SectionHero.jsx";
 import NewsContent from "../../../shared/ui/content/news/NewsContent.jsx";
+import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
 import { mapNewsData } from "../mappers/news.mapper.js";
 
 function NewsPage() {
     const { data, isLoading, error } = useBootstrapData();
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <LoadingLayout />
     if (error) return <p>{error}</p>
 
-    const calendarData = mapNewsData(data);
-    const { hero, news } = calendarData
+    const newsData = mapNewsData(data);
+    const { hero, news } = newsData;
 
     return (
         <SectionLayout>

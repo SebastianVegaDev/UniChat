@@ -15,14 +15,11 @@ function AppSideBar() {
             to="/"
             end
             className={({ isActive }) =>
-            `app-sidebar-course app-sidebar-section ${
-                isActive ? "active" : ""
-            }`
+            `app-sidebar-course app-sidebar-section ${isActive ? "active" : ""}`
             }
         >
-            <span>
-            <House />
-            </span>
+            <span className="app-sidebar-icon"><House /></span>
+            <span className="app-sidebar-tooltip">Home</span>
         </NavLink>
 
         <NavLink
@@ -33,9 +30,8 @@ function AppSideBar() {
             }`
             }
         >
-            <span>
-            <Newspaper />
-            </span>
+            <span className="app-sidebar-icon"><Newspaper /></span>
+            <span className="app-sidebar-tooltip">News</span>
         </NavLink>
 
         {courses.map((course) => (
@@ -44,12 +40,12 @@ function AppSideBar() {
                 to={course.route}
                 title={course.title}
                 className={({ isActive }) =>
-                `app-sidebar-course ${
-                    isActive ? "active" : ""
+                `app-sidebar-course ${isActive ? "active" : ""
                 }`
                 }
             >
-                <span>{course.label}</span>
+                <span className="app-sidebar-icon">{course.label}</span>
+                <span className="app-sidebar-tooltip">{course.title}</span>
             </NavLink>
         ))}
         </div>

@@ -20,3 +20,30 @@
     padding: 20px 30px;
     overflow-y: auto;
 }
+
+.app-layout-page {
+    height: 100%;
+    min-height: 0;
+}
+
+.app-layout-page > * {
+    animation: app-layout-page-enter 240ms ease-out both;
+}
+
+@keyframes app-layout-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .app-layout-page > * {
+        animation: none;
+    }
+}

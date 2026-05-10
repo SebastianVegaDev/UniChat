@@ -59,6 +59,17 @@
     padding: 8px;
     width: 100%;
     gap: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.chat-content-sidebar-button:hover {
+    background-color: #e76f25;
+}
+
+.chat-content-sidebar-button:active {
+    background-color: #e76f25;
+    transform: scale(0.98);
 }
 
 .chat-content-sidebar-search-container {
@@ -93,7 +104,7 @@
     padding: 13px;
     gap: 10px;
     cursor: pointer;
-    transition: transform 0.2 ease,
+    transition: transform 0.2s ease;
 }
 
 .chat-content-sidebar-chat:hover {
@@ -101,22 +112,17 @@
     background-color: #1f29370f;
 }
 
-.chat-content-sidebar-chat.select{
+.chat-content-sidebar-chat.selected{
     background-color: #fde9da;
     border: 2px solid #f3702133;
 }
 
-.chat-content-sidebar-chat.select > span {
+.chat-content-sidebar-chat.selected > span {
     color: #f37021;
 }
 
-.chat-content-sidebar-chat.select > div > p {
+.chat-content-sidebar-chat.selected > div > p {
     color: #f37021;
-}
-
-.chat-content-sidebar-chat-info > p{
-    font-size: 15px;
-    font-weight: 750;
 }
 
 .chat-content-sidebar-chat-info > p{

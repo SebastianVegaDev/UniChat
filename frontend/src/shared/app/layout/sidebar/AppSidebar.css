@@ -6,16 +6,14 @@
     gap: 15px;
     background-color: #f9fafb;
     border-right: 2px solid #dde3ea;
-    overflow-y: auto;
+    overflow: visible;
 }
 
 .app-sidebar-course {
     position: relative;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding: 5px;
     border: none;
     width: 100%;
@@ -32,7 +30,7 @@
     box-sizing: border-box;
 }
 
-.app-sidebar-course span {
+.app-sidebar-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,4 +66,25 @@
     background-color: rgba(253, 158, 99, 0.2);
     border: 2px solid #fb8c2e;
     color: #fb8c2e;
+}
+
+.app-sidebar-course .app-sidebar-tooltip {
+    display: none;
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f0f3f6;
+    color: rgb(0, 0, 0);
+    padding: 8px 12px;
+    border: 2px solid #dde3ea;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 100;
+}
+
+.app-sidebar-course:hover .app-sidebar-tooltip {
+    display: flex;
 }

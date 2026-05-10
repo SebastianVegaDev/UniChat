@@ -1,4 +1,5 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
+import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import ChatContent from "../../../shared/ui/content/chat/ChatContent.jsx";
 import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
 import { mapCourseChatData } from "../mappers/courseChat.mapper.js";
@@ -14,7 +15,7 @@ function CourseChatPage() {
     const { course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
     const selectedChannelId = channels.some((channel) => channel.id === activeChannelId) ? activeChannelId : activeChannel.channelId;
 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <LoadingLayout />
     if (error) return <p>{error}</p>
 
     return (

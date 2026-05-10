@@ -14,14 +14,14 @@ function ChatSidebar({course, channels, activeChannelId, setActiveChannelId}) {
                     <span>{course.classroom}</span>
                 </div>
             </div>
-            <button className="chat-content-sidebar-button" onClick={() => navigate(course.route)}> <ChevronLeft />Volver al curso</button>
+            <button className="chat-content-sidebar-button" onClick={() => navigate(course.route)}> <ChevronLeft />Back to course</button>
             <div className="chat-content-sidebar-search-container">
                 <Search className="chat-content-sidebar-search-icon" />
                 <input className="chat-content-sidebar-search" placeholder="Search chat"/>
             </div>
             { channels.map((channel) => (
                 <div
-                    className={`chat-content-sidebar-chat ${channel.id === activeChannelId ? "select" : ""}`}
+                    className={`chat-content-sidebar-chat ${channel.id === activeChannelId ? "selected" : ""}`}
                     key={channel.id}
                     onClick={() => setActiveChannelId(channel.id)}
                 >

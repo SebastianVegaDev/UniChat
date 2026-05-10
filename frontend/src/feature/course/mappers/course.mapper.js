@@ -73,7 +73,7 @@ function findCourseDelegates(courseMembers, users, course) {
 
 function formatKindLabel(kind) {
     const kindLabels = {
-        "ppt": "Power Point",
+        "ppt": "PowerPoint",
         "pdf": "Official PDF",
         "video": "Video",
         "photo": "Photo"
@@ -115,7 +115,7 @@ function mapCourse(course, teacher, classroom, stats) {
 function mapCourseActions(course, stats) {
     return {
         "chatRoute": `/course/${course.slug ?? ""}/chat`,
-        "chatMetaLabel": `${stats?.unreadMessagesCount ?? 0} messages news unread`,
+        "chatMetaLabel": `${stats?.unreadMessagesCount ?? 0} unread messages`,
         "calendarRoute": `/course/${course.slug ?? ""}/calendar`,
         "calendarMetaLabel": `${stats?.pendingItemsCount ?? 0} pending this month`
     }

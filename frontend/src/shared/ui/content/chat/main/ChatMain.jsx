@@ -1,7 +1,25 @@
 import "./ChatMain.css";
 import { Paperclip, Send } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 
 function ChatMain({pinnedMessage, timeline, activeChannel}) {
+    const [showOptions, setShowOptions] = useState(false);
+    const optionsRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (optionsRef.current && !optionsRef.current.contains(event.target)) {
+                setShowOptions(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
     return (
         <div className="chat-content-main">
             <div className="chat-content-main-header">
@@ -11,8 +29,8 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
 
             <div className="chat-content-main-messages">
                 { pinnedMessage ? 
-                    <div className="chat-content-main-message-fixed">
-                        <h4>Message fixed</h4>
+                    <div className="chat-content-main-message-pinned">
+                        <h4>Pinned message</h4>
                         <p>{pinnedMessage.body}</p>
                         <span>{pinnedMessage.author} · {pinnedMessage.timeLabel}</span>
                     </div> 
@@ -57,10 +75,25 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                     }
                 })}
             </div>
-            <form className="chat-content-main-tabbar">
-                <button className="chat-content-main-tabbar-clip"><Paperclip /></button>
-                <input className="chat-content-main-tabbar-input" placeholder="Write your message..."></input>
-                <button className="chat-content-main-tabbar-send"><Send /></button>
+            <form className="chat-content-main-toolbar">
+                <div className="chat-content-main-toolbar-clip-wrapper" ref={optionsRef}>
+                    {showOptions && (
+                        <span className="chat-content-main-toolbar-options">
+                            <p className="chat-content-main-toolbar-option">Select a file</p>
+                            <p className="chat-content-main-toolbar-option">Select a photo</p>
+                            <p className="chat-content-main-toolbar-option">Select a video</p>
+                        </span>
+                    )}
+                    <button
+                        type="button"
+                        className="chat-content-main-toolbar-clip"
+                        onClick={() => setShowOptions(!showOptions)}
+                    >
+                        <Paperclip />
+                    </button>
+                </div>
+                <input className="chat-content-main-toolbar-input" placeholder="Write your message..."></input>
+                <button className="chat-content-main-toolbar-send"><Send /></button>
             </form>
         </div>
     );
