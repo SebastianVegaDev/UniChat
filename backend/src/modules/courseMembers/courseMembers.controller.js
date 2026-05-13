@@ -1,5 +1,13 @@
-import { findAllCourseMembers } from "./courseMembers.repository.js";
+import { getCourseMembersService } from "./courseMembers.service.js";
 
-export async function getCourseMembers() {
-    return await findAllCourseMembers;
+const userId = 1;
+
+export async function getCourseMembers(req, res, next) {
+    try {
+        const courseMembers = await getCourseMembersService(userId);
+
+        res.json(courseMembers)
+    } catch (error) {
+        next(error);
+    }
 }

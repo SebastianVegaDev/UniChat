@@ -1,5 +1,13 @@
-import { findAllCalendarEvents } from "./calendarEvents.repository.js";
+import { getCalendarEventsService } from "./calendarEvents.service.js";
 
-export async function getCalendarEvents() {
-    return await findAllCalendarEvents;
+const userId = 1;
+
+export async function getCalendarEvents(req, res, next) {
+    try {
+        const calendarEvents = await getCalendarEventsService(userId);
+        
+        res.json(calendarEvents)
+    } catch (error) {
+        next(error);
+    }
 }

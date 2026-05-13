@@ -11,6 +11,7 @@ import coursesRoutes from "./modules/courses/courses.routes.js";
 import resourcesRoutes from "./modules/resources/resources.routes.js";
 import sessionRoutes from "./modules/session/session.routes.js";
 import usersRoutes from "./modules/users/users.routes.js";
+import courseStatsRoutes from "./modules/courseStats/courseStats.routes.js";
 
 const router = Router();
 
@@ -25,5 +26,6 @@ router.use("/courses", coursesRoutes);
 router.use("/resources", resourcesRoutes);
 router.use("/session", sessionRoutes);
 router.use("/users", usersRoutes);
+router.use("/courseStats", courseStatsRoutes);
 
 export default router;

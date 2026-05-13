@@ -1,9 +1,17 @@
 import { pool } from "../../config/db.js";
 
 export async function findAllAnnouncements() {
-    const { rows } = await pool.query(
-        //CONSULT
-    );
+    const { rows } = await pool.query(`
+        SELECT
+            announcements.id,
+            announcements.title,
+            announcements.body,
+            announcements.category,
+            announcements.author_id AS "authorId",
+            announcements.published_at AS "publishedAt"
+        FROM announcements
+        ORDER BY announcements.published_at DESC;
+    `);
 
     return rows;
 }

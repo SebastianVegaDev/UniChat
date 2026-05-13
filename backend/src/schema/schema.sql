@@ -56,7 +56,7 @@ CREATE TABLE calendar_events (
     event_type TEXT NOT NULL CHECK (event_type IN ('assignment', 'exam', 'reminder', 'announcement', 'other')),
     starts_at TIMESTAMPTZ NOT NULL,
     ends_at TIMESTAMPTZ,
-    status TEXT NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled', 'pending', 'completed', 'cancelled')),
+    is_cancelled BOOLEAN DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (ends_at IS NULL OR ends_at > starts_at)
 );
@@ -91,6 +91,7 @@ CREATE TABLE chat_channels (
     description VARCHAR(250) NOT NULL DEFAULT '',
     type TEXT NOT NULL DEFAULT 'group' CHECK (type IN ('group', 'announcement')),
     is_locked BOOLEAN NOT NULL DEFAULT FALSE,
+    is_default BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -110,10 +111,16 @@ CREATE TABLE chat_message_reads (
     PRIMARY KEY (message_id, user_id)
 );
 
-CREATE TABLE user_chat_preferences (
-    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    course_id INTEGER NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
-    active_channel_id INTEGER REFERENCES chat_channels(id) ON DELETE SET NULL,
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (user_id, course_id)
-);
+CREATE INDEX idx_course_members_user_id ON course_members(user_id);
+CREATE INDEX idx_course_members_course_id ON course_members(course_id);
+CREATE INDEX idx_courses_teacher_id ON courses(teacher_id);
+CREATE INDEX idx_class_sessions_course_id ON class_sessions(course_id);
+CREATE INDEX idx_calendar_events_course_id ON calendar_events(course_id);
+CREATE INDEX idx_resources_course_id ON resources(course_id);
+CREATE INDEX idx_chat_channels_course_id ON chat_channels(course_id);
+CREATE INDEX idx_chat_messages_channel_id ON chat_messages(channel_id);
+CREATE INDEX idx_chat_message_reads_user_id ON chat_message_reads(user_id);
+
+CREATE UNIQUE INDEX unique_default_channel_per_course
+ON chat_channels(course_id)
+WHERE is_default = TRUE;

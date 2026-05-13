@@ -1,5 +1,5 @@
 import { findAllCourses } from "./courses.repository.js";
 
-export async function getCoursesService() {
-    return await findAllCourses();
+export async function getCoursesService(userId) {
+    return await findAllCourses(userId);
 }

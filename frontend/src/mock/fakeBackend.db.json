@@ -1,8 +1,6 @@
 {
   "session": {
     "currentUserId": "usr_001",
-    "activeCourseId": "crs_001",
-    "activeChatChannelId": "chn_001",
     "activeChatChannels": [
       {
         "courseId": "crs_001",
@@ -476,8 +474,7 @@
       "body": "Assessments will be published by course during the week. Check each calendar before confirming pending work.",
       "category": "academic",
       "authorId": "usr_006",
-      "publishedAt": "2026-05-09T08:30:00-05:00",
-      "readTimeLabel": "3 min"
+      "publishedAt": "2026-05-09T08:30:00-05:00"
     },
     {
       "id": "ann_002",
@@ -485,8 +482,7 @@
       "body": "Open until 10:00 p.m. during submission week.",
       "category": "campus",
       "authorId": "usr_007",
-      "publishedAt": "2026-05-08T14:00:00-05:00",
-      "readTimeLabel": "2 min"
+      "publishedAt": "2026-05-08T14:00:00-05:00"
     },
     {
       "id": "ann_003",
@@ -494,8 +490,7 @@
       "body": "The virtual campus will be under maintenance on Sunday night.",
       "category": "systems",
       "authorId": "usr_006",
-      "publishedAt": "2026-05-07T18:00:00-05:00",
-      "readTimeLabel": "1 min"
+      "publishedAt": "2026-05-07T18:00:00-05:00"
     }
   ],
   "chatChannels": [
