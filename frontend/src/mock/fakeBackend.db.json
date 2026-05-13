@@ -1,8 +1,6 @@
 {
   "session": {
     "currentUserId": "usr_001",
-    "activeCourseId": "crs_001",
-    "activeChatChannelId": "chn_001",
     "activeChatChannels": [
       {
         "courseId": "crs_001",
@@ -27,98 +25,83 @@
       "id": "usr_001",
       "firstName": "Sebastian",
       "lastName": "Rojas",
-      "role": "student",
-      "avatarUrl": "/avatars/sebastian.png"
+      "role": "student"
     },
     {
       "id": "usr_002",
       "firstName": "Diego",
       "lastName": "Salazar",
-      "role": "teacher",
-      "avatarUrl": "/avatars/diego.png"
+      "role": "teacher"
     },
     {
       "id": "usr_003",
       "firstName": "Valeria",
       "lastName": "Rios",
-      "role": "teacher",
-      "avatarUrl": "/avatars/valeria.png"
+      "role": "teacher"
     },
     {
       "id": "usr_004",
       "firstName": "Valeria",
       "lastName": "Paredes",
-      "role": "delegate",
-      "avatarUrl": "/avatars/valeria-paredes.png"
+      "role": "delegate"
     },
     {
       "id": "usr_005",
       "firstName": "Marco",
       "lastName": "Leon",
-      "role": "delegate",
-      "avatarUrl": "/avatars/marco.png"
+      "role": "delegate"
     },
     {
       "id": "usr_006",
       "firstName": "Direccion",
       "lastName": "Academica",
-      "role": "admin",
-      "avatarUrl": "/avatars/admin.png"
+      "role": "admin"
     },
     {
       "id": "usr_007",
       "firstName": "Biblioteca",
       "lastName": "Central",
-      "role": "admin",
-      "avatarUrl": "/avatars/library.png"
+      "role": "admin"
     },
     {
       "id": "usr_008",
       "firstName": "Camila",
       "lastName": "Torres",
-      "role": "teacher",
-      "avatarUrl": "/avatars/camila.png"
+      "role": "teacher"
     },
     {
       "id": "usr_009",
       "firstName": "Andres",
       "lastName": "Mendoza",
-      "role": "teacher",
-      "avatarUrl": "/avatars/andres.png"
+      "role": "teacher"
     },
     {
       "id": "usr_010",
       "firstName": "Lucia",
       "lastName": "Fernandez",
-      "role": "student",
-      "avatarUrl": "/avatars/lucia.png"
+      "role": "student"
     }
   ],
   "classrooms": [
     {
       "id": "room_001",
-      "name": "Lab 302",
-      "type": "laboratory"
+      "name": "Lab 302"
     },
     {
       "id": "room_002",
-      "name": "A2-201",
-      "type": "classroom"
+      "name": "A2-201"
     },
     {
       "id": "room_003",
-      "name": "Campus Virtual",
-      "type": "online"
+      "name": "Campus Virtual"
     },
     {
       "id": "room_004",
-      "name": "B1-104",
-      "type": "classroom"
+      "name": "B1-104"
     },
     {
       "id": "room_005",
-      "name": "Database Lab",
-      "type": "laboratory"
+      "name": "Database Lab"
     }
   ],
   "courses": [
@@ -129,8 +112,7 @@
       "slug": "programacion-ii",
       "teacherId": "usr_002",
       "classroomId": "room_001",
-      "currentWeek": 4,
-      "color": "orange"
+      "currentWeek": 4
     },
     {
       "id": "crs_002",
@@ -139,8 +121,7 @@
       "slug": "matematica-ii",
       "teacherId": "usr_003",
       "classroomId": "room_002",
-      "currentWeek": 6,
-      "color": "blue"
+      "currentWeek": 6
     },
     {
       "id": "crs_003",
@@ -149,8 +130,7 @@
       "slug": "ux-design",
       "teacherId": "usr_008",
       "classroomId": "room_004",
-      "currentWeek": 3,
-      "color": "purple"
+      "currentWeek": 3
     },
     {
       "id": "crs_004",
@@ -159,70 +139,29 @@
       "slug": "base-de-datos",
       "teacherId": "usr_009",
       "classroomId": "room_005",
-      "currentWeek": 5,
-      "color": "green"
+      "currentWeek": 5
     }
   ],
   "courseMembers": [
     {
       "courseId": "crs_001",
-      "userId": "usr_001",
-      "role": "student",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_001",
       "userId": "usr_004",
-      "role": "delegate",
-      "status": "active"
+      "role": "delegate"
     },
     {
       "courseId": "crs_001",
       "userId": "usr_005",
-      "role": "delegate",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_001",
-      "userId": "usr_010",
-      "role": "student",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_002",
-      "userId": "usr_001",
-      "role": "student",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_002",
-      "userId": "usr_010",
-      "role": "student",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_003",
-      "userId": "usr_001",
-      "role": "student",
-      "status": "active"
+      "role": "delegate"
     },
     {
       "courseId": "crs_003",
       "userId": "usr_004",
-      "role": "delegate",
-      "status": "active"
-    },
-    {
-      "courseId": "crs_004",
-      "userId": "usr_001",
-      "role": "student",
-      "status": "active"
+      "role": "delegate"
     },
     {
       "courseId": "crs_004",
       "userId": "usr_005",
-      "role": "delegate",
-      "status": "active"
+      "role": "delegate"
     }
   ],
   "courseStats": [
@@ -328,215 +267,117 @@
       "status": "upcoming"
     }
   ],
-  "assignments": [
-    {
-      "id": "asg_001",
-      "courseId": "crs_001",
-      "title": "Array practice submission",
-      "description": "Solve exercises 1 to 5",
-      "dueAt": "2026-05-11T23:59:00-05:00",
-      "priority": "high",
-      "status": "pending"
-    },
-    {
-      "id": "asg_002",
-      "courseId": "crs_001",
-      "title": "Object mini challenge",
-      "description": "Create a mapper using objects and arrays",
-      "dueAt": "2026-05-14T22:00:00-05:00",
-      "priority": "medium",
-      "status": "scheduled"
-    },
-    {
-      "id": "asg_003",
-      "courseId": "crs_002",
-      "title": "Determinant exercises",
-      "description": "Upload the solution as a PDF",
-      "dueAt": "2026-05-12T20:00:00-05:00",
-      "priority": "medium",
-      "status": "pending"
-    },
-    {
-      "id": "asg_004",
-      "courseId": "crs_003",
-      "title": "Prototype submission",
-      "description": "Share the navigable prototype link",
-      "dueAt": "2026-05-13T22:00:00-05:00",
-      "priority": "high",
-      "status": "pending"
-    },
-    {
-      "id": "asg_005",
-      "courseId": "crs_004",
-      "title": "Entity relationship model",
-      "description": "Design the ERD for a store",
-      "dueAt": "2026-05-10T23:59:00-05:00",
-      "priority": "high",
-      "status": "late"
-    },
-    {
-      "id": "asg_006",
-      "courseId": "crs_004",
-      "title": "SQL queries with JOIN",
-      "description": "Solve 10 queries with INNER JOIN and LEFT JOIN",
-      "dueAt": "2026-05-16T21:00:00-05:00",
-      "priority": "medium",
-      "status": "pending"
-    }
-  ],
   "calendarEvents": [
     {
       "id": "evt_001",
       "courseId": "crs_001",
-      "sourceType": "class_session",
-      "sourceId": "cls_001",
       "title": "Programming II",
       "description": "Guided array practice",
       "startsAt": "2026-05-10T10:00:00-05:00",
-      "endsAt": "2026-05-10T11:40:00-05:00",
       "status": "scheduled"
     },
     {
       "id": "evt_002",
       "courseId": "crs_001",
-      "sourceType": "assignment",
-      "sourceId": "asg_001",
       "title": "Array practice submission",
       "description": "Solve exercises 1 to 5",
       "startsAt": "2026-05-11T23:59:00-05:00",
-      "endsAt": "2026-05-11T23:59:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_003",
       "courseId": "crs_001",
-      "sourceType": "exam",
-      "sourceId": "exam_001",
       "title": "Programming midterm",
       "description": "In-person lab assessment",
       "startsAt": "2026-05-15T09:00:00-05:00",
-      "endsAt": "2026-05-15T10:30:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_004",
       "courseId": "crs_001",
-      "sourceType": "class_session",
-      "sourceId": "cls_002",
       "title": "Midterm review",
       "description": "Virtual review session",
       "startsAt": "2026-05-09T18:00:00-05:00",
-      "endsAt": "2026-05-09T19:20:00-05:00",
       "status": "completed"
     },
     {
       "id": "evt_005",
       "courseId": "crs_002",
-      "sourceType": "class_session",
-      "sourceId": "cls_003",
       "title": "Mathematics II",
       "description": "Matrices y determinantes",
       "startsAt": "2026-05-10T08:00:00-05:00",
-      "endsAt": "2026-05-10T09:40:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_006",
       "courseId": "crs_002",
-      "sourceType": "assignment",
-      "sourceId": "asg_003",
       "title": "Determinant exercises",
       "description": "Upload the solution as a PDF",
       "startsAt": "2026-05-12T20:00:00-05:00",
-      "endsAt": "2026-05-12T20:00:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_007",
       "courseId": "crs_002",
-      "sourceType": "class_session",
-      "sourceId": "cls_007",
       "title": "Class rescheduled",
       "description": "The class was rescheduled for maintenance",
       "startsAt": "2026-05-13T08:00:00-05:00",
-      "endsAt": "2026-05-13T09:40:00-05:00",
       "status": "cancelled"
     },
     {
       "id": "evt_008",
       "courseId": "crs_003",
-      "sourceType": "class_session",
-      "sourceId": "cls_004",
       "title": "UX Design",
       "description": "Wireframes y user flows",
       "startsAt": "2026-05-10T14:00:00-05:00",
-      "endsAt": "2026-05-10T15:40:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_009",
       "courseId": "crs_003",
-      "sourceType": "assignment",
-      "sourceId": "asg_004",
       "title": "Prototype submission",
       "description": "Share the navigable prototype link",
       "startsAt": "2026-05-13T22:00:00-05:00",
-      "endsAt": "2026-05-13T22:00:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_010",
       "courseId": "crs_003",
-      "sourceType": "presentation",
-      "sourceId": "prs_001",
       "title": "Main flow presentation",
       "description": "Show the main prototype screens",
       "startsAt": "2026-05-17T15:00:00-05:00",
-      "endsAt": "2026-05-17T16:00:00-05:00",
       "status": "scheduled"
     },
     {
       "id": "evt_011",
       "courseId": "crs_004",
-      "sourceType": "class_session",
-      "sourceId": "cls_005",
       "title": "Database Systems",
       "description": "Joins y relaciones",
       "startsAt": "2026-05-11T16:00:00-05:00",
-      "endsAt": "2026-05-11T17:40:00-05:00",
       "status": "scheduled"
     },
     {
       "id": "evt_012",
       "courseId": "crs_004",
-      "sourceType": "assignment",
-      "sourceId": "asg_005",
       "title": "Entity relationship model",
       "description": "Design the ERD for a store",
       "startsAt": "2026-05-10T23:59:00-05:00",
-      "endsAt": "2026-05-10T23:59:00-05:00",
       "status": "late"
     },
     {
       "id": "evt_013",
       "courseId": "crs_004",
-      "sourceType": "assignment",
-      "sourceId": "asg_006",
       "title": "SQL queries with JOIN",
       "description": "Resolver 10 consultas con INNER JOIN y LEFT JOIN",
       "startsAt": "2026-05-16T21:00:00-05:00",
-      "endsAt": "2026-05-16T21:00:00-05:00",
       "status": "pending"
     },
     {
       "id": "evt_014",
       "courseId": "crs_004",
-      "sourceType": "quiz",
-      "sourceId": "quiz_001",
       "title": "Quiz de normalizacion",
       "description": "Quiz corto sobre 1FN, 2FN y 3FN",
       "startsAt": "2026-05-18T18:00:00-05:00",
-      "endsAt": "2026-05-18T18:30:00-05:00",
       "status": "scheduled"
     }
   ],
@@ -633,9 +474,7 @@
       "body": "Assessments will be published by course during the week. Check each calendar before confirming pending work.",
       "category": "academic",
       "authorId": "usr_006",
-      "publishedAt": "2026-05-09T08:30:00-05:00",
-      "readTimeLabel": "3 min",
-      "priority": "high"
+      "publishedAt": "2026-05-09T08:30:00-05:00"
     },
     {
       "id": "ann_002",
@@ -643,9 +482,7 @@
       "body": "Open until 10:00 p.m. during submission week.",
       "category": "campus",
       "authorId": "usr_007",
-      "publishedAt": "2026-05-08T14:00:00-05:00",
-      "readTimeLabel": "2 min",
-      "priority": "medium"
+      "publishedAt": "2026-05-08T14:00:00-05:00"
     },
     {
       "id": "ann_003",
@@ -653,9 +490,7 @@
       "body": "The virtual campus will be under maintenance on Sunday night.",
       "category": "systems",
       "authorId": "usr_006",
-      "publishedAt": "2026-05-07T18:00:00-05:00",
-      "readTimeLabel": "1 min",
-      "priority": "medium"
+      "publishedAt": "2026-05-07T18:00:00-05:00"
     }
   ],
   "chatChannels": [
@@ -664,72 +499,63 @@
       "courseId": "crs_001",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_002",
       "courseId": "crs_001",
       "name": "Array questions",
       "description": "Practice and exercises",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_007",
       "courseId": "crs_002",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_003",
       "courseId": "crs_002",
       "name": "Exercise questions",
       "description": "Practice questions",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_008",
       "courseId": "crs_003",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_004",
       "courseId": "crs_003",
       "name": "Prototype critique",
       "description": "Feedback de pantallas",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_009",
       "courseId": "crs_004",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_005",
       "courseId": "crs_004",
       "name": "SQL and models",
       "description": "Database questions",
-      "type": "group",
-      "status": "open"
+      "type": "group"
     },
     {
       "id": "chn_006",
       "courseId": "crs_004",
       "name": "Teacher announcements",
       "description": "Announcements-only channel",
-      "type": "announcement",
-      "status": "locked"
+      "type": "announcement"
     }
   ],
   "chatMessages": [
@@ -740,7 +566,6 @@
       "body": "The midterm will be in person. Check the calendar before Friday.",
       "createdAt": "2026-05-07T09:48:00-05:00",
       "isPinned": true,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_004"
@@ -753,7 +578,6 @@
       "body": "Professor, I do not understand how to iterate over the array with map.",
       "createdAt": "2026-05-07T10:15:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_002"
       ]
@@ -765,7 +589,6 @@
       "body": "Think of map as transforming each item into something new.",
       "createdAt": "2026-05-07T10:18:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_004",
@@ -779,7 +602,6 @@
       "body": "Remember to review the resources before class.",
       "createdAt": "2026-05-07T10:22:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_001"
       ]
@@ -791,7 +613,6 @@
       "body": "Subi un resumen de la semana en recursos.",
       "createdAt": "2026-05-08T12:05:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": []
     },
     {
@@ -801,7 +622,6 @@
       "body": "Welcome to the Mathematics II group chat.",
       "createdAt": "2026-05-08T17:35:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_010"
@@ -814,7 +634,6 @@
       "body": "La guia de determinantes ya esta disponible.",
       "createdAt": "2026-05-08T17:40:00-05:00",
       "isPinned": true,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_010"
@@ -827,7 +646,6 @@
       "body": "Profesora, el ejercicio 4 se entrega con procedimiento completo?",
       "createdAt": "2026-05-08T18:12:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_003"
       ]
@@ -839,7 +657,6 @@
       "body": "Bring the main flow ready for critique.",
       "createdAt": "2026-05-09T09:15:00-05:00",
       "isPinned": true,
-      "status": "sent",
       "readBy": [
         "usr_001"
       ]
@@ -851,7 +668,6 @@
       "body": "Yo puedo compartir una plantilla de Figma para el grupo.",
       "createdAt": "2026-05-09T09:40:00-05:00",
       "isPinned": false,
-      "status": "edited",
       "readBy": []
     },
     {
@@ -861,7 +677,6 @@
       "body": "We will use this chat to coordinate submissions and general feedback.",
       "createdAt": "2026-05-09T09:05:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_001"
       ]
@@ -873,7 +688,6 @@
       "body": "Para el DER usen entidades, atributos y relaciones claras.",
       "createdAt": "2026-05-09T19:45:00-05:00",
       "isPinned": true,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_005"
@@ -884,9 +698,8 @@
       "channelId": "chn_005",
       "senderId": "usr_001",
       "body": "Professor, should we separate sale_items for the sales table?",
-      "createdAt": "2026-05-09T19:55:00-05:00", 
+      "createdAt": "2026-05-09T19:55:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_009"
       ]
@@ -898,7 +711,6 @@
       "body": "Yes, separate sales and sale_details. It is cleaner and more scalable.",
       "createdAt": "2026-05-09T20:05:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": []
     },
     {
@@ -908,7 +720,6 @@
       "body": "This stays as the course group chat for general questions.",
       "createdAt": "2026-05-09T19:35:00-05:00",
       "isPinned": false,
-      "status": "sent",
       "readBy": [
         "usr_001",
         "usr_005"
@@ -921,7 +732,6 @@
       "body": "The announcements channel stays locked until after the midterm.",
       "createdAt": "2026-05-09T20:10:00-05:00",
       "isPinned": true,
-      "status": "sent",
       "readBy": []
     }
   ]

@@ -3,24 +3,23 @@ function findCourse(courses, courseSlug) {
 }
 
 function findClassroom(classrooms, course) {
-    return classrooms.find((classroom) => classroom.id === `${course.classroomId}`);
+    return classrooms.find((classroom) => classroom.id === course.classroomId);
 }
 
 function findActiveChannel(chatChannels, session, course, activeChannelId) {
-    const activeChatChannels = Array.isArray(session.activeChatChannels) ? session.activeChatChannels : [];
-    const activeChannelByCourse = [...activeChatChannels].reverse().find(
-        (activeChatChannel) => activeChatChannel.courseId === `${course.id}`
-    );
-    const defaultActiveChannelId = activeChannelByCourse?.channelId
-        ?? (session.activeCourseId === `${course.id}` ? session.activeChatChannelId : null);
-
-    const selectedChannel = chatChannels.find((chatChannel) => chatChannel.id === `${activeChannelId}`);
+    const selectedChannel = chatChannels.find((chatChannel) => chatChannel.id === activeChannelId);
 
     if (selectedChannel) return selectedChannel;
 
+    const activeChatChannels = Array.isArray(session.activeChatChannels) ? session.activeChatChannels : [];
+    const activeChannelByCourse = [...activeChatChannels].reverse().find(
+        (activeChatChannel) => activeChatChannel.courseId === course.id
+    );
+    const defaultActiveChannelId = activeChannelByCourse?.channelId;
+
     if (!defaultActiveChannelId) return null;
 
-    return chatChannels.find((chatChannel) => chatChannel.id === `${defaultActiveChannelId}`)
+    return chatChannels.find((chatChannel) => chatChannel.id === defaultActiveChannelId)
 }
 
 function findDefaultChannel(chatChannels) {

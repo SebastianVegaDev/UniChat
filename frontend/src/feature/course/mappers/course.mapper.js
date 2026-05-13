@@ -52,21 +52,21 @@ function findCourse(courses, courseSlug) {
 }
 
 function findTeacher(users, course) {
-    return users.find((user) => user.id === `${course.teacherId}`);
+    return users.find((user) => user.id === course.teacherId);
 }
 
 function findClassroom(classrooms, course) {
-    return classrooms.find((classroom) => classroom.id === `${course.classroomId}`);
+    return classrooms.find((classroom) => classroom.id === course.classroomId);
 }
 
 function findCourseStats(courseStats, course) {
-    return courseStats.find((courseStat) => courseStat.courseId === `${course.id}`);
+    return courseStats.find((courseStat) => courseStat.courseId === course.id);
 }
 
 function findCourseDelegates(courseMembers, users, course) {
-    const delegates = courseMembers.filter((courseMember) => courseMember.courseId === `${course.id}` && courseMember.role === "delegate");
+    const delegates = courseMembers.filter((courseMember) => courseMember.courseId === course.id && courseMember.role === "delegate");
 
-    const delegateUsers = users.filter((user) => delegates.some((delegate) => delegate.userId === `${user.id}`));
+    const delegateUsers = users.filter((user) => delegates.some((delegate) => delegate.userId === user.id));
     
     return delegateUsers;
 }

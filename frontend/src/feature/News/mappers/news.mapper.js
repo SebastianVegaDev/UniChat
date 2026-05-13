@@ -34,8 +34,7 @@ function mapNewsItem(announcement, usersById) {
         "body": announcement.body ?? "",
         "dateLabel": formatDateLabel(announcement.publishedAt),
         "category": category ? category[0].toUpperCase() + category.slice(1) : "",
-        "author": getFullName(author),
-        "readTimeLabel": announcement.readTimeLabel ?? ""
+        "author": getFullName(author)
     }
 }
 

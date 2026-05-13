@@ -15,7 +15,6 @@ function NewsCard({news}) {
                     </div>
                     <div className="news-card-footer">
                         <h4>{newsItem.author}</h4>
-                        <h4>{newsItem.readTimeLabel}</h4>
                     </div>
                 </article>
             ))}
