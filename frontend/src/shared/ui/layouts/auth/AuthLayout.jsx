@@ -1,9 +1,15 @@
 import "./AuthLayout.css"
+import visualPanel from "../../../../assets/visual-panel.png"
 
 function AuthLayout({children}) {
     return (
         <div className="auth-layout">
-            { children }
+            <div className="auth-layout-visual-panel">
+                <img src={visualPanel} alt="visual panel"></img>
+            </div>
+            <div className="auth-layout-form">
+                { children }
+            </div>
         </div>
     )
 }

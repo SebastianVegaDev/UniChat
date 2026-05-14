@@ -1,0 +1,87 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    width: 640px;
+}
+
+.register-form > h1 {
+    color: white;
+    text-align: center;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+.register-form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.register-form-inputs-name {
+    display: flex;
+    gap: 10px;
+}
+
+.register-form-inputs-name > .register-form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.register-form-input {
+    padding: 15px 25px;
+    border-radius: 10px;
+    background-color: rgb(57, 57, 57);
+    border: 1px solid rgb(79, 79, 79);
+}
+
+.register-form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.register-form-button-code {
+    padding: 15px;
+    background: linear-gradient(135deg, #b94a0f 0%, #d95a16 50%, #f37021 100%);
+    border: none;
+    border-radius: 23px;
+    color: white;
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.register-form-button-gmail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: transparent;
+    border: 3px solid rgb(79, 79, 79);
+    border-radius: 23px;
+    color: white;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.register-form-google-icon {
+    display: block;
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+}
+
+.register-form-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+}
+
+.register-form-footer-link {
+    color: rgb(255, 140, 0);
+    cursor: pointer;
+}
