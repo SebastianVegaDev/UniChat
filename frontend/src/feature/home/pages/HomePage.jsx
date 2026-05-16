@@ -26,7 +26,7 @@ function HomePage() {
             <SectionHero
                 eyebrow={`Welcome ${student.name}!`}
                 title="My Day"
-                description={`${date} · ${summary.pendingClasses} pending courses · ${summary.classesInProgress} class in progress`}
+                description={`${date} · ${summary.pendingClasses} pending classes · ${summary.classesInProgress} class in progress`}
             />
             <HomeContent 
                 todayClasses={todayClasses}

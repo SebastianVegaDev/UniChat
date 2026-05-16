@@ -2,16 +2,16 @@
     display: flex;
     width: 100%;
     padding: 15px;
-    background-color: #f9fafb;
-    border-bottom: 2px solid #dde3ea;
+    background-color: #222222;
+    border-bottom: 2px solid #3f3f3f;
     align-items: center;
 }
 
-.app-top-bar > div {
+.app-top-bar-brand {
     display: flex;
 }
 
-.app-top-bar > div > img {
+.app-top-bar-brand > img {
     width: 40px;
 }
 
@@ -19,7 +19,7 @@
     font-family: "Inter";
     font-size: 24px;
     font-weight: 750;
-    color: #e76f24;
+    color: #f37021;
     display: flex;
     align-items: center;
     margin-left: 20px;
@@ -29,13 +29,91 @@
     font-family: "Inter";
     font-size: 24px;
     font-weight: 750;
-    color: #2d3748;
+    color: #ffffff;
     display: flex;
     align-items: center;
 }
 
-.app-top-bar > button {
-    border: none;
+.app-top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-left: auto;
-    background-color: #f9fafb;
+}
+
+.app-top-bar-user-wrapper {
+    position: relative;
+}
+
+.app-top-bar-user {
+    border: 2px solid #494949;
+    border-radius: 999px;
+    background-color: #222222;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px 5px 5px;
+    cursor: pointer;
+}
+
+.app-top-bar-user > span {
+    background-color: #f37021;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.app-top-bar-user > p {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.app-top-bar-user-info {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    z-index: 20;
+    width: 260px;
+    background-color: #414141;
+    border: 2px solid #5d5d5d;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(31, 41, 55, 0.12);
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.app-top-bar-user-info > img {
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    object-fit: cover;
+}
+
+.app-top-bar-user-info p {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.app-top-bar-user-info span,
+.app-top-bar-user-info small {
+    display: block;
+    color: #ffffff;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.app-top-bar-help {
+    border: none;
+    background-color: transparent;
+    color: #ffffff;
+    cursor: pointer;
 }

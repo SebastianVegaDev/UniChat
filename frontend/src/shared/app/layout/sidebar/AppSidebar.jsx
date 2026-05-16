@@ -53,6 +53,9 @@ function AppSideBar() {
                 }
             >
                 <span className="app-sidebar-icon">{course.label}</span>
+                {course.pending > 0 && (
+                    <span className="app-sidebar-badge">{course.pending}</span>
+                )}
                 <span className="app-sidebar-tooltip">{course.title}</span>
             </NavLink>
         ))}

@@ -26,6 +26,70 @@ function getFullName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function normalizeStatus(status) {
+    if (status === "completed") return "finished";
+    if (status === "finished" || status === "now" || status === "upcoming") return status;
+
+    return "";
+}
+
+function getTimeValue(dateValue) {
+    const date = dateValue ? new Date(dateValue) : null;
+    const time = date?.getTime();
+
+    return Number.isNaN(time) || time === undefined ? 0 : time;
+}
+
+function isSameDay(firstDateValue, secondDateValue) {
+    const firstDate = firstDateValue ? new Date(firstDateValue) : null;
+    const secondDate = secondDateValue ? new Date(secondDateValue) : null;
+
+    if (!firstDate || !secondDate) return false;
+    if (Number.isNaN(firstDate.getTime()) || Number.isNaN(secondDate.getTime())) return false;
+
+    return firstDate.getFullYear() === secondDate.getFullYear()
+        && firstDate.getMonth() === secondDate.getMonth()
+        && firstDate.getDate() === secondDate.getDate();
+}
+
+function getClassSessionKey(classSession) {
+    return [
+        classSession.courseId,
+        classSession.classroomId,
+        classSession.topic,
+        classSession.startsAt,
+        classSession.endsAt
+    ].join("|");
+}
+
+function getUniqueClassSessions(classSessions) {
+    const seenSessions = new Set();
+
+    return classSessions.filter((classSession) => {
+        const key = getClassSessionKey(classSession);
+
+        if (seenSessions.has(key)) return false;
+
+        seenSessions.add(key);
+        return true;
+    });
+}
+
+function getClassStatus(classSession, now = new Date()) {
+    const startsAt = classSession?.startsAt ? new Date(classSession.startsAt) : null;
+    const endsAt = classSession?.endsAt ? new Date(classSession.endsAt) : null;
+    const hasValidRange = startsAt instanceof Date
+        && endsAt instanceof Date
+        && !Number.isNaN(startsAt.getTime())
+        && !Number.isNaN(endsAt.getTime());
+
+    if (!hasValidRange) return normalizeStatus(classSession?.status);
+    if (now >= startsAt && now <= endsAt) return "now";
+    if (startsAt > now) return "upcoming";
+
+    return "finished";
+}
+
 function mapStudent(session, usersById) {
     const student = usersById[session.currentUserId];
 
@@ -34,14 +98,14 @@ function mapStudent(session, usersById) {
     };
 }
 
-function mapSummary(classSessions) {
+function mapSummary(classSessions, now) {
     return {
-        "classesInProgress": classSessions.filter((classSession) => classSession.status === "now").length,
-        "pendingClasses": classSessions.filter((classSession) => classSession.status === "upcoming").length
+        "classesInProgress": classSessions.filter((classSession) => getClassStatus(classSession, now) === "now").length,
+        "pendingClasses": classSessions.filter((classSession) => getClassStatus(classSession, now) === "upcoming").length
     };
 }
 
-function mapTodayClass(classSession, coursesById, classroomsById) {
+function mapTodayClass(classSession, coursesById, classroomsById, now) {
     const course = coursesById[classSession.courseId];
     const classroom = classroomsById[classSession.classroomId];
 
@@ -50,7 +114,7 @@ function mapTodayClass(classSession, coursesById, classroomsById) {
         "startTime": formatTimeLabel(classSession.startsAt),
         "endTime": formatTimeLabel(classSession.endsAt),
         "topic": classSession.topic ?? "",
-        "statusLabel": classSession.status ?? "",
+        "statusLabel": getClassStatus(classSession, now),
         "classroom": classroom?.name ?? "No classroom",
         "route": `/course/${course?.slug ?? ""}`,
         "title": course?.title ?? "Course"
@@ -96,6 +160,7 @@ function mapHomeNews(announcement) {
 }
 
 export function mapHomeData(data) {
+    const now = new Date();
     const session = data?.session ?? {};
     const users = data?.users ?? [];
     const classrooms = data?.classrooms ?? [];
@@ -107,13 +172,23 @@ export function mapHomeData(data) {
     const classroomsById = Object.fromEntries(classrooms.map((classroom) => [classroom.id, classroom]));
     const coursesById = Object.fromEntries(courses.map((course) => [course.id, course]));
 
-    const activeClasses = classSessions.filter((classSession) => classSession.status !== "completed");
-    const nextClass = activeClasses[0] ?? null;
+    const uniqueClassSessions = getUniqueClassSessions(classSessions);
+    const todayClassSessions = uniqueClassSessions.filter((classSession) => {
+        return isSameDay(classSession.startsAt, now);
+    });
+    const todayClasses = todayClassSessions
+        .sort((firstClass, secondClass) => getTimeValue(firstClass.startsAt) - getTimeValue(secondClass.startsAt));
+    const futureClasses = uniqueClassSessions
+        .filter((classSession) => getClassStatus(classSession, now) === "upcoming")
+        .sort((firstClass, secondClass) => getTimeValue(firstClass.startsAt) - getTimeValue(secondClass.startsAt));
+    const nextClass = todayClasses.find((classSession) => getClassStatus(classSession, now) === "now")
+        ?? futureClasses[0]
+        ?? null;
 
     return {
         "student": mapStudent(session, usersById),
-        "summary": mapSummary(classSessions),
-        "todayClasses": activeClasses.map((classSession) => mapTodayClass(classSession, coursesById, classroomsById)),
+        "summary": mapSummary(todayClassSessions, now),
+        "todayClasses": todayClasses.map((classSession) => mapTodayClass(classSession, coursesById, classroomsById, now)),
         "nextClass": mapNextClass(nextClass, coursesById, classroomsById, usersById),
         "courses": courses.map((course) => mapCourseShortcut(course, usersById, classroomsById)),
         "news": announcements.map(mapHomeNews)

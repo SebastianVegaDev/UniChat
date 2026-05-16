@@ -9,7 +9,7 @@
 }
 
 .home-grid-news > p {
-    color: #d96722;
+    color: #f37021;
     font-family: "Inter";
     font-size: 15px;
     font-weight: 700;
@@ -26,16 +26,16 @@
 }
 
 .home-grid-new {
-    border: 2px solid #dde3ea;
+    border: 2px solid #3f3f3f;
     border-left: 3.8px solid #f37021;
-    background-color: #f0f3f6;
+    background-color: #373737;
     padding: 13px 15px;
     border-radius: 10px;
     flex: 0 0 auto;
 }
 
 .home-grid-new > h4 {
-    color: #475569;
+    color: #e5e5e5;
     font-family: "Inter";
     font-weight: 500;
     font-size: 15px;
@@ -43,14 +43,14 @@
 }
 
 .home-grid-new > p {
-    color: #64748b;
+    color: #b3b3b3;
     font-family: "Inter";
     font-weight: 500;
     font-size: 13px;
 }
 
 .home-grid-new > h3 {
-    color: #1f2937;
+    color: #ffffff;
     font-family: "Inter";
     font-size: 17px;
     font-weight: 700;

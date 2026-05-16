@@ -1,15 +1,19 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
 
 async function request(path, options = {}) {
+    const token = localStorage.getItem("token");
+
     const response = await fetch(`${API_URL}${path}`, {
         credentials: "include",
+        ...options,
         headers: {
-            "Content-type": "application/json"
-        },
-        ...options
+            "Content-type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+            ...(options.headers ?? {})
+        }
     });
 
-    const result = response.json().catch(() => null);
+    const result = await response.json().catch(() => null);
 
     if (!response.ok) {
         throw new Error(result?.error || "Request failed");

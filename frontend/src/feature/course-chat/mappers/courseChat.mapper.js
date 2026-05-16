@@ -38,9 +38,13 @@ function getFullName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function isSameId(firstId, secondId) {
+    return `${firstId}` === `${secondId}`;
+}
+
 function findCourseMember(courseMembers, course, user) {
     return courseMembers.find((courseMember) => {
-        return courseMember.courseId === course.id && courseMember.userId === user?.id;
+        return isSameId(courseMember.courseId, course.id) && isSameId(courseMember.userId, user?.id);
     });
 }
 
@@ -98,12 +102,27 @@ function getInitial(user) {
     return user.firstName[0].toUpperCase();
 }
 
+function wasRead(message) {
+    const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+
+    return readBy.length > 0;
+}
+
+function isUnreadMessage(message, currentUserId) {
+    if (isSameId(message.senderId, currentUserId)) return false;
+
+    const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+
+    return !readBy.some((userId) => isSameId(userId, currentUserId));
+}
+
 function mapCourse(course, classroom) {
+
     return {
-        "id": course.id ?? "",
-        "shortName": course.shortName ?? "",
-        "title": course.title ?? "Course",
-        "route": `/course/${course.slug ?? ""}`,
+        "id": course?.id ?? "",
+        "shortName": course?.shortName ?? "",
+        "title": course?.title ?? "Course",
+        "route": `/course/${course?.slug ?? ""}`,
         "classroom": classroom?.name ?? "No classroom"
     };
 }
@@ -123,7 +142,8 @@ function mapActiveChannel(activeChannel) {
         "id": activeChannel?.id ?? "",
         "channelId": activeChannel?.id ?? "",
         "name": activeChannel?.name ?? "Course chat",
-        "type": type ? type[0].toUpperCase() + type.slice(1) : ""
+        "type": type ? type[0].toUpperCase() + type.slice(1) : "",
+        "isLocked": activeChannel?.isLocked ?? false
     }
 }
 
@@ -143,7 +163,7 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
     const user = usersById[message.senderId]
     const courseMember = findCourseMember(courseMembers, course, user);
 
-    if (message.senderId === `${currentUserId}`) {
+    if (isSameId(message.senderId, currentUserId)) {
         return {
             "id": message.id,
             "type": "message-me",
@@ -152,7 +172,8 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "author": "Me",
             "initial": getInitial(user),
             "roleLabel": "",
-            "roleClass": ""
+            "roleClass": "",
+            "wasRead": wasRead(message)
         }
     } else {
         const roleLabel = getRoleLabel(user, courseMember);
@@ -165,7 +186,8 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "author": getFullName(user),
             "initial": getInitial(user),
             "roleLabel": roleLabel,
-            "roleClass": roleLabel.toLowerCase()
+            "roleClass": roleLabel.toLowerCase(),
+            "wasRead": wasRead(message)
         }
     }
 }
@@ -173,6 +195,7 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
 function mapTimeline(messages, usersById, currentUserId, courseMembers, course) {
     const timeline = [];
     let lastDateKey = "";
+    let hasUnreadSeparator = false;
 
     const sortedMessages = [...messages].sort((firstMessage, secondMessage) => {
         return new Date(firstMessage.createdAt) - new Date(secondMessage.createdAt);
@@ -189,6 +212,16 @@ function mapTimeline(messages, usersById, currentUserId, courseMembers, course) 
             });
 
             lastDateKey = dateKey;
+        }
+
+        if (!hasUnreadSeparator && isUnreadMessage(message, currentUserId)) {
+            timeline.push({
+                "id": `unread-${message.id}`,
+                "type": "unread",
+                "label": "Unread messages"
+            });
+
+            hasUnreadSeparator = true;
         }
 
         timeline.push(mapTimelineItem(message, usersById, currentUserId, courseMembers, course));

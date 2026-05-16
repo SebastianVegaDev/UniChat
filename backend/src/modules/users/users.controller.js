@@ -1,9 +1,9 @@
 import { getCurrentUserService, getUsersService } from "./users.service.js";
 
-const userId = 1;
-
 export async function getUsers(req, res, next) {
     try {
+        const userId = req.user.id;
+
         const users = await getUsersService(userId);
 
         res.json(users);
@@ -14,6 +14,8 @@ export async function getUsers(req, res, next) {
 
 export async function getCurrentUser(req, res, next) {
     try {
+        const userId = req.user.id;
+
         const user = await getCurrentUserService(userId);
 
         res.json(user);

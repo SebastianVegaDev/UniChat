@@ -1,12 +1,12 @@
 .course-hero { 
     line-height: 1.4;
     padding-bottom: 15px;
-    border-bottom: 2px solid #dde3ea;
+    border-bottom: 2px solid #5c5c5c;
     display: flex;
 }
 
 .course-hero-icon {
-    background-color: #f37021;
+    background-color: #f37201;
     color: white;
     margin: 28px 20px;
     margin-left: 0px;
@@ -18,21 +18,21 @@
 }
 
 .course-hero-info > p {
-    color: #f37021;
+    color: #f37201;
     font-family: "Inter";
     font-size: 16px;
     font-weight: 650;
 }
 
 .course-hero-info > h1 {
-    color: #1f2937;
+    color: #ffffff;
     font-family: "Inter";
     font-size: 30px;
     font-weight: 750;
 }
 
 .course-hero-info > h3 {
-    color: #64748b;
+    color: #b3b3b3;
     font-family: "Inter";
     font-size: 17px;
     font-weight: 400;
@@ -45,9 +45,9 @@
 }
 
 .course-hero-badges > span {
-    color: #6b7280;
-    background-color: #f0f3f6;
-    border: 1.5px solid #dde3ea;
+    color: #ffffff;
+    background-color: #373737;
+    border: 1.5px solid #777777;
     padding: 8px;
     border-radius: 20px;
     font-size: 13px;

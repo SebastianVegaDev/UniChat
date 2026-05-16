@@ -1,10 +1,30 @@
 import "./ChatMain.css";
-import { Paperclip, Send } from "lucide-react";
+import { CheckCheck, Paperclip, Send } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
-function ChatMain({pinnedMessage, timeline, activeChannel}) {
+function ChatMain({pinnedMessage, timeline, activeChannel, handleSubmit}) {
     const [showOptions, setShowOptions] = useState(false);
     const optionsRef = useRef(null);
+    const messagesRef = useRef(null);
+    const isChatLocked = activeChannel.isLocked;
+
+    async function onSubmit(e) {
+        e.preventDefault();
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+        const body = formData.get("body")?.trim();
+
+        if (!body || isChatLocked) return;
+
+        const messageData = {
+            channelId : activeChannel.id,
+            body
+        }
+
+        await handleSubmit?.(messageData);
+
+        form.reset();
+    }
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -20,14 +40,27 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
         };
     }, []);
 
+    useEffect(() => {
+        const messagesElement = messagesRef.current;
+
+        if (!messagesElement) return;
+
+        messagesElement.scrollTop = messagesElement.scrollHeight;
+    }, [timeline, activeChannel.id]);
+
     return (
         <div className="chat-content-main">
             <div className="chat-content-main-header">
-                <h4>{activeChannel.name}</h4>
-                <h3>{activeChannel.type}</h3>
+                <div>
+                    <h4>{activeChannel.name}</h4>
+                    <h3>{activeChannel.type}</h3>
+                </div>
+                {isChatLocked && (
+                    <span className="chat-content-main-header-badge">Chat bloqueado</span>
+                )}
             </div>
 
-            <div className="chat-content-main-messages">
+            <div className="chat-content-main-messages" ref={messagesRef}>
                 { pinnedMessage ? 
                     <div className="chat-content-main-message-pinned">
                         <h4>Pinned message</h4>
@@ -39,6 +72,7 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                 { timeline.map((message) => {
                     switch(message.type){
                         case "date":
+                        case "unread":
                         return (
                             <div className="chat-content-main-message-date" key={message.id}>
                                 <p>{message.label}</p>
@@ -61,6 +95,7 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                                         <span>{message.timeLabel}</span>
                                     </div>
                                     <p>{message.body}</p>
+                                    <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
                                 </div>
                             </div>
                         );
@@ -73,6 +108,7 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                                         <span>{message.timeLabel}</span>
                                     </div>
                                     <p>{message.body}</p>
+                                    <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
                                 </div>
                                 <span>{message.initial}</span>
                             </div>
@@ -82,9 +118,9 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                     }
                 })}
             </div>
-            <form className="chat-content-main-toolbar">
+            <form className="chat-content-main-toolbar" onSubmit={onSubmit}>
                 <div className="chat-content-main-toolbar-clip-wrapper" ref={optionsRef}>
-                    {showOptions && (
+                    {showOptions && !isChatLocked && (
                         <span className="chat-content-main-toolbar-options">
                             <p className="chat-content-main-toolbar-option">Select a file</p>
                             <p className="chat-content-main-toolbar-option">Select a photo</p>
@@ -94,13 +130,19 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                     <button
                         type="button"
                         className="chat-content-main-toolbar-clip"
+                        disabled={isChatLocked}
                         onClick={() => setShowOptions(!showOptions)}
                     >
                         <Paperclip />
                     </button>
                 </div>
-                <input className="chat-content-main-toolbar-input" placeholder="Write your message..."></input>
-                <button className="chat-content-main-toolbar-send"><Send /></button>
+                <input
+                    name="body"
+                    className={`chat-content-main-toolbar-input ${isChatLocked ? "disabled" : ""}`}
+                    placeholder={isChatLocked ? "Chat is locked" : "Write your message..."}
+                    disabled={isChatLocked}
+                />
+                <button className="chat-content-main-toolbar-send" disabled={isChatLocked}><Send /></button>
             </form>
         </div>
     );

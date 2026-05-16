@@ -44,7 +44,7 @@
 
 .register-form-button-code {
     padding: 15px;
-    background: linear-gradient(135deg, #b94a0f 0%, #d95a16 50%, #f37021 100%);
+    background-color: #f37021;
     border: none;
     border-radius: 23px;
     color: white;
@@ -83,6 +83,6 @@
 }
 
 .register-form-footer-link {
-    color: rgb(255, 140, 0);
+    color: #ff9b45;
     cursor: pointer;
 }

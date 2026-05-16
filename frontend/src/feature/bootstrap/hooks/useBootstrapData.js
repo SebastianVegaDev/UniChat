@@ -23,6 +23,7 @@ export function useBootstrapData() {
 
     return {
         data,
+        setData,
         isLoading,
         error
     };

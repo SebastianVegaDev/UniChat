@@ -76,3 +76,25 @@ export async function findAllChatMessages(userId) {
 
     return rows;
 }
+
+export async function createChatMessage({channelId, userId, body}) {
+    const { rows } = await pool.query(`
+        INSERT INTO 
+        chat_messages (
+            channel_id, 
+            sender_id, 
+            body
+        )
+        VALUES ($1, $2, $3)
+        RETURNING
+            id,
+            channel_id AS "channelId",
+            sender_id AS "senderId",
+            body,
+            is_pinned AS "isPinned",
+            created_at AS "createdAt",
+            ARRAY[]::text[] AS "readBy";
+    `, [channelId, userId, body])
+
+    return rows[0];
+}

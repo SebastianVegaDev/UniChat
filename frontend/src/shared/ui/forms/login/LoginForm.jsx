@@ -10,7 +10,7 @@ function LoginForm({ handleSubmit }) {
         const formData = new FormData(e.currentTarget);
         const loginData = {
             code: formData.get("code"),
-            password: formData.get("password"),
+            password: formData.get("password")
         };
 
         handleSubmit(loginData);

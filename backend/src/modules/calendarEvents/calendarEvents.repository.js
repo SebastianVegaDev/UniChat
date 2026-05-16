@@ -23,8 +23,9 @@ export async function findAllCalendarEvents(userId) {
             calendar_events.ends_at AS "endsAt",
             CASE
                 WHEN calendar_events.is_cancelled = TRUE THEN 'cancelled'
-                WHEN NOW() > calendar_events.ends_at THEN 'completed'
                 WHEN NOW() < calendar_events.starts_at THEN 'pending'
+                WHEN calendar_events.ends_at IS NULL THEN 'completed'
+                WHEN NOW() > calendar_events.ends_at THEN 'completed'
                 WHEN NOW() BETWEEN calendar_events.starts_at AND calendar_events.ends_at THEN 'scheduled'
             END AS "status"
         FROM calendar_events
