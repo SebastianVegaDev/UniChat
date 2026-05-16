@@ -43,13 +43,13 @@
       "id": "usr_004",
       "firstName": "Valeria",
       "lastName": "Paredes",
-      "role": "delegate"
+      "role": "student"
     },
     {
       "id": "usr_005",
       "firstName": "Marco",
       "lastName": "Leon",
-      "role": "delegate"
+      "role": "student"
     },
     {
       "id": "usr_006",
@@ -146,22 +146,22 @@
     {
       "courseId": "crs_001",
       "userId": "usr_004",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_001",
       "userId": "usr_005",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_003",
       "userId": "usr_004",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_004",
       "userId": "usr_005",
-      "role": "delegate"
+      "courseRole": "delegate"
     }
   ],
   "courseStats": [

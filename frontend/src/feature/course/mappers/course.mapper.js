@@ -64,7 +64,11 @@ function findCourseStats(courseStats, course) {
 }
 
 function findCourseDelegates(courseMembers, users, course) {
-    const delegates = courseMembers.filter((courseMember) => courseMember.courseId === course.id && courseMember.role === "delegate");
+    const delegates = courseMembers.filter((courseMember) => {
+        const courseRole = courseMember.courseRole ?? courseMember.role;
+
+        return courseMember.courseId === course.id && courseRole === "delegate";
+    });
 
     const delegateUsers = users.filter((user) => delegates.some((delegate) => delegate.userId === user.id));
     

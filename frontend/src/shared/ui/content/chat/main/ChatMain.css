@@ -108,8 +108,34 @@
 .chat-content-main-message > div {
     display: flex;
     justify-content: space-between;
+    gap: 12px;
     font-size: 15px;
     font-weight: 400;
+}
+
+.chat-content-main-message h4 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.chat-content-main-message-role {
+    padding: 2px 7px;
+    border-radius: 999px;
+    background-color: #e5e7eb;
+    color: #374151;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.chat-content-main-message-role.teacher {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.chat-content-main-message-role.delegate {
+    background-color: #dcfce7;
+    color: #15803d;
 }
 
 .chat-content-main-message-other {

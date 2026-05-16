@@ -50,7 +50,14 @@ function ChatMain({pinnedMessage, timeline, activeChannel}) {
                                 <span>{message.initial}</span>
                                 <div  className="chat-content-main-message">
                                     <div>
-                                        <h4>{message.author}</h4>
+                                        <h4>
+                                            {message.author}
+                                            {message.roleLabel && (
+                                                <span className={`chat-content-main-message-role ${message.roleClass}`}>
+                                                    {message.roleLabel}
+                                                </span>
+                                            )}
+                                        </h4>
                                         <span>{message.timeLabel}</span>
                                     </div>
                                     <p>{message.body}</p>

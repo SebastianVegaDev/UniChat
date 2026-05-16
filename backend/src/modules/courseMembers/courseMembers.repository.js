@@ -15,7 +15,7 @@ export async function findAllCourseMembers(userId) {
 
         SELECT
             course_members.course_id AS "courseId",
-            course_members.course_role AS "role",
+            course_members.course_role AS "courseRole",
             course_members.user_id AS "userId"
         FROM course_members
         WHERE course_id IN (

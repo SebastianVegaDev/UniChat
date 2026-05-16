@@ -38,6 +38,23 @@ function getFullName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function findCourseMember(courseMembers, course, user) {
+    return courseMembers.find((courseMember) => {
+        return courseMember.courseId === course.id && courseMember.userId === user?.id;
+    });
+}
+
+function getCourseRole(courseMember) {
+    return courseMember?.courseRole ?? courseMember?.role ?? "student";
+}
+
+function getRoleLabel(user, courseMember) {
+    if (user?.role === "teacher") return "Teacher";
+    if (getCourseRole(courseMember) === "delegate") return "Delegate";
+
+    return "Student";
+}
+
 function formatTimeLabel(date) {
     if (!date) return "";
 
@@ -122,8 +139,9 @@ function mapPinnedMessage(message, usersById) {
     }
 }
 
-function mapTimelineItem(message, usersById, currentUserId) {
+function mapTimelineItem(message, usersById, currentUserId, courseMembers, course) {
     const user = usersById[message.senderId]
+    const courseMember = findCourseMember(courseMembers, course, user);
 
     if (message.senderId === `${currentUserId}`) {
         return {
@@ -132,21 +150,27 @@ function mapTimelineItem(message, usersById, currentUserId) {
             "body": message.body,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": "Me",
-            "initial": getInitial(user)
+            "initial": getInitial(user),
+            "roleLabel": "",
+            "roleClass": ""
         }
     } else {
+        const roleLabel = getRoleLabel(user, courseMember);
+
         return {
             "id": message.id,
             "type": "message-other",
             "body": message.body,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": getFullName(user),
-            "initial": getInitial(user)
+            "initial": getInitial(user),
+            "roleLabel": roleLabel,
+            "roleClass": roleLabel.toLowerCase()
         }
     }
 }
 
-function mapTimeline(messages, usersById, currentUserId) {
+function mapTimeline(messages, usersById, currentUserId, courseMembers, course) {
     const timeline = [];
     let lastDateKey = "";
 
@@ -167,7 +191,7 @@ function mapTimeline(messages, usersById, currentUserId) {
             lastDateKey = dateKey;
         }
 
-        timeline.push(mapTimelineItem(message, usersById, currentUserId));
+        timeline.push(mapTimelineItem(message, usersById, currentUserId, courseMembers, course));
     });
 
     return timeline;
@@ -177,6 +201,7 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
     const courses = data?.courses ?? [];
     const classrooms = data?.classrooms ?? [];
     const users = data?.users ?? [];
+    const courseMembers = data?.courseMembers ?? [];
     const chatChannels = data?.chatChannels ?? [];
     const chatMessages = data?.chatMessages ?? [];
     const session = data?.session ?? {};
@@ -220,6 +245,6 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
         channels: courseChannels.map(mapChannel),
         activeChannel: mapActiveChannel(activeChannel),
         pinnedMessage: mapPinnedMessage(pinnedMessage, usersById),
-        timeline: mapTimeline(activeMessages, usersById, session.currentUserId)
+        timeline: mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)
     };
 }
