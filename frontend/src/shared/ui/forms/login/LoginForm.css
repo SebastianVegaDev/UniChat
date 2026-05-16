@@ -23,6 +23,7 @@
     border-radius: 10px;
     background-color: rgb(57, 57, 57);
     border: 1px solid rgb(79, 79, 79);
+    color: white;
 }
 
 .login-form-buttons {

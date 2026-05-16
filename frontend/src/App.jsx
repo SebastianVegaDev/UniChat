@@ -7,6 +7,7 @@ import CourseCalendarPage from "./feature/course-calendar/pages/CourseCalendarPa
 import CourseChatPage from "./feature/course-chat/pages/CourseChatPage.jsx";
 import LoginPage from "./feature/auth/pages/LoginPage.jsx";
 import RegisterPage from "./feature/auth/pages/RegisterPage.jsx";
+import ProtectedRoute from "./shared/routes/ProtectedRoute.jsx";
 
 function App() {
 
@@ -14,7 +15,13 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/register" element={<RegisterPage />}/>
-      <Route path="/" element={<AppLayout />}>
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        }>
         <Route index element={<HomePage />}/>
         <Route path="/news" element={<NewsPage />}/>
         <Route path="/course/:courseSlug/chat" element={<CourseChatPage />}/>

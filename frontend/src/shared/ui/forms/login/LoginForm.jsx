@@ -2,18 +2,38 @@ import "./LoginForm.css"
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom"
 
-function LoginForm() {
-    const navigate = useNavigate()
+function LoginForm({ handleSubmit }) {
+    const navigate = useNavigate();
+
+    function onSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const loginData = {
+            code: formData.get("code"),
+            password: formData.get("password"),
+        };
+
+        handleSubmit(loginData);
+    }
 
     return (
-        <form className="login-form">
+        <form className="login-form" onSubmit={onSubmit}>
             <h1>Welcome Back</h1>
             <div className="login-form-inputs">
-                <input className="login-form-input" placeHolder="87654321@aloe.ulima.edu.pe"></input>
-                <input className="login-form-input" placeHolder="Password"></input>
+                <input
+                    className="login-form-input"
+                    name="code"
+                    placeholder="87654321"
+                />
+                <input
+                    className="login-form-input"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                />
             </div>
             <div className="login-form-buttons">
-                <button className="login-form-button-code" type="button">Continue with email</button>
+                <button className="login-form-button-code" type="submit">Continue with Code</button>
                 <button className="login-form-button-gmail" type="button">
                     <FcGoogle className="login-form-google-icon" aria-hidden="true" />
                     Continue with Google

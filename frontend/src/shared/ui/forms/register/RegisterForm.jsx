@@ -2,20 +2,57 @@ import "./RegisterForm.css"
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom"
 
-function RegisterForm() {
-    const navigate = useNavigate()
+function RegisterForm({ handleSubmit }) {
+    const navigate = useNavigate();
+
+    function onSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const loginData = {
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+            email: formData.get("email"),
+            password: formData.get("password"),
+            repeatPassword: formData.get("repeatPassword"),
+        };
+
+        handleSubmit(loginData);
+    }
 
     return (
-        <form className="register-form">
+        <form className="register-form" onSubmit={onSubmit}>
             <h1>Create an account</h1>
             <div className="register-form-inputs">
                 <div className="register-form-inputs-name">
-                    <input className="register-form-input" htmlFor="register-first-name" placeHolder="First name"></input>
-                    <input className="register-form-input" htmlFor="register-last-name" placeHolder="Last name"></input>
+                    <input
+                        className="register-form-input"
+                        name="firstName"
+                        placeholder="First name"
+                    />
+                    <input
+                        className="register-form-input"
+                        name="lastName"
+                        placeholder="Last name"
+                    />
                 </div>
-                <input className="register-form-input" placeHolder="87654321@aloe.ulima.edu.pe"></input>
-                <input className="register-form-input" placeHolder="Password"></input>
-                <input className="register-form-input" placeHolder="Confirm password"></input>
+                <input
+                    className="register-form-input"
+                    placeholder="87654321@aloe.ulima.edu.pe"
+                    name="email"
+                    type="email"
+                />
+                <input
+                    className="register-form-input"
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                />
+                <input
+                    className="register-form-input"
+                    placeholder="Confirm password"
+                    type="password"
+                    name="repeatPassword"
+                />
             </div>
             <div className="register-form-buttons">
                 <button className="register-form-button-code">Continue with email</button>

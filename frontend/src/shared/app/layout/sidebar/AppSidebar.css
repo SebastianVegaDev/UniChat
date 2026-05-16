@@ -49,6 +49,10 @@
     color: white;
 }
 
+.app-sidebar-logout {
+    margin-top: auto;
+}
+
 .app-sidebar-course.active::before {
     content: "";
     position: absolute;
