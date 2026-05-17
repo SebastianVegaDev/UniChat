@@ -35,15 +35,15 @@
 .course-action-info > div > span {
     font-size: 18px;
     font-weight: 350;
-    color: gray;
+    color: #b3b3b3;
 }
 
 .course-action-icon {
     align-content: center;
     padding: 10px;
     margin: 5px;
-    color: #fb8c2e;
-    background-color: #fde9da;
+    color: #ff9b45;
+    background-color: rgba(243, 112, 33, 0.16);
     border-radius: 7px;
     margin-right: 23px;
 }
@@ -58,11 +58,11 @@
 }
 
 .course-action-calendar {
-    background-color: #fde9da;
-    border: 2px solid #f3702133;
+    background-color: rgba(243, 112, 33, 0.16);
+    border: 2px solid rgba(243, 112, 33, 0.42);
 }
 
 .course-action-chat {
-    background-color: #f9fafb;
-    border: 2px solid #dde3ea;
+    background-color: #222222;
+    border: 2px solid #3f3f3f;
 }

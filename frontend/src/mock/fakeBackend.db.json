@@ -43,13 +43,13 @@
       "id": "usr_004",
       "firstName": "Valeria",
       "lastName": "Paredes",
-      "role": "delegate"
+      "role": "student"
     },
     {
       "id": "usr_005",
       "firstName": "Marco",
       "lastName": "Leon",
-      "role": "delegate"
+      "role": "student"
     },
     {
       "id": "usr_006",
@@ -146,22 +146,22 @@
     {
       "courseId": "crs_001",
       "userId": "usr_004",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_001",
       "userId": "usr_005",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_003",
       "userId": "usr_004",
-      "role": "delegate"
+      "courseRole": "delegate"
     },
     {
       "courseId": "crs_004",
       "userId": "usr_005",
-      "role": "delegate"
+      "courseRole": "delegate"
     }
   ],
   "courseStats": [
@@ -273,6 +273,7 @@
       "courseId": "crs_001",
       "title": "Programming II",
       "description": "Guided array practice",
+      "eventType": "reminder",
       "startsAt": "2026-05-10T10:00:00-05:00",
       "status": "scheduled"
     },
@@ -281,6 +282,7 @@
       "courseId": "crs_001",
       "title": "Array practice submission",
       "description": "Solve exercises 1 to 5",
+      "eventType": "assignment",
       "startsAt": "2026-05-11T23:59:00-05:00",
       "status": "pending"
     },
@@ -289,6 +291,7 @@
       "courseId": "crs_001",
       "title": "Programming midterm",
       "description": "In-person lab assessment",
+      "eventType": "exam",
       "startsAt": "2026-05-15T09:00:00-05:00",
       "status": "pending"
     },
@@ -297,6 +300,7 @@
       "courseId": "crs_001",
       "title": "Midterm review",
       "description": "Virtual review session",
+      "eventType": "reminder",
       "startsAt": "2026-05-09T18:00:00-05:00",
       "status": "completed"
     },
@@ -305,6 +309,7 @@
       "courseId": "crs_002",
       "title": "Mathematics II",
       "description": "Matrices y determinantes",
+      "eventType": "reminder",
       "startsAt": "2026-05-10T08:00:00-05:00",
       "status": "pending"
     },
@@ -313,6 +318,7 @@
       "courseId": "crs_002",
       "title": "Determinant exercises",
       "description": "Upload the solution as a PDF",
+      "eventType": "assignment",
       "startsAt": "2026-05-12T20:00:00-05:00",
       "status": "pending"
     },
@@ -321,6 +327,7 @@
       "courseId": "crs_002",
       "title": "Class rescheduled",
       "description": "The class was rescheduled for maintenance",
+      "eventType": "announcement",
       "startsAt": "2026-05-13T08:00:00-05:00",
       "status": "cancelled"
     },
@@ -329,6 +336,7 @@
       "courseId": "crs_003",
       "title": "UX Design",
       "description": "Wireframes y user flows",
+      "eventType": "reminder",
       "startsAt": "2026-05-10T14:00:00-05:00",
       "status": "pending"
     },
@@ -337,6 +345,7 @@
       "courseId": "crs_003",
       "title": "Prototype submission",
       "description": "Share the navigable prototype link",
+      "eventType": "assignment",
       "startsAt": "2026-05-13T22:00:00-05:00",
       "status": "pending"
     },
@@ -345,6 +354,7 @@
       "courseId": "crs_003",
       "title": "Main flow presentation",
       "description": "Show the main prototype screens",
+      "eventType": "exam",
       "startsAt": "2026-05-17T15:00:00-05:00",
       "status": "scheduled"
     },
@@ -353,6 +363,7 @@
       "courseId": "crs_004",
       "title": "Database Systems",
       "description": "Joins y relaciones",
+      "eventType": "reminder",
       "startsAt": "2026-05-11T16:00:00-05:00",
       "status": "scheduled"
     },
@@ -361,6 +372,7 @@
       "courseId": "crs_004",
       "title": "Entity relationship model",
       "description": "Design the ERD for a store",
+      "eventType": "assignment",
       "startsAt": "2026-05-10T23:59:00-05:00",
       "status": "late"
     },
@@ -369,6 +381,7 @@
       "courseId": "crs_004",
       "title": "SQL queries with JOIN",
       "description": "Resolver 10 consultas con INNER JOIN y LEFT JOIN",
+      "eventType": "assignment",
       "startsAt": "2026-05-16T21:00:00-05:00",
       "status": "pending"
     },
@@ -377,6 +390,7 @@
       "courseId": "crs_004",
       "title": "Quiz de normalizacion",
       "description": "Quiz corto sobre 1FN, 2FN y 3FN",
+      "eventType": "exam",
       "startsAt": "2026-05-18T18:00:00-05:00",
       "status": "scheduled"
     }
@@ -499,63 +513,72 @@
       "courseId": "crs_001",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_002",
       "courseId": "crs_001",
       "name": "Array questions",
       "description": "Practice and exercises",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_007",
       "courseId": "crs_002",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_003",
       "courseId": "crs_002",
       "name": "Exercise questions",
       "description": "Practice questions",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_008",
       "courseId": "crs_003",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_004",
       "courseId": "crs_003",
       "name": "Prototype critique",
       "description": "Feedback de pantallas",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_009",
       "courseId": "crs_004",
       "name": "Chat grupal",
       "description": "Students and teachers",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_005",
       "courseId": "crs_004",
       "name": "SQL and models",
       "description": "Database questions",
-      "type": "group"
+      "type": "group",
+      "isLocked": false
     },
     {
       "id": "chn_006",
       "courseId": "crs_004",
       "name": "Teacher announcements",
       "description": "Announcements-only channel",
-      "type": "announcement"
+      "type": "announcement",
+      "isLocked": true
     }
   ],
   "chatMessages": [

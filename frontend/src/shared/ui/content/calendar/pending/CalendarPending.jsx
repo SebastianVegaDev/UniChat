@@ -9,7 +9,10 @@ function CalendarPending({pendingItems}) {
                     <div className="calendar-pending-card" key={pending.id}>
                         <span>{pending.dateLabel}</span>
                         <div className="calendar-pending-card-info">
-                            <p>{pending.title}</p>
+                            <div className="calendar-pending-card-title">
+                                <p>{pending.title}</p>
+                                <span>{pending.eventType}</span>
+                            </div>
                             <span>{pending.detail}</span>
                         </div>
                     </div>

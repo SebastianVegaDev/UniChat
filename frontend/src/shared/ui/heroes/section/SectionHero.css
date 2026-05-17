@@ -1,7 +1,7 @@
 .section-hero {
     line-height: 1.5;
     padding-bottom: 30px;
-    border-bottom: 2px solid #dde3ea;
+    border-bottom: 2px solid #5c5c5c;
 }
 
 .section-hero-eyebrow {
@@ -20,14 +20,14 @@
 }
 
 .section-hero > h2 {
-    color: #1f2937;
+    color: #ffffff;
     font-family: "Inter";
     font-size: 34px;
     font-weight: 750;
 }
 
 .section-hero > span {
-    color: #64748b;
+    color: #b3b3b3;
     font-family: "Inter";
     font-size: 17px;
     font-weight: 400;

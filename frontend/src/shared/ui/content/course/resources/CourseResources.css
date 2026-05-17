@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    background-color: #f9fafb;
-    border: 2px solid #dde3ea;
+    background-color: #222222;
+    border: 2px solid #3f3f3f;
     border-radius: 8px;
     margin-top: 20px;
     padding: 15px;
@@ -22,7 +22,7 @@
 }
 
 .course-resources-header > span {
-    color: rgb(145, 145, 145);
+    color: #b3b3b3;
     font-size: 13px;
     font-weight: 750;
 }
@@ -30,8 +30,8 @@
 .course-resource {
     display: flex;
     flex-direction: column;
-    background-color: #f0f3f6;
-    border: 2px solid #dde3ea;
+    background-color: #373737;
+    border: 2px solid #3f3f3f;
     border-radius: 9px;
     padding: 15px;
     gap: 8px;
@@ -49,7 +49,7 @@
 }
 
 .course-resource-file {
-    border: 2px solid #dde3ea;
+    border: 2px solid #3f3f3f;
     width: calc((100% - 17px) / 2);
     border-radius: 9px;
     display: flex;
@@ -58,7 +58,7 @@
     align-items: center;
     text-decoration: none;
     color: inherit;
-    background-color: white;
+    background-color: #303030;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
@@ -68,7 +68,7 @@
 
 .course-resource-file.available-file:hover {
     transform: translateY(-2px);
-    background-color: #1f29370f;
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 .course-resource-file.unavailable-file {
@@ -99,19 +99,19 @@
 
 .course-resource-file-info > div > span {
     font-size: 13px;
-    color: gray;
+    color: #b3b3b3;
 }
 
 .course-resource-file-state {
-    background-color: #d8f3e6;
+    background-color: rgba(52, 211, 153, 0.16);
     padding: 5px 10px;
     font-size: 14px;
-    color: #14895f;
+    color: #4ade80;
     font-weight: bold;
     border-radius: 14px;
 }
 
 .course-resource-file-state.unavailable {
-    background-color: rgb(207, 207, 207);
-    color: black;
+    background-color: #373737;
+    color: #ffffff;
 }

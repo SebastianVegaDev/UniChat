@@ -1,8 +1,8 @@
 .calendar-pending {
-    background-color: #f9fafb;
-    border: 1px solid #dde3ea;
-    flex: 0 0 320px;
-    width: 320px;
+    background-color: #222222;
+    border: 1px solid #3f3f3f;
+    flex: 0 0 340px;
+    width: 340px;
     max-width: 100%;
     height: auto;
     max-height: 100%;
@@ -29,33 +29,62 @@
 }
 
 .calendar-pending-card {
-    display: flex;
+    display: grid;
+    grid-template-columns: 58px 1fr;
     align-items: center;
-    padding: 6px;
+    gap: 12px;
+    padding: 12px;
     border-radius: 9px;
-    border: 2px solid #dde3ea;
-    background-color: #f0f3f6;
+    border: 2px solid #3f3f3f;
+    background-color: #303030;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
 }
 
 .calendar-pending-card > span {
+    background-color: rgba(243, 112, 33, 0.16);
+    border-radius: 8px;
     color: #f37021;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 800;
     font-family: "Inter";
-    padding: 14px;
-    padding-right: 30px;
+    padding: 9px 6px;
+    text-align: center;
 }
 
-.calendar-pending-card-info > p{
-    font-size: 17px;
-    font-weight: 650;
+.calendar-pending-card-info {
+    min-width: 0;
 }
 
-.calendar-pending-card-info > span{
+.calendar-pending-card-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.calendar-pending-card-title > p {
+    color: #ffffff;
     font-size: 16px;
+    font-weight: 650;
+    min-width: 0;
+}
+
+.calendar-pending-card-title > span {
+    background-color: rgba(243, 112, 33, 0.16);
+    color: #f37021;
+    border-radius: 999px;
+    padding: 3px 7px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.calendar-pending-card-info > span {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
     font-weight: 450;
-    color: gray;
+    color: #b3b3b3;
+    line-height: 1.35;
 }

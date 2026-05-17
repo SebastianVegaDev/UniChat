@@ -16,7 +16,8 @@
 
 .home-grid-class {
     display: flex;
-    border: 2px solid #dde3ea;
+    border: 2px solid #3f3f3f;
+    background-color: #222222;
     justify-content: space-between;
     align-items: center;
     padding: 12px 10px;
@@ -31,7 +32,7 @@
 
 .home-grid-class:hover {
     transform: translateY(-2px);
-    background-color: #1f29370f;
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 .home-grid-class > div {
@@ -50,14 +51,15 @@
 .home-grid-class-info {
     flex: 1;
     min-width: 0;
+    padding-left: 12px;
 }
 
 .home-grid-class-info.finished {
-    border-left: 4px solid #b8b8b9;
+    border-left: 4px solid #8a8a8a;
 }
 
 .home-grid-class-info.now {
-    border-left: 4px solid #6ac254;
+    border-left: 4px solid #4ade80;
 }
 
 .home-grid-class-info.upcoming {
@@ -76,7 +78,7 @@
 }
 
 .home-grid-class-course {
-    color: #1f2937;
+    color: #ffffff;
     font-size: 16px;
     font-family: "Inter";
     font-weight: 700;
@@ -84,7 +86,7 @@
 
 .home-grid-class-description {
     font-size: 14px;
-    color: #64748b;
+    color: #b3b3b3;
     font-weight: 400;
 }
 
@@ -99,8 +101,8 @@
 }
 
 .home-grid-class-classroom {
-    background-color: rgba(243, 112, 33, 0.15);
-    color: #c75f1b;
+    background-color: rgba(243, 112, 33, 0.16);
+    color: #ff9b45;
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -125,16 +127,16 @@
 }
 
 .home-grid-class-state.finished {
-    color: #6b7280;
-    background-color: #e3e3e4;
+    color: #b3b3b3;
+    background-color: #373737;
 }
 
 .home-grid-class-state.now {
-    color: #14895f;
-    background-color: #ccf3e1;
+    color: #4ade80;
+    background-color: rgba(52, 211, 153, 0.16);
 }
 
 .home-grid-class-state.upcoming {
-    color: #2563eb;
-    background-color: #d0e4f8;
+    color: #8fb1ff;
+    background-color: rgba(85, 130, 228, 0.18);
 }

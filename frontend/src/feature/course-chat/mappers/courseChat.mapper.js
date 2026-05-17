@@ -38,6 +38,27 @@ function getFullName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function isSameId(firstId, secondId) {
+    return `${firstId}` === `${secondId}`;
+}
+
+function findCourseMember(courseMembers, course, user) {
+    return courseMembers.find((courseMember) => {
+        return isSameId(courseMember.courseId, course.id) && isSameId(courseMember.userId, user?.id);
+    });
+}
+
+function getCourseRole(courseMember) {
+    return courseMember?.courseRole ?? courseMember?.role ?? "student";
+}
+
+function getRoleLabel(user, courseMember) {
+    if (user?.role === "teacher") return "Teacher";
+    if (getCourseRole(courseMember) === "delegate") return "Delegate";
+
+    return "Student";
+}
+
 function formatTimeLabel(date) {
     if (!date) return "";
 
@@ -81,12 +102,27 @@ function getInitial(user) {
     return user.firstName[0].toUpperCase();
 }
 
+function wasRead(message) {
+    const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+
+    return readBy.length > 0;
+}
+
+function isUnreadMessage(message, currentUserId) {
+    if (isSameId(message.senderId, currentUserId)) return false;
+
+    const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+
+    return !readBy.some((userId) => isSameId(userId, currentUserId));
+}
+
 function mapCourse(course, classroom) {
+
     return {
-        "id": course.id ?? "",
-        "shortName": course.shortName ?? "",
-        "title": course.title ?? "Course",
-        "route": `/course/${course.slug ?? ""}`,
+        "id": course?.id ?? "",
+        "shortName": course?.shortName ?? "",
+        "title": course?.title ?? "Course",
+        "route": `/course/${course?.slug ?? ""}`,
         "classroom": classroom?.name ?? "No classroom"
     };
 }
@@ -106,7 +142,8 @@ function mapActiveChannel(activeChannel) {
         "id": activeChannel?.id ?? "",
         "channelId": activeChannel?.id ?? "",
         "name": activeChannel?.name ?? "Course chat",
-        "type": type ? type[0].toUpperCase() + type.slice(1) : ""
+        "type": type ? type[0].toUpperCase() + type.slice(1) : "",
+        "isLocked": activeChannel?.isLocked ?? false
     }
 }
 
@@ -122,33 +159,43 @@ function mapPinnedMessage(message, usersById) {
     }
 }
 
-function mapTimelineItem(message, usersById, currentUserId) {
+function mapTimelineItem(message, usersById, currentUserId, courseMembers, course) {
     const user = usersById[message.senderId]
+    const courseMember = findCourseMember(courseMembers, course, user);
 
-    if (message.senderId === `${currentUserId}`) {
+    if (isSameId(message.senderId, currentUserId)) {
         return {
             "id": message.id,
             "type": "message-me",
             "body": message.body,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": "Me",
-            "initial": getInitial(user)
+            "initial": getInitial(user),
+            "roleLabel": "",
+            "roleClass": "",
+            "wasRead": wasRead(message)
         }
     } else {
+        const roleLabel = getRoleLabel(user, courseMember);
+
         return {
             "id": message.id,
             "type": "message-other",
             "body": message.body,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": getFullName(user),
-            "initial": getInitial(user)
+            "initial": getInitial(user),
+            "roleLabel": roleLabel,
+            "roleClass": roleLabel.toLowerCase(),
+            "wasRead": wasRead(message)
         }
     }
 }
 
-function mapTimeline(messages, usersById, currentUserId) {
+function mapTimeline(messages, usersById, currentUserId, courseMembers, course) {
     const timeline = [];
     let lastDateKey = "";
+    let hasUnreadSeparator = false;
 
     const sortedMessages = [...messages].sort((firstMessage, secondMessage) => {
         return new Date(firstMessage.createdAt) - new Date(secondMessage.createdAt);
@@ -167,7 +214,17 @@ function mapTimeline(messages, usersById, currentUserId) {
             lastDateKey = dateKey;
         }
 
-        timeline.push(mapTimelineItem(message, usersById, currentUserId));
+        if (!hasUnreadSeparator && isUnreadMessage(message, currentUserId)) {
+            timeline.push({
+                "id": `unread-${message.id}`,
+                "type": "unread",
+                "label": "Unread messages"
+            });
+
+            hasUnreadSeparator = true;
+        }
+
+        timeline.push(mapTimelineItem(message, usersById, currentUserId, courseMembers, course));
     });
 
     return timeline;
@@ -177,6 +234,7 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
     const courses = data?.courses ?? [];
     const classrooms = data?.classrooms ?? [];
     const users = data?.users ?? [];
+    const courseMembers = data?.courseMembers ?? [];
     const chatChannels = data?.chatChannels ?? [];
     const chatMessages = data?.chatMessages ?? [];
     const session = data?.session ?? {};
@@ -220,6 +278,6 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
         channels: courseChannels.map(mapChannel),
         activeChannel: mapActiveChannel(activeChannel),
         pinnedMessage: mapPinnedMessage(pinnedMessage, usersById),
-        timeline: mapTimeline(activeMessages, usersById, session.currentUserId)
+        timeline: mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)
     };
 }

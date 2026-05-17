@@ -5,14 +5,14 @@
 }
 
 .home-grid-next-class > h3 {
-    color: #d96722;
+    color: #f37021;
     font-family: "Inter";
     font-size: 15px;
     font-weight: 700;
 }
 
 .home-grid-next-class > h2 {
-    color: #1f2937;
+    color: #ffffff;
     font-family: "Inter";
     font-size: 19px;
     font-weight: 700;
@@ -24,7 +24,7 @@
     font-size: 15px;
     font-weight: 400;
     padding-bottom: 7px;
-    color: #64748b;
+    color: #b3b3b3;
 }
 
 .home-grid-next-class > button {
@@ -40,5 +40,5 @@
 }
 
 .home-grid-next-class > button:hover {
-    background-color: #d85f16;
+    background-color: #bb5515;
 }

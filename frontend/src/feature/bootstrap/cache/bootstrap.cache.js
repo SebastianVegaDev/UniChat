@@ -1,25 +1,33 @@
-const BOOTSTRAP_CACHE_KEY = "unichat_bootstrap_cache";
-const CACHE_TIME = 1000 * 60 * 5;
+const CACHE_TIME = 1000 * 60 * 10;
+
+function getBootstrapCacheKey() {
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+
+    return `unichat_bootstrap_cache_${user?.id ?? "guest"}`;
+}
 
 export function saveBootstrapCache(data) {
+    const cacheKey = getBootstrapCacheKey();
+
     const cache = {
         data,
         savedAt: Date.now(),
         version: 1,
     };
 
-    localStorage.setItem(BOOTSTRAP_CACHE_KEY, JSON.stringify(cache));
+    localStorage.setItem(cacheKey, JSON.stringify(cache));
 }
 
 export function getBootstrapCache() {
-    const cache = localStorage.getItem(BOOTSTRAP_CACHE_KEY);
+    const cacheKey = getBootstrapCacheKey();
+    const cache = localStorage.getItem(cacheKey);
 
     if(!cache) return null;
     
     try {
         return JSON.parse(cache);
     } catch {
-        localStorage.removeItem(BOOTSTRAP_CACHE_KEY)
+        localStorage.removeItem(cacheKey)
         return null;
     }
 }

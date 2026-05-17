@@ -2,7 +2,7 @@ import "./ChatContent.css";
 import ChatMain from "./main/ChatMain.jsx";
 import ChatSidebar from "./sidebar/ChatSidebar.jsx";
 
-function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, activeChannelId, setActiveChannelId}) {
+function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, activeChannelId, setActiveChannelId, handleSubmit}) {
     return (
         <div className="chat-content">
             <ChatSidebar 
@@ -11,7 +11,8 @@ function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, 
                 activeChannelId={activeChannelId}
                 setActiveChannelId={setActiveChannelId}
             />
-            <ChatMain 
+            <ChatMain
+                handleSubmit={handleSubmit}
                 pinnedMessage={pinnedMessage}
                 timeline={timeline}
                 activeChannel={activeChannel}
