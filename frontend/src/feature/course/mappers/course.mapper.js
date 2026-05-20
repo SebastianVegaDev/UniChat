@@ -145,13 +145,19 @@ function mapResourceItem(resource, usersById) {
 
     return {
         "id": resource.id,
+        "courseId": resource.courseId,
+        "weekNumber": resource.weekNumber,
         "title": resource.title ?? "Untitled resource",
+        "kind": resource.kind,
         "kindLabel": formatKindLabel(resource.kind),
+        "sizeBytes": resource.sizeBytes,
         "sizeLabel": formatSizeLabel(resource.sizeBytes),
         "dateLabel": formatDateLabel(resource.createdAt),
         "uploadedBy": formatUserName(user),
+        "status": resource.status ?? "",
         "statusLabel": resource.status ?? "",
-        "url": resource.url ?? "/"
+        "url": resource.url ?? resource.fileUrl ?? "/",
+        "fileUrl": resource.fileUrl ?? resource.url ?? "/"
     };
 }
 

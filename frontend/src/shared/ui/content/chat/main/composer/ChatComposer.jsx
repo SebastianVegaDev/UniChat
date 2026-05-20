@@ -13,7 +13,7 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
         const formData = new FormData(form);
         const body = formData.get("body")?.trim();
 
-        if (!body || isChatLocked) return;
+        if (!body || isComposerDisabled) return;
 
         const messageData = {
             channelId: activeChannel.id,

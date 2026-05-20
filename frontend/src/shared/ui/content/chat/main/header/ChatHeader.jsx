@@ -1,7 +1,7 @@
 import "./ChatHeader.css";
 import ChatHeaderOptions from "./options/ChatHeaderOptions.jsx";
 
-function ChatHeader({ activeChannel, isChatLocked, currentUser }) {
+function ChatHeader({ activeChannel, isChatLocked, currentUser, handleToggleChannelLock }) {
     return (
         <div className="chat-content-main-header">
             <div>
@@ -12,7 +12,13 @@ function ChatHeader({ activeChannel, isChatLocked, currentUser }) {
                 {isChatLocked && (
                     <span className="chat-content-main-header-badge">Chat bloqueado</span>
                 )}
-                {currentUser.role === "teacher" ? <ChatHeaderOptions isChatLocked={isChatLocked} /> : null}
+                {currentUser.role === "teacher" ? (
+                    <ChatHeaderOptions
+                        activeChannel={activeChannel}
+                        isChatLocked={isChatLocked}
+                        handleToggleChannelLock={handleToggleChannelLock}
+                    />
+                ) : null}
             </div>
         </div>
     );

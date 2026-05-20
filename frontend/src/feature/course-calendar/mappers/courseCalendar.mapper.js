@@ -125,6 +125,7 @@ export function mapCourseCalendarData(data, courseSlug) {
     const usersById = Object.fromEntries(users.map((user) => [user.id, user]));
 
     return {
+        course,
         currentUser: mapCurrentUser(session, usersById),
         events: [
             ...courseClassSessions.map(mapClassSession),

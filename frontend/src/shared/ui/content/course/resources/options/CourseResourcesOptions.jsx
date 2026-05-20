@@ -35,7 +35,6 @@ function CourseResourcesOptions() {
 
             <div className="course-resources-options" hidden={!isOpen}>
                 <p className="course-resources-option">Add Resource</p>
-                <p className="course-resources-option">Toggle availability</p>
             </div>
         </div>
     );

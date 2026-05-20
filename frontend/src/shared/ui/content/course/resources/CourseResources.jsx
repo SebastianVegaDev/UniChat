@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
 import CourseResource from "./resource/CourseResource.jsx";
 
-function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resourcesRef }) {
+function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resourcesRef, handleToggleResource, handleDeleteResource }) {
     const navigate = useNavigate();
 
     function handleResourceClick(resource) {
@@ -39,6 +39,8 @@ function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resou
                                     isUnavailable={isUnavailable}
                                     resource={resource}
                                     handleResourceClick={handleResourceClick}
+                                    handleToggleResource={handleToggleResource}
+                                    handleDeleteResource={handleDeleteResource}
                                 />
                             );
                         })}

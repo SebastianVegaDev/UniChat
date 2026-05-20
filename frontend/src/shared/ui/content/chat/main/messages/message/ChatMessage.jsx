@@ -3,11 +3,12 @@ import { CheckCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ChatMessageOptions from "./options/ChatMessageOptions.jsx";
 
-function ChatMessage({ message, currentUser }) {
+function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage }) {
     const [showOptions, setShowOptions] = useState(false);
     const messageRef = useRef(null);
     const pressTimerRef = useRef(null);
     const isMyMessage = message.type === "message-me";
+    const isDeleted = message.isDeleted;
     const messageClassName = isMyMessage
         ? "chat-content-main-message-me"
         : "chat-content-main-message-other";
@@ -41,32 +42,38 @@ function ChatMessage({ message, currentUser }) {
 
     const content = (
         <div
-            className="chat-content-main-message"
+            className={`chat-content-main-message ${isDeleted ? "deleted-message" : ""}`}
             ref={messageRef}
-            onPointerDown={startLongPress}
-            onPointerUp={cancelLongPress}
-            onPointerLeave={cancelLongPress}
-            onPointerCancel={cancelLongPress}
+            onPointerDown={isDeleted ? undefined : startLongPress}
+            onPointerUp={isDeleted ? undefined : cancelLongPress}
+            onPointerLeave={isDeleted ? undefined : cancelLongPress}
+            onPointerCancel={isDeleted ? undefined : cancelLongPress}
         >
-            <div className="chat-content-main-message-header">
-                <h4>
-                    {message.author}
-                    {message.roleLabel && (
-                        <span className={`chat-content-main-message-role ${message.roleClass}`}>
-                            {message.roleLabel}
-                        </span>
-                    )}
-                </h4>
-                <span>{message.timeLabel}</span>
-            </div>
+            {!isDeleted && (
+                <div className="chat-content-main-message-header">
+                    <h4>
+                        {message.author}
+                        {message.roleLabel && (
+                            <span className={`chat-content-main-message-role ${message.roleClass}`}>
+                                {message.roleLabel}
+                            </span>
+                        )}
+                    </h4>
+                    <span>{message.timeLabel}</span>
+                </div>
+            )}
             <p>{message.body}</p>
-            <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
-            {showOptions && (
+            {!isDeleted && <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />}
+            {showOptions && !isDeleted && (
                 <ChatMessageOptions
                     body={message.body}
+                    messageId={message.id}
+                    channelId={activeChannel.channelId}
                     isMyMessage={isMyMessage}
                     closeOptions={() => setShowOptions(false)}
                     currentUser={currentUser}
+                    handleSetFixedMessage={handleSetFixedMessage}
+                    handleDeleteMessage={handleDeleteMessage}
                 />
             )}
         </div>
@@ -81,9 +88,10 @@ function ChatMessage({ message, currentUser }) {
     );
 
     return (
-        <div className={messageClassName}>
-            {isMyMessage ? content : avatar}
-            {isMyMessage ? avatar : content}
+        <div className={`${messageClassName} ${isDeleted ? "message-deleted" : ""}`} data-message-id={message.id}>
+            {isMyMessage || isDeleted ? content : avatar}
+            {isMyMessage || isDeleted ? null : content}
+            {isMyMessage && !isDeleted ? avatar : null}
         </div>
     );
 }

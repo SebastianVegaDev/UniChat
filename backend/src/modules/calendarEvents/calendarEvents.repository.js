@@ -33,6 +33,7 @@ export async function findAllCalendarEvents(userId) {
             SELECT course_id
             FROM user_courses
         )
+            AND calendar_events.is_deleted = FALSE
         ORDER BY calendar_events.starts_at;
     `, [userId]);
 

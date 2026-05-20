@@ -3,7 +3,7 @@ import { FileText } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import CourseResourceOptions from "./options/CourseResourceOptions.jsx";
 
-function CourseResource({ currentUser, isUnavailable, resource, handleResourceClick }) {
+function CourseResource({ currentUser, isUnavailable, resource, handleResourceClick, handleToggleResource, handleDeleteResource }) {
     const [showOptions, setShowOptions] = useState(false);
     const resourceRef = useRef(null);
     const isTeacher = currentUser?.role === "teacher";
@@ -54,7 +54,12 @@ function CourseResource({ currentUser, isUnavailable, resource, handleResourceCl
                 {resource.statusLabel}
             </p>
             {showOptions && isTeacher && (
-                <CourseResourceOptions />
+                <CourseResourceOptions
+                    resource={resource}
+                    closeOptions={() => setShowOptions(false)}
+                    handleToggleResource={handleToggleResource}
+                    handleDeleteResource={handleDeleteResource}
+                />
             )}
         </div>
     );

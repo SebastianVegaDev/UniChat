@@ -1,16 +1,9 @@
 import "./ChatMessages.css";
 import ChatMessage from "./message/ChatMessage.jsx";
 
-function ChatMessages({ pinnedMessage, timeline, messagesRef, currentUser }) {
+function ChatMessages({ timeline, messagesRef, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage }) {
     return (
         <div className="chat-content-main-messages" ref={messagesRef}>
-            {pinnedMessage && (
-                <div className="chat-content-main-message-pinned">
-                    <h4>Pinned message</h4>
-                    <p>{pinnedMessage.body}</p>
-                    <span>{pinnedMessage.author} · {pinnedMessage.timeLabel}</span>
-                </div>
-            )}
             {timeline.map((message) => {
                 switch (message.type) {
                     case "date":
@@ -26,6 +19,9 @@ function ChatMessages({ pinnedMessage, timeline, messagesRef, currentUser }) {
                             key={message.id} 
                             message={message}
                             currentUser={currentUser}
+                            activeChannel={activeChannel}
+                            handleSetFixedMessage={handleSetFixedMessage}
+                            handleDeleteMessage={handleDeleteMessage}
                         />;
                     default:
                         return null;

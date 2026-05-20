@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import CalendarCreateOptions from "./create-options/CalendarCreateOptions.jsx";
 import CalendarEventOptions from "./event-options/CalendarEventOptions.jsx";
 
-function CalendarView({currentUser, events = []}) {
+function CalendarView({currentUser, course, events = [], handleCreateEvent, handleDeleteEvent}) {
     const [showOptions, setShowOptions] = useState(null);
     const eventOptionsRef = useRef(null);
     const calendarRef = useRef(null);
@@ -46,7 +46,12 @@ function CalendarView({currentUser, events = []}) {
 
     return (
         <div className="calendar-view" ref={calendarRef}>
-            {canCreateEvent && <CalendarCreateOptions/>}
+            {canCreateEvent && (
+                <CalendarCreateOptions
+                    course={course}
+                    handleCreateEvent={handleCreateEvent}
+                />
+            )}
             <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
@@ -62,6 +67,7 @@ function CalendarView({currentUser, events = []}) {
                 <CalendarEventOptions
                     eventOptionsRef={eventOptionsRef}
                     position={showOptions}
+                    handleDeleteEvent={handleDeleteEvent}
                 />
             )}
         </div>

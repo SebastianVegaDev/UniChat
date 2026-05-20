@@ -11,3 +11,38 @@
     box-sizing: border-box;
     padding: 18px;
 }
+
+.chat-content-main-pinned {
+    margin: 10px 0 0;
+    width: 78%;
+    max-width: 560px;
+    border: 1px solid rgba(243, 112, 33, 0.42);
+    border-left: 4px solid #f37021;
+    border-radius: 8px;
+    background-color: rgba(243, 112, 33, 0.14);
+    color: white;
+    padding: 9px 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.chat-content-main-pinned:hover {
+    background-color: rgba(243, 112, 33, 0.22);
+}
+
+.chat-content-main-pinned > span {
+    display: block;
+    color: #ff9b45;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.chat-content-main-pinned > p {
+    margin-top: 3px;
+    overflow: hidden;
+    color: #e5e5e5;
+    font-size: 14px;
+    font-weight: 400;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

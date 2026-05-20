@@ -1,9 +1,24 @@
-    import "./ChatMessageOptions.css";
+import "./ChatMessageOptions.css";
 import { Copy, Pin, Trash2 } from "lucide-react";
 
-function ChatMessageOptions({ body, isMyMessage, closeOptions,currentUser }) {
+function ChatMessageOptions({ body, messageId, channelId, isMyMessage, closeOptions, currentUser, handleSetFixedMessage, handleDeleteMessage }) {
     async function copyMessage() {
         await navigator.clipboard.writeText(body);
+        closeOptions();
+    }
+
+    function setFixedMessage() {
+        handleSetFixedMessage({
+            messageId,
+            channelId
+        });
+        closeOptions();
+    }
+
+    function deleteMessage() {
+        handleDeleteMessage({
+            messageId
+        });
         closeOptions();
     }
 
@@ -16,12 +31,12 @@ function ChatMessageOptions({ body, isMyMessage, closeOptions,currentUser }) {
             {isMyMessage && (
                 <>
                     { currentUser.role === "teacher" ?
-                        <button type="button" onClick={closeOptions}>
+                        <button type="button" onClick={setFixedMessage}>
                             <Pin />
                             Fijar
                         </button> : null
                     }
-                    <button type="button" onClick={closeOptions}>
+                    <button type="button" onClick={deleteMessage}>
                         <Trash2 />
                         Eliminar
                     </button>

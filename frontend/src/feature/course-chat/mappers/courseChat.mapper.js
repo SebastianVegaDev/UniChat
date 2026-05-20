@@ -162,11 +162,12 @@ function mapActiveChannel(activeChannel) {
 }
 
 function mapPinnedMessage(message, usersById) {
-    if (!message) return null;
+    if (!message || message.isDeleted) return null;
 
     const user = usersById[message.senderId];
 
     return {
+        "id": message.id,
         "body": message.body,
         "timeLabel": formatTimeLabel(message.createdAt),
         "author": getFullName(user)
@@ -176,12 +177,15 @@ function mapPinnedMessage(message, usersById) {
 function mapTimelineItem(message, usersById, currentUserId, courseMembers, course) {
     const user = usersById[message.senderId]
     const courseMember = findCourseMember(courseMembers, course, user);
+    const isDeleted = message.isDeleted ?? false;
+    const body = isDeleted ? "Este mensaje fue eliminado" : message.body;
 
     if (isSameId(message.senderId, currentUserId)) {
         return {
             "id": message.id,
             "type": "message-me",
-            "body": message.body,
+            "body": body,
+            "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": "Me",
             "initial": getInitial(user),
@@ -196,7 +200,8 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
         return {
             "id": message.id,
             "type": "message-other",
-            "body": message.body,
+            "body": body,
+            "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": getFullName(user),
             "initial": getInitial(user),
@@ -287,7 +292,7 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     const activeMessages = chatMessages.filter((message) => message.channelId === activeChannel.id);
 
-    const pinnedMessage = activeMessages.find((message) => message.isPinned);
+    const pinnedMessage = activeMessages.find((message) => message.isPinned && !message.isDeleted);
 
     return {
         "currentUser": mapCurrentUser(session, usersById),

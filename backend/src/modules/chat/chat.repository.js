@@ -58,6 +58,7 @@ export async function findAllChatMessages(userId) {
             chat_messages.sender_id AS "senderId",
             chat_messages.body,
             chat_messages.is_pinned AS "isPinned",
+            chat_messages.is_deleted AS "isDeleted",
             chat_messages.created_at AS "createdAt",
             COALESCE(
                 array_agg(chat_message_reads.user_id)
@@ -92,6 +93,7 @@ export async function createChatMessage({channelId, userId, body}) {
             sender_id AS "senderId",
             body,
             is_pinned AS "isPinned",
+            is_deleted AS "isDeleted",
             created_at AS "createdAt",
             ARRAY[]::text[] AS "readBy";
     `, [channelId, userId, body])

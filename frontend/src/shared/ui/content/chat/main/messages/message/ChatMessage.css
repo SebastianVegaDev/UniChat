@@ -105,3 +105,18 @@ span.chat-content-main-message-avatar {
     width: fit-content;
     max-width: 360px;
 }
+
+.chat-content-main-message.deleted-message {
+    background-color: #303030;
+    border: 2px solid #3f3f3f;
+    color: #b3b3b3;
+}
+
+.chat-content-main-message.deleted-message p {
+    font-style: italic;
+}
+
+.chat-content-main-message-other.message-deleted,
+.chat-content-main-message-me.message-deleted {
+    align-items: flex-end;
+}

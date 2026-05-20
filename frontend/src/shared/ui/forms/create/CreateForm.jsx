@@ -1,9 +1,21 @@
 import "./CreateForm.css";
 import { X } from "lucide-react";
 
-function CreateForm({ closeForm }) {
+function CreateForm({ closeForm, course, handleCreateEvent }) {
     function handleSubmit(event) {
         event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+        const calendarEventData = {
+            courseId: course.id,
+            title: formData.get("title"),
+            description: formData.get("description"),
+            eventType: formData.get("eventType"),
+            startsAt: formData.get("startsAt"),
+            endsAt: formData.get("endsAt")
+        };
+
+        handleCreateEvent(calendarEventData);
         closeForm();
     }
 
@@ -24,7 +36,7 @@ function CreateForm({ closeForm }) {
                     <input className="create-form-input" name="title" placeholder="Title" />
                     <textarea className="create-form-input create-form-textarea" name="description" placeholder="Description" />
 
-                    <select className="create-form-input" name="type" defaultValue="">
+                    <select className="create-form-input" name="eventType" defaultValue="">
                         <option value="" disabled>Type</option>
                         <option value="assignment">Assignment</option>
                         <option value="exam">Exam</option>

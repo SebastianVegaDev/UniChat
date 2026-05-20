@@ -3,7 +3,7 @@ import { CalendarPlus } from "lucide-react";
 import CreateForm from "../../../../forms/create/CreateForm.jsx";
 import { useState, useEffect, useRef } from "react";
 
-function CalendarCreateOptions() {
+function CalendarCreateOptions({ course, handleCreateEvent }) {
     const [isOpen, setIsOpen] = useState(false);
     const optionsRef = useRef(null);
 
@@ -35,7 +35,11 @@ function CalendarCreateOptions() {
                 Create event
             </button>
             <div className="calendar-create-form" hidden={!isOpen}>
-                <CreateForm closeForm={() => setIsOpen(false)} />
+                <CreateForm
+                    closeForm={() => setIsOpen(false)}
+                    course={course}
+                    handleCreateEvent={handleCreateEvent}
+                />
             </div>
         </div>
     );
