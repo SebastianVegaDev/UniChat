@@ -27,12 +27,12 @@ function HomeQuickAccess({courses}) {
                 ))}
             </div>
             {canMoveBack && (
-                <button className="home-quick-access-back" onClick={() => setStart(start - 1)}>
+                <button className="home-quick-access-back" type="button" onClick={() => setStart(start - 1)}>
                     <ChevronLeft />
                 </button>
             )}
             {canMoveNext && (
-                <button className="home-quick-access-next" onClick={() => setStart(start + 1)}>
+                <button className="home-quick-access-next" type="button" onClick={() => setStart(start + 1)}>
                     <ChevronRight />
                 </button>
             )}

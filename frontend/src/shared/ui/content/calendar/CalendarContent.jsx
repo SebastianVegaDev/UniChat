@@ -1,11 +1,12 @@
 import "./CalendarContent.css";
-import CalendarCalendar from "./calendar/CalendarCalendar.jsx";
+import CalendarView from "./calendar/CalendarView.jsx";
 import CalendarPending from "./pending/CalendarPending.jsx";
 
-function CalendarContent({events, pendingItems}) {
+function CalendarContent({currentUser, events, pendingItems}) {
     return (
         <div className="calendar-content">
-            <CalendarCalendar 
+            <CalendarView 
+                currentUser={currentUser}
                 events={events}
             />
             <CalendarPending 

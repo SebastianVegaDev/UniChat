@@ -14,7 +14,7 @@ function CourseChatPage() {
     const { courseSlug } = useParams();
 
     const courseChatData = mapCourseChatData(data, courseSlug, activeChannelId);
-    const { course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
+    const { currentUser, course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
     const selectedChannelId = channels.some((channel) => channel.id === activeChannelId) ? activeChannelId : activeChannel.channelId;
 
     if (isLoading) return <LoadingLayout />
@@ -57,6 +57,7 @@ function CourseChatPage() {
                 activeChannelId={selectedChannelId}
                 setActiveChannelId={setActiveChannelId}
                 handleSubmit={handleSubmit}
+                currentUser={currentUser}
             />
         </SectionLayout>
     );

@@ -102,6 +102,15 @@ function formatUserName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function mapCurrentUser(session, usersById) {
+    const user = usersById[session.currentUserId];
+
+    return {
+        id: user?.id,
+        role: user?.role ?? "student"
+    };
+}
+
 function mapCourse(course, teacher, classroom, stats) {
     return {
         "shortName": course.shortName ?? "",
@@ -176,13 +185,13 @@ function mapCourseInformation(course, teacher, delegates, stats) {
 }
 
 export function mapCourseData(data, courseSlug) {
+    const session = data?.session ?? {};
     const courses = data?.courses ?? [];
     const users = data?.users ?? [];
     const classrooms = data?.classrooms ?? [];
     const courseStats = data?.courseStats ?? [];
     const courseMembers = data?.courseMembers ?? [];
     const allResources = data?.resources ?? [];
-
     const course = findCourse(courses, courseSlug);
 
     if (!course) {
@@ -196,7 +205,7 @@ export function mapCourseData(data, courseSlug) {
             "information": mapCourseInformation(fallbackCourse, null, [], null)
         };
     }
-
+    
     const teacher = findTeacher(users, course);
     const classroom = findClassroom(classrooms, course);
     const stats = findCourseStats(courseStats, course);
@@ -207,6 +216,7 @@ export function mapCourseData(data, courseSlug) {
     const resources = allResources.filter((resource) => resource.courseId === course.id);
 
     return {
+        "currentUser": mapCurrentUser(session, usersById),
         "course": mapCourse(course, teacher, classroom, stats),
         "actions": mapCourseActions(course, stats),
         "resourcesSummary": mapResourcesSummary(stats),

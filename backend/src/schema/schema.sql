@@ -56,7 +56,7 @@ CREATE TABLE calendar_events (
     description TEXT NOT NULL DEFAULT '',
     event_type TEXT NOT NULL CHECK (event_type IN ('assignment', 'exam', 'reminder', 'announcement', 'other')),
     starts_at TIMESTAMPTZ NOT NULL,
-    ends_at TIMESTAMPTZ,
+    ends_at TIMESTAMPTZ,cd
     is_cancelled BOOLEAN DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (ends_at IS NULL OR ends_at > starts_at)

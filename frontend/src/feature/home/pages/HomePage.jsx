@@ -13,7 +13,8 @@ function HomePage() {
     if (error) return <p>{error}</p>
 
     const homeData = mapHomeData(data);
-    const { student, summary, todayClasses, nextClass, news, courses } = homeData;
+    const { currentUser, summary, todayClasses, nextClass, news, courses } = homeData;
+    const isTeacher = currentUser.role === "teacher";
 
     const date = now.toLocaleDateString("en-US", {
         weekday: "long",
@@ -24,7 +25,7 @@ function HomePage() {
     return (
         <SectionLayout>
             <SectionHero
-                eyebrow={`Welcome ${student.name}!`}
+                eyebrow={`Welcome ${isTeacher ? "Proff": ""} ${currentUser.name}!`}
                 title="My Day"
                 description={`${date} · ${summary.pendingClasses} pending classes · ${summary.classesInProgress} class in progress`}
             />

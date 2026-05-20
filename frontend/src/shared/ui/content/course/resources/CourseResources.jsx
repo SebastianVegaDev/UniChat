@@ -1,8 +1,9 @@
 import "./CourseResources.css";
-import { FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
+import CourseResource from "./resource/CourseResource.jsx";
 
-function CourseResources({ resourcesSummary, resourcesByWeek }) {
+function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resourcesRef }) {
     const navigate = useNavigate();
 
     function handleResourceClick(resource) {
@@ -14,10 +15,13 @@ function CourseResources({ resourcesSummary, resourcesByWeek }) {
     }
 
     return (
-        <div className="course-resources">
+        <div className="course-resources" ref={resourcesRef}>
             <div className="course-resources-header">
                 <p>RESOURCES BY WEEK</p>
-                <span>{resourcesSummary.foldersCount} folders</span>
+                <div>
+                    <span className="course-resources-header-folders">{resourcesSummary.foldersCount} folders</span>
+                    {currentUser.role === "teacher" && <CourseResourcesOptions />}
+                </div>
             </div>
 
             {resourcesByWeek.map((resourcesItem) => (
@@ -29,29 +33,13 @@ function CourseResources({ resourcesSummary, resourcesByWeek }) {
                             const isUnavailable = resource.statusLabel === "unavailable";
 
                             return (
-                                <div
-                                    className={`course-resource-file ${isUnavailable ? "unavailable-file" : "available-file"}`}
+                                <CourseResource
                                     key={resource.id}
-                                    onClick={() => handleResourceClick(resource)}
-                                >
-                                    <div className="course-resource-file-info">
-                                        <span>
-                                            <FileText />
-                                        </span>
-
-                                        <div>
-                                            <h4>{resource.title}</h4>
-                                            <p>
-                                                {resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}
-                                            </p>
-                                            <span>Uploaded by {resource.uploadedBy}</span>
-                                        </div>
-                                    </div>
-
-                                    <p className={`course-resource-file-state ${isUnavailable ? "unavailable" : "available"}`}>
-                                        {resource.statusLabel}
-                                    </p>
-                                </div>
+                                    currentUser={currentUser}
+                                    isUnavailable={isUnavailable}
+                                    resource={resource}
+                                    handleResourceClick={handleResourceClick}
+                                />
                             );
                         })}
                     </div>

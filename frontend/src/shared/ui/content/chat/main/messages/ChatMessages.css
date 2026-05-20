@@ -1,0 +1,73 @@
+.chat-content-main-messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chat-content-main-messages::before {
+    content: "";
+    margin-top: auto;
+}
+
+.chat-content-main-message-pinned {
+    background-color: rgba(243, 112, 33, 0.16);
+    border: 2px solid rgba(243, 112, 33, 0.42);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    max-width: 630px;
+    min-width: 560px;
+}
+
+.chat-content-main-message-pinned > h4 {
+    color: #f37021;
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.chat-content-main-message-pinned > p {
+    font-size: 17px;
+    font-weight: 360;
+}
+
+.chat-content-main-message-pinned > span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #b3b3b3;
+}
+
+.chat-content-main-message-date {
+    display: flex;
+    color: #b3b3b3;
+    font-size: 15px;
+    font-weight: bold;
+    align-items: center;
+    gap: 12px;
+}
+
+.chat-content-main-message-date::before,
+.chat-content-main-message-date::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background-color: #3f3f3f;
+}
+
+.chat-content-main-message-resource {
+    display: flex;
+    background-color: #373737;
+    color: #b3b3b3;
+    border-radius: 13px;
+    padding: 8px 14px;
+    width: fit-content;
+    font-size: 13px;
+    font-weight: bold;
+    align-self: center;
+}

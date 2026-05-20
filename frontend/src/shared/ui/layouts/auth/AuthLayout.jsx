@@ -1,17 +1,17 @@
-import "./AuthLayout.css"
-import visualPanel from "../../../../assets/visual-panel.png"
+import "./AuthLayout.css";
+import visualPanel from "../../../../assets/visual-panel.png";
 
-function AuthLayout({children}) {
+function AuthLayout({ children }) {
     return (
         <div className="auth-layout">
             <div className="auth-layout-visual-panel">
-                <img src={visualPanel} alt="visual panel"></img>
+                <img src={visualPanel} alt="visual panel" />
             </div>
             <div className="auth-layout-form">
-                { children }
+                {children}
             </div>
         </div>
-    )
+    );
 }
 
 export default AuthLayout;

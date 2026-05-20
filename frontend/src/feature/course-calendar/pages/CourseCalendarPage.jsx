@@ -15,7 +15,7 @@ function CourseCalendarPage() {
     if (error) return <p>{error}</p>
 
     const courseCalendarData = mapCourseCalendarData(data, courseSlug);
-    const { events, pendingItems } = courseCalendarData;
+    const { currentUser, events, pendingItems } = courseCalendarData;
     
     return (
         <SectionLayout>
@@ -25,6 +25,7 @@ function CourseCalendarPage() {
                 description={"Upcoming classes, assignments, and academic events."}
             />
             <CalendarContent 
+                currentUser={currentUser}
                 events={events}
                 pendingItems={pendingItems}
             />

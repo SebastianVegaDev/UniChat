@@ -1,6 +1,6 @@
-import "./LoginForm.css"
+import "./LoginForm.css";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function LoginForm({ handleSubmit }) {
     const navigate = useNavigate();
@@ -39,9 +39,14 @@ function LoginForm({ handleSubmit }) {
                     Continue with Google
                 </button>
             </div>
-            <p className="login-form-footer">Don't have an account? <span className="login-form-footer-link" onClick={() => navigate("/register")}>Create one</span></p>
+            <p className="login-form-footer">
+                Don't have an account?{" "}
+                <span className="login-form-footer-link" onClick={() => navigate("/register")}>
+                    Create one
+                </span>
+            </p>
         </form>
-    )
+    );
 }
 
 export default LoginForm;

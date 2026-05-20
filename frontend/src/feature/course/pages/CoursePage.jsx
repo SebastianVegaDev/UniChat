@@ -14,7 +14,7 @@ function CoursePage() {
     if (error) return <p>{error}</p>
 
     const courseData = mapCourseData(data, courseSlug);
-    const { course, actions, resourcesSummary, resourcesByWeek, information } = courseData;
+    const { currentUser, course, actions, resourcesSummary, resourcesByWeek, information } = courseData;
 
     return (
         <CourseLayout>
@@ -22,6 +22,7 @@ function CoursePage() {
                 course={course}
             />    
             <CourseContent 
+                currentUser={currentUser}
                 actions={actions}
                 resourcesSummary={resourcesSummary}
                 resourcesByWeek={resourcesByWeek}

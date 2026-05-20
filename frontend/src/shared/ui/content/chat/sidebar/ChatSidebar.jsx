@@ -2,8 +2,8 @@ import "./ChatSidebar.css";
 import { ChevronLeft, Search, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-function ChatSidebar({course, channels, activeChannelId, setActiveChannelId}) {
-    const navigate = useNavigate()
+function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) {
+    const navigate = useNavigate();
 
     return (
         <div className="chat-content-sidebar">
@@ -14,18 +14,23 @@ function ChatSidebar({course, channels, activeChannelId, setActiveChannelId}) {
                     <span>{course.classroom}</span>
                 </div>
             </div>
-            <button className="chat-content-sidebar-button" onClick={() => navigate(course.route)}> <ChevronLeft />Back to course</button>
+            <button className="chat-content-sidebar-button" type="button" onClick={() => navigate(course.route)}>
+                <ChevronLeft />
+                Back to course
+            </button>
             <div className="chat-content-sidebar-search-container">
                 <Search className="chat-content-sidebar-search-icon" />
-                <input className="chat-content-sidebar-search" placeholder="Search chat"/>
+                <input className="chat-content-sidebar-search" placeholder="Search chat" />
             </div>
-            { channels.map((channel) => (
+            {channels.map((channel) => (
                 <div
                     className={`chat-content-sidebar-chat ${channel.id === activeChannelId ? "selected" : ""}`}
                     key={channel.id}
                     onClick={() => setActiveChannelId(channel.id)}
                 >
-                    <span><MessageCircle /></span>
+                    <span>
+                        <MessageCircle />
+                    </span>
                     <div className="chat-content-sidebar-chat-info">
                         <p>{channel.title}</p>
                         <span>{channel.description}</span>

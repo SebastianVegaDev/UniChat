@@ -8,8 +8,8 @@ import { mapNewsData } from "../mappers/news.mapper.js";
 function NewsPage() {
     const { data, isLoading, error } = useBootstrapData();
 
-    if (isLoading) return <LoadingLayout />
-    if (error) return <p>{error}</p>
+    if (isLoading) return <LoadingLayout />;
+    if (error) return <p>{error}</p>;
 
     const newsData = mapNewsData(data);
     const { hero, news } = newsData;
