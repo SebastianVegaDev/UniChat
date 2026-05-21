@@ -4,11 +4,17 @@ import {
     toggleTeacherResourceAvailability,
     updateTeacherResource
 } from "./teacherResources.repository.js"
-import { BadRequestError, NotFoundError } from "../../../errors/index.js";
+import { NotFoundError } from "../../../errors/index.js";
+import { findTeacherCourseAccess, findTeacherResourceAccess } from "../../access/access.repository.js";
 
-export async function deleteTeacherResourceService(resourceId) {
-    if (!resourceId) {
-        throw new BadRequestError("Resource id is required");
+export async function deleteTeacherResourceService({teacherId, resourceId}) {
+    const access = await findTeacherResourceAccess({
+        teacherId,
+        resourceId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Resource not found");
     }
 
     const resource = await softDeleteTeacherResource({resourceId});
@@ -21,33 +27,18 @@ export async function deleteTeacherResourceService(resourceId) {
 }
 
 export async function editTeacherResourceService(data) {
-    const {
-        resourceId,
-        weekNumber,
-        title,
-        kind,
-        sizeBytes,
-        fileUrl,
-        status
-    } = data
+    const { resourceId, teacherId } = data;
 
-    if (!resourceId) {
-        throw new BadRequestError("Resource id is required");
-    }
-
-    if (!weekNumber || !title || !kind || !fileUrl || !status) {
-        throw new BadRequestError("Resource data is required");
-    }
-
-    const resource = await updateTeacherResource({
-        resourceId,
-        weekNumber,
-        title,
-        kind,
-        sizeBytes,
-        fileUrl,
-        status
+    const access = await findTeacherResourceAccess({
+        teacherId,
+        resourceId
     });
+
+    if (!access) {
+        throw new NotFoundError("Resource not found");
+    }
+
+    const resource = await updateTeacherResource(data);
 
     if (!resource) {
         throw new NotFoundError("Resource not found");
@@ -56,13 +47,14 @@ export async function editTeacherResourceService(data) {
     return resource;
 }
 
-export async function toggleTeacherResourceService({status, resourceId}) {
-    if (!resourceId) {
-        throw new BadRequestError("Resource id is required");
-    }
+export async function toggleTeacherResourceService({status, resourceId, teacherId}) {
+    const access = await findTeacherResourceAccess({
+        teacherId,
+        resourceId
+    });
 
-    if (!status) {
-        throw new BadRequestError("Resource status is required");
+    if (!access) {
+        throw new NotFoundError("Resource not found");
     }
 
     const resource = await toggleTeacherResourceAvailability({status, resourceId});
@@ -77,27 +69,17 @@ export async function toggleTeacherResourceService({status, resourceId}) {
 export async function uploadTeacherResourceService(data) {
     const {
         courseId,
-        weekNumber, 
-        title, 
-        kind, 
-        sizeBytes, 
-        uploadedById,
-        fileUrl,
-        status
-    } = data
+        uploadedById
+    } = data;
 
-    if (!courseId || !weekNumber || !title || !kind || !fileUrl || !status) {
-        throw new BadRequestError("Resource data is required");
+    const access = await findTeacherCourseAccess({
+        teacherId: uploadedById,
+        courseId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Course not found");
     }
 
-    return await insertTeacherResource({
-        courseId,
-        weekNumber, 
-        title, 
-        kind, 
-        sizeBytes, 
-        uploadedById,
-        fileUrl,
-        status
-    });
+    return await insertTeacherResource(data);
 }

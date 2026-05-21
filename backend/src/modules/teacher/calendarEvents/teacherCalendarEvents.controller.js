@@ -13,9 +13,10 @@ import {
 
 export async function cancelTeacherCalendarEvent(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const { calendarEventId } = validateCancelTeacherCalendarEvent(req.body);
 
-        const cancelCalendarEvent = await cancelTeacherCalendarEventService(calendarEventId);
+        const cancelCalendarEvent = await cancelTeacherCalendarEventService({calendarEventId, teacherId});
 
         res.json(cancelCalendarEvent)
     } catch (error) {
@@ -41,9 +42,10 @@ export async function createTeacherCalendarEvent(req, res, next) {
 
 export async function deleteTeacherCalendarEvent(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const { calendarEventId } = validateDeleteTeacherCalendarEvent(req.body);
 
-        const deleteCalendarEvent = await deleteTeacherCalendarEventService(calendarEventId);
+        const deleteCalendarEvent = await deleteTeacherCalendarEventService({calendarEventId, teacherId});
 
         res.json(deleteCalendarEvent)
     } catch (error) {
@@ -53,9 +55,13 @@ export async function deleteTeacherCalendarEvent(req, res, next) {
 
 export async function editTeacherCalendarEvent(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const data = validateEditTeacherCalendarEvent(req.body);
 
-        const editCalendarEvent = await editTeacherCalendarEventService(data);
+        const editCalendarEvent = await editTeacherCalendarEventService({
+            ...data,
+            teacherId
+        });
 
         res.json(editCalendarEvent)
     } catch (error) {

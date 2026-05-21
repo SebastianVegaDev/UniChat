@@ -13,9 +13,10 @@ import {
 
 export async function deleteTeacherResource(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const { resourceId } = validateDeleteTeacherResource(req.body);
 
-        const deleteResource = await deleteTeacherResourceService(resourceId);
+        const deleteResource = await deleteTeacherResourceService({resourceId, teacherId});
 
         res.json(deleteResource)
     } catch (error) {
@@ -25,9 +26,13 @@ export async function deleteTeacherResource(req, res, next) {
 
 export async function editTeacherResource(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const data = validateEditTeacherResource(req.body);
 
-        const editResource = await editTeacherResourceService(data);
+        const editResource = await editTeacherResourceService({
+            ...data,
+            teacherId
+        });
 
         res.json(editResource)
     } catch (error) {
@@ -37,9 +42,13 @@ export async function editTeacherResource(req, res, next) {
 
 export async function toggleTeacherResource(req, res, next) {
     try {
+        const teacherId = req.user.id;
         const data = validateToggleTeacherResource(req.body);
 
-        const toggleResource = await toggleTeacherResourceService(data);
+        const toggleResource = await toggleTeacherResourceService({
+            ...data,
+            teacherId
+        });
 
         res.json(toggleResource)
     } catch (error) {

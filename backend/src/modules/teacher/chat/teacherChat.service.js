@@ -2,20 +2,23 @@ import {
     updateTeacherChatChannelLock,
     updateTeacherFixedMessage
 } from "./teacherChat.repository.js";
-import { BadRequestError, NotFoundError } from "../../../errors/index.js";
+import { NotFoundError } from "../../../errors/index.js";
+import { findTeacherChannelAccess } from "../../access/access.repository.js";
 
 export async function toggleTeacherChatChannelLockService(data) {
     const {
         channelId,
-        isLocked
+        isLocked,
+        teacherId
     } = data
 
-    if (!channelId) {
-        throw new BadRequestError("Channel id is required");
-    }
+    const access = await findTeacherChannelAccess({
+        teacherId,
+        channelId
+    });
 
-    if (typeof isLocked !== "boolean") {
-        throw new BadRequestError("Channel lock value is required");
+    if (!access) {
+        throw new NotFoundError("Chat channel not found");
     }
 
     const channel = await updateTeacherChatChannelLock({
@@ -33,11 +36,17 @@ export async function toggleTeacherChatChannelLockService(data) {
 export async function setTeacherFixedMessageService(data) {
     const {
         messageId,
-        channelId
+        channelId,
+        teacherId
     } = data
 
-    if (!messageId || !channelId) {
-        throw new BadRequestError("Message data is required");
+    const access = await findTeacherChannelAccess({
+        teacherId,
+        channelId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Chat channel not found");
     }
 
     const message = await updateTeacherFixedMessage({

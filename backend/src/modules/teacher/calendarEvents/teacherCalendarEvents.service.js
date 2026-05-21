@@ -4,9 +4,19 @@ import {
     softDeleteTeacherCalendarEvent,
     updateTeacherCalendarEvent
 } from "./teacherCalendarEvents.repository.js";
-import { BadRequestError, NotFoundError } from "../../../errors/index.js";
+import { NotFoundError } from "../../../errors/index.js";
+import { findTeacherCourseAccess, findTeacherCalendarEventAccess } from "../../access/access.repository.js";
 
-export async function cancelTeacherCalendarEventService(calendarEventId) {
+export async function cancelTeacherCalendarEventService({calendarEventId, teacherId}) {
+    const access = await findTeacherCalendarEventAccess({
+        teacherId,
+        calendarEventId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Calendar event not found");
+    }
+
     return await cancelTeacherCalendarEvent({calendarEventId});
 }
 
@@ -21,37 +31,45 @@ export async function createTeacherCalendarEventService(data) {
         endsAt
     } = data
 
-    return await insertTeacherCalendarEvent({
-        courseId,
-        createdById,
-        title,
-        description,
-        eventType,
-        startsAt,
-        endsAt
+    const access = await findTeacherCourseAccess({
+        teacherId: createdById,
+        courseId
     });
+
+    if (!access) {
+        throw new NotFoundError("Course not found");
+    }
+
+    return await insertTeacherCalendarEvent(data);
 }
 
-export async function deleteTeacherCalendarEventService(calendarEventId) {
+export async function deleteTeacherCalendarEventService({calendarEventId, teacherId}) {
+    const access = await findTeacherCalendarEventAccess({
+        teacherId,
+        calendarEventId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Calendar event not found");
+    }
+
     return await softDeleteTeacherCalendarEvent({calendarEventId});
 }
 
 export async function editTeacherCalendarEventService(data) {
     const {
         calendarEventId,
-        title,
-        description,
-        eventType,
-        startsAt,
-        endsAt
+        teacherId
     } = data
 
-    return await updateTeacherCalendarEvent({
-        calendarEventId,
-        title,
-        description,
-        eventType,
-        startsAt,
-        endsAt
+    const access = await findTeacherCalendarEventAccess({
+        teacherId,
+        calendarEventId
     });
+
+    if (!access) {
+        throw new NotFoundError("Calendar event not found");
+    }
+
+    return await updateTeacherCalendarEvent(data);
 }

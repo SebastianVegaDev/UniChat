@@ -1,5 +1,6 @@
 import { createChatMessage, findAllChatChannels, findAllChatMessages, softDeleteChatMessage } from "./chat.repository.js";
-import { BadRequestError, NotFoundError } from "../../errors/index.js";
+import { ForbiddenError, NotFoundError } from "../../errors/index.js";
+import { findUserChannelAccess, findChatMessageAccess } from "../access/access.repository.js";
 
 export async function getChatChannelsService(userId) {
     return await findAllChatChannels(userId);
@@ -12,12 +13,17 @@ export async function getChatMessagesService(userId) {
 export async function sendChatMessageService(data) {
     const { channelId, userId, body } = data;
 
-    if (!channelId) {
-        throw new BadRequestError("Channel id is required");
+    const access = await findUserChannelAccess({
+        userId,
+        channelId
+    })
+
+    if (!access) {
+        throw new NotFoundError("Chat channel not found");
     }
 
-    if (!body?.trim()) {
-        throw new BadRequestError("Message body is required");
+    if (access.isLocked && !access.isTeacher) {
+        throw new ForbiddenError("Chat channel is locked");
     }
 
     const message = await createChatMessage({
@@ -26,16 +32,21 @@ export async function sendChatMessageService(data) {
         body
     })
 
-    if (!message) {
-        throw new NotFoundError("Chat channel not found");
-    }
-
     return message;
 }
 
-export async function deleteChatMessageService(messageId) {
-    if (!messageId) {
-        throw new BadRequestError("Message id is required");
+export async function deleteChatMessageService({messageId, userId}) {
+    const access = await findChatMessageAccess({
+        userId,
+        messageId
+    });
+
+    if (!access) {
+        throw new NotFoundError("Chat message not found");
+    }
+
+    if (!access.isOwner && !access.isTeacher) {
+        throw new ForbiddenError("Forbidden");
     }
 
     const message = await softDeleteChatMessage({messageId});

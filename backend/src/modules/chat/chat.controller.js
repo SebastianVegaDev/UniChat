@@ -45,7 +45,8 @@ export async function deleteChatMessage(req, res, next) {
     try {
         const { messageId } = validateDeleteChatMessage(req.body);
 
-        const deletedMessage = await deleteChatMessageService(messageId);
+        const userId = req.user.id;
+        const deletedMessage = await deleteChatMessageService({messageId, userId});
 
         res.json(deletedMessage);
     } catch (error) {
