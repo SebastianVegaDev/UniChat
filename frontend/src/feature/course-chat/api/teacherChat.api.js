@@ -9,5 +9,5 @@ export async function fetchSetTeacherFixedMessage(messageData) {
 }
 
 export async function fetchDeleteTeacherChatMessage(messageData) {
-    return apiDelete("/teacher/chat/message/delete", messageData);
+    return apiDelete("/chat/message/delete", messageData);
 }

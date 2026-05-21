@@ -4,10 +4,16 @@ import {
     deleteTeacherCalendarEventService,
     editTeacherCalendarEventService
 } from "./teacherCalendarEvents.service.js"
+import {
+    validateCancelTeacherCalendarEvent,
+    validateCreateTeacherCalendarEvent,
+    validateDeleteTeacherCalendarEvent,
+    validateEditTeacherCalendarEvent
+} from "../../../validators/teacherCalendarEvents.validator.js";
 
 export async function cancelTeacherCalendarEvent(req, res, next) {
     try {
-        const calendarEventId = req.body.calendarEventId;
+        const { calendarEventId } = validateCancelTeacherCalendarEvent(req.body);
 
         const cancelCalendarEvent = await cancelTeacherCalendarEventService(calendarEventId);
 
@@ -20,21 +26,11 @@ export async function cancelTeacherCalendarEvent(req, res, next) {
 export async function createTeacherCalendarEvent(req, res, next) {
     try {
         const createdById = req.user.id;
-        const courseId = req.body.courseId;
-        const title = req.body.title;
-        const description = req.body.description;
-        const eventType = req.body.eventType;
-        const startsAt = req.body.startsAt;
-        const endsAt = req.body.endsAt;
+        const data = validateCreateTeacherCalendarEvent(req.body);
 
         const createCalendarEvent = await createTeacherCalendarEventService({
-            courseId,
-            createdById,
-            title,
-            description,
-            eventType,
-            startsAt,
-            endsAt
+            ...data,
+            createdById
         });
 
         res.json(createCalendarEvent)
@@ -45,7 +41,7 @@ export async function createTeacherCalendarEvent(req, res, next) {
 
 export async function deleteTeacherCalendarEvent(req, res, next) {
     try {
-        const calendarEventId = req.body.calendarEventId
+        const { calendarEventId } = validateDeleteTeacherCalendarEvent(req.body);
 
         const deleteCalendarEvent = await deleteTeacherCalendarEventService(calendarEventId);
 
@@ -57,21 +53,9 @@ export async function deleteTeacherCalendarEvent(req, res, next) {
 
 export async function editTeacherCalendarEvent(req, res, next) {
     try {
-        const calendarEventId = req.body.calendarEventId
-        const title = req.body.title
-        const description = req.body.description
-        const eventType = req.body.eventType
-        const startsAt = req.body.startsAt
-        const endsAt = req.body.endsAt
+        const data = validateEditTeacherCalendarEvent(req.body);
 
-        const editCalendarEvent = await editTeacherCalendarEventService({
-            calendarEventId,
-            title,
-            description,
-            eventType,
-            startsAt,
-            endsAt
-        });
+        const editCalendarEvent = await editTeacherCalendarEventService(data);
 
         res.json(editCalendarEvent)
     } catch (error) {

@@ -1,5 +1,4 @@
 import { 
-    softDeleteTeacherChatMessage,
     updateTeacherChatChannelLock,
     updateTeacherFixedMessage
 } from "./teacherChat.repository.js";
@@ -45,20 +44,6 @@ export async function setTeacherFixedMessageService(data) {
         messageId,
         channelId
     });
-
-    if (!message) {
-        throw new NotFoundError("Chat message not found");
-    }
-
-    return message;
-}
-
-export async function deleteTeacherChatMessageService(messageId) {
-    if (!messageId) {
-        throw new BadRequestError("Message id is required");
-    }
-
-    const message = await softDeleteTeacherChatMessage({messageId});
 
     if (!message) {
         throw new NotFoundError("Chat message not found");

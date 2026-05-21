@@ -45,21 +45,3 @@ export async function updateTeacherFixedMessage({messageId, channelId}) {
         client.release();
     }
 }
-
-export async function softDeleteTeacherChatMessage({messageId}) {
-    const {rows} = await pool.query(`
-        UPDATE chat_messages
-        SET body = 'Este mensaje fue eliminado',
-            is_deleted = TRUE,
-            is_pinned = FALSE
-        WHERE id = $1
-            AND is_deleted = FALSE
-        RETURNING
-            id,
-            body,
-            is_deleted AS "isDeleted",
-            is_pinned AS "isPinned";
-    `, [messageId])
-
-    return rows[0];
-}

@@ -1,12 +1,11 @@
 import { loginService, registerService } from "./auth.service.js"
-import { BadRequestError } from "../../errors/index.js";
+import { validateLogin, validateRegister } from "../../validators/auth.validator.js";
 
 export async function login(req, res, next) {
     try {
-        const code = req.body.code;
-        const password = req.body.password;
+        const data = validateLogin(req.body);
 
-        const session = await loginService({ code, password });
+        const session = await loginService(data);
 
         res.json(session)
 
@@ -17,22 +16,9 @@ export async function login(req, res, next) {
 }
 export async function register(req, res, next) {
     try {
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const email = req.body.email;
-        const password = req.body.password;
-        const repeatPassword = req.body.repeatPassword;
+        const data = validateRegister(req.body);
 
-        if (password !== repeatPassword) {
-            throw new BadRequestError("Passwords do not match");
-        }
-
-        const user = await registerService({
-            firstName,
-            lastName,
-            email,
-            password
-        });
+        const user = await registerService(data);
 
         res.json(user)
     } catch (error) {

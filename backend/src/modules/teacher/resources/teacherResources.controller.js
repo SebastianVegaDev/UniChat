@@ -4,10 +4,16 @@ import {
     toggleTeacherResourceService,
     uploadTeacherResourceService,
 } from "./teacherResources.service.js"
+import {
+    validateDeleteTeacherResource,
+    validateEditTeacherResource,
+    validateToggleTeacherResource,
+    validateUploadTeacherResource
+} from "../../../validators/teacherResources.validator.js";
 
 export async function deleteTeacherResource(req, res, next) {
     try {
-        const resourceId = req.body.resourceId;
+        const { resourceId } = validateDeleteTeacherResource(req.body);
 
         const deleteResource = await deleteTeacherResourceService(resourceId);
 
@@ -19,23 +25,9 @@ export async function deleteTeacherResource(req, res, next) {
 
 export async function editTeacherResource(req, res, next) {
     try {
-        const resourceId = req.body.resourceId;
-        const weekNumber = req.body.weekNumber;
-        const title = req.body.title;
-        const kind = req.body.kind;
-        const sizeBytes = req.body.sizeBytes;
-        const fileUrl = req.body.fileUrl;
-        const status = req.body.status;
+        const data = validateEditTeacherResource(req.body);
 
-        const editResource = await editTeacherResourceService({
-            resourceId,
-            weekNumber,
-            title,
-            kind,
-            sizeBytes,
-            fileUrl,
-            status
-        });
+        const editResource = await editTeacherResourceService(data);
 
         res.json(editResource)
     } catch (error) {
@@ -45,13 +37,9 @@ export async function editTeacherResource(req, res, next) {
 
 export async function toggleTeacherResource(req, res, next) {
     try {
-        const resourceId = req.body.resourceId;
-        const status = req.body.status;
+        const data = validateToggleTeacherResource(req.body);
 
-        const toggleResource = await toggleTeacherResourceService({
-            resourceId,
-            status
-        });
+        const toggleResource = await toggleTeacherResourceService(data);
 
         res.json(toggleResource)
     } catch (error) {
@@ -62,23 +50,11 @@ export async function toggleTeacherResource(req, res, next) {
 export async function uploadTeacherResource(req, res, next) {
     try {
         const uploadedById = req.user.id;
-        const courseId = req.body.courseId;
-        const weekNumber = req.body.weekNumber;
-        const title = req.body.title;
-        const kind = req.body.kind;
-        const sizeBytes = req.body.sizeBytes;
-        const fileUrl = req.body.fileUrl;
-        const status = req.body.status;
+        const data = validateUploadTeacherResource(req.body);
 
         const uploadResource = await uploadTeacherResourceService({
-            courseId,
-            weekNumber,
-            title,
-            kind,
-            sizeBytes,
+            ...data,
             uploadedById,
-            fileUrl,
-            status
         });
 
         res.json(uploadResource)

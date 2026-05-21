@@ -1,4 +1,5 @@
-import { getChatChannelsService, getChatMessagesService, sendChatMessageService } from "./chat.service.js";
+import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, sendChatMessageService } from "./chat.service.js";
+import { validateDeleteChatMessage, validateSendChatMessage } from "../../validators/chat.validator.js";
 
 export async function getChatChannels(req, res, next) {
     try {
@@ -27,16 +28,26 @@ export async function getChatMessages(req, res, next) {
 export async function sendChatMessage(req, res, next) {
     try {
         const userId = req.user.id;
-        const channelId = req.body.channelId;
-        const body = req.body.body;
+        const data = validateSendChatMessage(req.body);
 
         const message = await sendChatMessageService({
-            channelId,
-            userId,
-            body
+            ...data,
+            userId
         });
 
         res.status(201).json(message);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export async function deleteChatMessage(req, res, next) {
+    try {
+        const { messageId } = validateDeleteChatMessage(req.body);
+
+        const deletedMessage = await deleteChatMessageService(messageId);
+
+        res.json(deletedMessage);
     } catch (error) {
         next(error);
     }

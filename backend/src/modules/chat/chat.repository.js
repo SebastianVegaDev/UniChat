@@ -100,3 +100,21 @@ export async function createChatMessage({channelId, userId, body}) {
 
     return rows[0];
 }
+
+export async function softDeleteChatMessage({messageId}) {
+    const {rows} = await pool.query(`
+        UPDATE chat_messages
+        SET body = 'Este mensaje fue eliminado',
+            is_deleted = TRUE,
+            is_pinned = FALSE
+        WHERE id = $1
+            AND is_deleted = FALSE
+        RETURNING
+            id,
+            body,
+            is_deleted AS "isDeleted",
+            is_pinned AS "isPinned";
+    `, [messageId])
+
+    return rows[0];
+}

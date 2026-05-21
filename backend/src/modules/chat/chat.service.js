@@ -1,4 +1,4 @@
-import { findAllChatChannels, findAllChatMessages, createChatMessage } from "./chat.repository.js";
+import { createChatMessage, findAllChatChannels, findAllChatMessages, softDeleteChatMessage } from "./chat.repository.js";
 import { BadRequestError, NotFoundError } from "../../errors/index.js";
 
 export async function getChatChannelsService(userId) {
@@ -28,6 +28,20 @@ export async function sendChatMessageService(data) {
 
     if (!message) {
         throw new NotFoundError("Chat channel not found");
+    }
+
+    return message;
+}
+
+export async function deleteChatMessageService(messageId) {
+    if (!messageId) {
+        throw new BadRequestError("Message id is required");
+    }
+
+    const message = await softDeleteChatMessage({messageId});
+
+    if (!message) {
+        throw new NotFoundError("Chat message not found");
     }
 
     return message;

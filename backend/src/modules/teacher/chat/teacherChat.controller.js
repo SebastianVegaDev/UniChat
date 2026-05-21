@@ -1,18 +1,17 @@
 import {
-    deleteTeacherChatMessageService,
     setTeacherFixedMessageService,
     toggleTeacherChatChannelLockService
 } from "./teacherChat.service.js"
+import {
+    validateSetTeacherFixedMessage,
+    validateToggleTeacherChatChannelLock
+} from "../../../validators/teacherChat.validator.js";
 
 export async function toggleTeacherChatChannelLock(req, res, next) {
     try {
-        const channelId = req.body.channelId;
-        const isLocked = req.body.isLocked;
+        const data = validateToggleTeacherChatChannelLock(req.body);
 
-        const toggleChatChannelLock = await toggleTeacherChatChannelLockService({
-            channelId,
-            isLocked
-        });
+        const toggleChatChannelLock = await toggleTeacherChatChannelLockService(data);
 
         res.json(toggleChatChannelLock)
     } catch (error) {
@@ -20,27 +19,11 @@ export async function toggleTeacherChatChannelLock(req, res, next) {
     }
 }
 
-export async function deleteTeacherChatMessage(req, res, next) {
-    try {
-        const messageId = req.body.messageId;
-
-        const deleteChatMessage = await deleteTeacherChatMessageService(messageId);
-
-        res.json(deleteChatMessage)
-    } catch (error) {
-        next(error)
-    }
-}
-
 export async function setTeacherFixedMessage(req, res, next) {
     try {
-        const messageId = req.body.messageId;
-        const channelId = req.body.channelId;
+        const data = validateSetTeacherFixedMessage(req.body);
 
-        const setFixedMessage = await setTeacherFixedMessageService({
-            messageId,
-            channelId
-        });
+        const setFixedMessage = await setTeacherFixedMessageService(data);
 
         res.json(setFixedMessage)
     } catch (error) {
