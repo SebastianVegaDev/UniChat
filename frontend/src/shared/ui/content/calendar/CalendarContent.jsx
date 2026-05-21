@@ -2,7 +2,7 @@ import "./CalendarContent.css";
 import CalendarView from "./calendar/CalendarView.jsx";
 import CalendarPending from "./pending/CalendarPending.jsx";
 
-function CalendarContent({currentUser, course, events, pendingItems, handleCreateEvent, handleDeleteEvent}) {
+function CalendarContent({currentUser, course, events, pendingItems, handleCreateEvent, handleEditEvent, handleCancelEvent, handleDeleteEvent}) {
     return (
         <div className="calendar-content">
             <CalendarView 
@@ -10,6 +10,8 @@ function CalendarContent({currentUser, course, events, pendingItems, handleCreat
                 course={course}
                 events={events}
                 handleCreateEvent={handleCreateEvent}
+                handleEditEvent={handleEditEvent}
+                handleCancelEvent={handleCancelEvent}
                 handleDeleteEvent={handleDeleteEvent}
             />
             <CalendarPending 

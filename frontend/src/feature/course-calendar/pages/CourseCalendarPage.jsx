@@ -3,17 +3,24 @@ import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx"
 import SectionHero from "../../../shared/ui/heroes/section/SectionHero.jsx";
 import CalendarContent from "../../../shared/ui/content/calendar/CalendarContent.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
-import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
-import { saveBootstrapCache } from "../../bootstrap/cache/bootstrap.cache.js";
+import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
+import {
+    addCalendarEvent,
+    cancelCalendarEvent,
+    editCalendarEvent,
+    removeCalendarEvent
+} from "../../bootstrap/updaters/bootstrap.updaters.js";
 import { mapCourseCalendarData } from "../mappers/courseCalendar.mapper.js";
 import {
+    fetchCancelTeacherCalendarEvent,
     fetchCreateTeacherCalendarEvent,
-    fetchDeleteTeacherCalendarEvent
+    fetchDeleteTeacherCalendarEvent,
+    fetchEditTeacherCalendarEvent
 } from "../api/teacherCalendarEvents.api.js";
 import { useParams } from "react-router-dom";
 
 function CourseCalendarPage() {
-    const { data, setData, isLoading, error } = useBootstrapData();
+    const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
 
     if (isLoading) return <LoadingLayout />
@@ -27,25 +34,35 @@ function CourseCalendarPage() {
             const createdEvent = await fetchCreateTeacherCalendarEvent(calendarEventData);
 
             if (createdEvent) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
+                updateBootstrap((currentData) => addCalendarEvent(currentData, {
+                    ...calendarEventData,
+                    id: createdEvent.id,
+                    status: "pending"
+                }));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-                    const nextData = {
-                        ...currentData,
-                        calendarEvents: [
-                            ...(currentData.calendarEvents ?? []),
-                            {
-                                ...calendarEventData,
-                                id: createdEvent.id,
-                                status: "pending"
-                            }
-                        ]
-                    };
+    async function handleEditEvent(calendarEventData) {
+        try {
+            const editedEvent = await fetchEditTeacherCalendarEvent(calendarEventData);
 
-                    saveBootstrapCache(nextData);
+            if (editedEvent) {
+                updateBootstrap((currentData) => editCalendarEvent(currentData, calendarEventData));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-                    return nextData;
-                });
+    async function handleCancelEvent(calendarEventData) {
+        try {
+            const canceledEvent = await fetchCancelTeacherCalendarEvent(calendarEventData);
+
+            if (canceledEvent) {
+                updateBootstrap((currentData) => cancelCalendarEvent(currentData, calendarEventData.calendarEventId));
             }
         } catch (error) {
             console.log(error)
@@ -57,20 +74,7 @@ function CourseCalendarPage() {
             const deletedEvent = await fetchDeleteTeacherCalendarEvent(calendarEventData);
 
             if (deletedEvent) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        calendarEvents: (currentData.calendarEvents ?? []).filter((calendarEvent) => {
-                            return `${calendarEvent.id}` !== `${calendarEventData.calendarEventId}`;
-                        })
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
-                });
+                updateBootstrap((currentData) => removeCalendarEvent(currentData, calendarEventData.calendarEventId));
             }
         } catch (error) {
             console.log(error)
@@ -90,6 +94,8 @@ function CourseCalendarPage() {
                 events={events}
                 pendingItems={pendingItems}
                 handleCreateEvent={handleCreateEvent}
+                handleEditEvent={handleEditEvent}
+                handleCancelEvent={handleCancelEvent}
                 handleDeleteEvent={handleDeleteEvent}
             />
         </SectionLayout>

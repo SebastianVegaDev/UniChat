@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import CalendarCreateOptions from "./create-options/CalendarCreateOptions.jsx";
 import CalendarEventOptions from "./event-options/CalendarEventOptions.jsx";
 
-function CalendarView({currentUser, course, events = [], handleCreateEvent, handleDeleteEvent}) {
+function CalendarView({currentUser, course, events = [], handleCreateEvent, handleEditEvent, handleCancelEvent, handleDeleteEvent}) {
     const [showOptions, setShowOptions] = useState(null);
     const eventOptionsRef = useRef(null);
     const calendarRef = useRef(null);
@@ -23,6 +23,16 @@ function CalendarView({currentUser, course, events = [], handleCreateEvent, hand
 
         setShowOptions({
             id: info.event.id,
+            event: {
+                id: info.event.id,
+                title: info.event.title,
+                courseId: info.event.extendedProps.courseId,
+                description: info.event.extendedProps.description,
+                eventType: info.event.extendedProps.eventType,
+                startsAt: info.event.extendedProps.startsAt,
+                endsAt: info.event.extendedProps.endsAt,
+                status: info.event.extendedProps.status
+            },
             x: info.jsEvent.clientX - calendarRect.left,
             y: info.jsEvent.clientY - calendarRect.top,
         });
@@ -67,6 +77,10 @@ function CalendarView({currentUser, course, events = [], handleCreateEvent, hand
                 <CalendarEventOptions
                     eventOptionsRef={eventOptionsRef}
                     position={showOptions}
+                    course={course}
+                    closeOptions={() => setShowOptions(null)}
+                    handleEditEvent={handleEditEvent}
+                    handleCancelEvent={handleCancelEvent}
                     handleDeleteEvent={handleDeleteEvent}
                 />
             )}

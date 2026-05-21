@@ -2,9 +2,11 @@ import "./CourseResource.css";
 import { FileText } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import CourseResourceOptions from "./options/CourseResourceOptions.jsx";
+import ResourceForm from "../../../../forms/create/ResourceForm.jsx";
 
-function CourseResource({ currentUser, isUnavailable, resource, handleResourceClick, handleToggleResource, handleDeleteResource }) {
+function CourseResource({ currentUser, isUnavailable, resource, handleResourceClick, handleEditResource, handleToggleResource, handleDeleteResource }) {
     const [showOptions, setShowOptions] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const resourceRef = useRef(null);
     const isTeacher = currentUser?.role === "teacher";
 
@@ -13,6 +15,11 @@ function CourseResource({ currentUser, isUnavailable, resource, handleResourceCl
         event.stopPropagation();
 
         setShowOptions(true);
+    }
+
+    function openEditForm() {
+        setIsEditing(true);
+        setShowOptions(false);
     }
 
     useEffect(() => {
@@ -31,8 +38,8 @@ function CourseResource({ currentUser, isUnavailable, resource, handleResourceCl
 
     return (
         <div
-            className={`course-resource-file ${isUnavailable ? "unavailable-file" : "available-file"} ${showOptions ? "options-open" : ""}`}
-            onClick={() => handleResourceClick(resource)}
+            className={`course-resource-file ${isUnavailable ? "unavailable-file" : "available-file"} ${showOptions ? "options-open" : ""} ${isEditing ? "editing-file" : ""}`}
+            onClick={() => !isEditing && handleResourceClick(resource)}
             ref={resourceRef}
             onContextMenu={handleRightClick}
         >
@@ -57,8 +64,18 @@ function CourseResource({ currentUser, isUnavailable, resource, handleResourceCl
                 <CourseResourceOptions
                     resource={resource}
                     closeOptions={() => setShowOptions(false)}
+                    openEditForm={openEditForm}
                     handleToggleResource={handleToggleResource}
                     handleDeleteResource={handleDeleteResource}
+                />
+            )}
+
+            {isEditing && (
+                <ResourceForm
+                    closeForm={() => setIsEditing(false)}
+                    course={{ id: resource.courseId }}
+                    resource={resource}
+                    handleEditResource={handleEditResource}
                 />
             )}
         </div>

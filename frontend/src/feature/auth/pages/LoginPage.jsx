@@ -4,6 +4,7 @@ import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx"
 import { fetchLogin } from "../api/auth.api.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function LoginPage() {
     const navigate = useNavigate();
@@ -21,9 +22,10 @@ function LoginPage() {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
                 navigate("/");
+                toast.success("Successful login!");
             }
         } catch (error) {
-            console.log(error);
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }

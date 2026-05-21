@@ -113,6 +113,7 @@ function mapCurrentUser(session, usersById) {
 
 function mapCourse(course, teacher, classroom, stats) {
     return {
+        "id": course.id,
         "shortName": course.shortName ?? "",
         "title": course.title ?? "Course",
         "route": `/course/${course.slug ?? ""}`,

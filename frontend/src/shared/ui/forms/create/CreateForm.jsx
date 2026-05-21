@@ -1,7 +1,15 @@
 import "./CreateForm.css";
 import { X } from "lucide-react";
 
-function CreateForm({ closeForm, course, handleCreateEvent }) {
+function formatDateInput(dateValue) {
+    if (!dateValue) return "";
+
+    return dateValue.slice(0, 16);
+}
+
+function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handleEditEvent }) {
+    const isEditing = Boolean(calendarEvent);
+
     function handleSubmit(event) {
         event.preventDefault();
 
@@ -15,7 +23,15 @@ function CreateForm({ closeForm, course, handleCreateEvent }) {
             endsAt: formData.get("endsAt")
         };
 
-        handleCreateEvent(calendarEventData);
+        if (isEditing) {
+            handleEditEvent({
+                ...calendarEventData,
+                calendarEventId: calendarEvent.id
+            });
+        } else {
+            handleCreateEvent(calendarEventData);
+        }
+
         closeForm();
     }
 
@@ -24,8 +40,8 @@ function CreateForm({ closeForm, course, handleCreateEvent }) {
             <form className="create-form" onSubmit={handleSubmit} onClick={(event) => event.stopPropagation()}>
                 <div className="create-form-header">
                     <div>
-                        <p>Create event</p>
-                        <span>Add a new activity to this course calendar.</span>
+                        <p>{isEditing ? "Edit event" : "Create event"}</p>
+                        <span>{isEditing ? "Update this course calendar activity." : "Add a new activity to this course calendar."}</span>
                     </div>
                     <button className="create-form-close" type="button" onClick={closeForm}>
                         <X />
@@ -33,10 +49,10 @@ function CreateForm({ closeForm, course, handleCreateEvent }) {
                 </div>
 
                 <div className="create-form-fields">
-                    <input className="create-form-input" name="title" placeholder="Title" />
-                    <textarea className="create-form-input create-form-textarea" name="description" placeholder="Description" />
+                    <input className="create-form-input" name="title" placeholder="Title" defaultValue={calendarEvent?.title ?? ""} />
+                    <textarea className="create-form-input create-form-textarea" name="description" placeholder="Description" defaultValue={calendarEvent?.description ?? ""} />
 
-                    <select className="create-form-input" name="eventType" defaultValue="">
+                    <select className="create-form-input" name="eventType" defaultValue={calendarEvent?.eventType ?? ""}>
                         <option value="" disabled>Type</option>
                         <option value="assignment">Assignment</option>
                         <option value="exam">Exam</option>
@@ -46,14 +62,14 @@ function CreateForm({ closeForm, course, handleCreateEvent }) {
                     </select>
 
                     <div className="create-form-dates">
-                        <input className="create-form-input" name="startsAt" type="datetime-local" />
-                        <input className="create-form-input" name="endsAt" type="datetime-local" />
+                        <input className="create-form-input" name="startsAt" type="datetime-local" defaultValue={formatDateInput(calendarEvent?.startsAt)} />
+                        <input className="create-form-input" name="endsAt" type="datetime-local" defaultValue={formatDateInput(calendarEvent?.endsAt)} />
                     </div>
                 </div>
 
                 <div className="create-form-actions">
                     <button className="create-form-cancel" type="button" onClick={closeForm}>Cancel</button>
-                    <button className="create-form-submit" type="submit">Create event</button>
+                    <button className="create-form-submit" type="submit">{isEditing ? "Save event" : "Create event"}</button>
                 </div>
             </form>
         </div>

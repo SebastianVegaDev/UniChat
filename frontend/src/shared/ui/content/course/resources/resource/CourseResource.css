@@ -27,6 +27,11 @@
     background-color: #303030;
 }
 
+.course-resource-file.available-file.editing-file:hover {
+    transform: none;
+    background-color: #303030;
+}
+
 .course-resource-file.unavailable-file {
     cursor: not-allowed;
     opacity: 0.65;

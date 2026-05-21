@@ -2,7 +2,7 @@ import "./AppTopBar.css";
 import { CircleQuestionMark } from "lucide-react";
 import icon from "../../../../../public/favicon.png";
 import { useState, useEffect, useRef } from "react";
-import { useBootstrapData } from "../../../../feature/bootstrap/hooks/useBootstrapData.js";
+import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.js";
 
 function formatDate(dateValue) {
     if (!dateValue) return "";
@@ -38,7 +38,7 @@ function UserAvatar({ user }) {
 function AppTopBar() {
     const [showUserInfo, setShowUserInfo] = useState(false);
     const optionsRef = useRef(null);
-    const { data } = useBootstrapData();
+    const { data } = useBootstrap();
     const users = data?.users ?? [];
     const currentUserId = data?.session?.currentUserId;
     const currentUser = users.find((user) => `${user.id}` === `${currentUserId}`);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
 import CourseResource from "./resource/CourseResource.jsx";
 
-function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resourcesRef, handleToggleResource, handleDeleteResource }) {
+function CourseResources({ currentUser, course, resourcesSummary, resourcesByWeek, resourcesRef, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
     const navigate = useNavigate();
 
     function handleResourceClick(resource) {
@@ -20,7 +20,12 @@ function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resou
                 <p>RESOURCES BY WEEK</p>
                 <div>
                     <span className="course-resources-header-folders">{resourcesSummary.foldersCount} folders</span>
-                    {currentUser.role === "teacher" && <CourseResourcesOptions />}
+                    {currentUser.role === "teacher" && (
+                        <CourseResourcesOptions
+                            course={course}
+                            handleUploadResource={handleUploadResource}
+                        />
+                    )}
                 </div>
             </div>
 
@@ -39,6 +44,7 @@ function CourseResources({ currentUser, resourcesSummary, resourcesByWeek, resou
                                     isUnavailable={isUnavailable}
                                     resource={resource}
                                     handleResourceClick={handleResourceClick}
+                                    handleEditResource={handleEditResource}
                                     handleToggleResource={handleToggleResource}
                                     handleDeleteResource={handleDeleteResource}
                                 />

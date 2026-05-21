@@ -2,17 +2,24 @@ import CourseLayout from "../../../shared/ui/layouts/course/CourseLayout.jsx";
 import CourseHero from "../../../shared/ui/heroes/course/CourseHero.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import CourseContent from "../../../shared/ui/content/course/CourseContent.jsx";
-import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
-import { saveBootstrapCache } from "../../bootstrap/cache/bootstrap.cache.js";
+import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
+import {
+    addResource,
+    editResource,
+    removeResource,
+    updateResourceStatus
+} from "../../bootstrap/updaters/bootstrap.updaters.js";
 import { mapCourseData } from "../mappers/course.mapper.js";
 import {
     fetchDeleteTeacherResource,
+    fetchEditTeacherResource,
+    fetchUploadTeacherResource,
     fetchToggleTeacherResource
 } from "../api/teacherResources.api.js";
 import { useParams } from "react-router-dom";
 
 function CoursePage() {
-    const { data, setData, isLoading, error } = useBootstrapData();
+    const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
 
     if (isLoading) return <LoadingLayout />
@@ -20,6 +27,36 @@ function CoursePage() {
 
     const courseData = mapCourseData(data, courseSlug);
     const { currentUser, course, actions, resourcesSummary, resourcesByWeek, information } = courseData;
+
+    async function handleUploadResource(resourceData) {
+        try {
+            const uploadedResource = await fetchUploadTeacherResource(resourceData);
+
+            if (uploadedResource) {
+                updateBootstrap((currentData) => addResource(currentData, {
+                    ...resourceData,
+                    id: uploadedResource.id,
+                    uploadedById: currentUser.id,
+                    createdAt: new Date().toISOString(),
+                    url: resourceData.fileUrl
+                }));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function handleEditResource(resourceData) {
+        try {
+            const editedResource = await fetchEditTeacherResource(resourceData);
+
+            if (editedResource) {
+                updateBootstrap((currentData) => editResource(currentData, resourceData));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function handleToggleResource(resource) {
         const nextStatus = resource.status === "available" ? "unavailable" : "available";
@@ -31,25 +68,7 @@ function CoursePage() {
             });
 
             if (toggledResource) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        resources: (currentData.resources ?? []).map((currentResource) => {
-                            if (`${currentResource.id}` !== `${resource.id}`) return currentResource;
-
-                            return {
-                                ...currentResource,
-                                status: nextStatus
-                            };
-                        })
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
-                });
+                updateBootstrap((currentData) => updateResourceStatus(currentData, resource.id, nextStatus));
             }
         } catch (error) {
             console.log(error)
@@ -63,20 +82,7 @@ function CoursePage() {
             });
 
             if (deletedResource) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        resources: (currentData.resources ?? []).filter((currentResource) => {
-                            return `${currentResource.id}` !== `${resource.id}`;
-                        })
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
-                });
+                updateBootstrap((currentData) => removeResource(currentData, resource.id));
             }
         } catch (error) {
             console.log(error)
@@ -90,10 +96,13 @@ function CoursePage() {
             />    
             <CourseContent 
                 currentUser={currentUser}
+                course={course}
                 actions={actions}
                 resourcesSummary={resourcesSummary}
                 resourcesByWeek={resourcesByWeek}
                 information={information}
+                handleUploadResource={handleUploadResource}
+                handleEditResource={handleEditResource}
                 handleToggleResource={handleToggleResource}
                 handleDeleteResource={handleDeleteResource}
             />    

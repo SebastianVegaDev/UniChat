@@ -3,7 +3,7 @@ import CourseActions from "./actions/CourseActions.jsx";
 import CourseResources from "./resources/CourseResources.jsx";
 import CourseInformation from "./information/CourseInformation.jsx";
 
-function CourseContent({ currentUser, actions, resourcesSummary, resourcesByWeek, information, handleToggleResource, handleDeleteResource }) {
+function CourseContent({ currentUser, course, actions, resourcesSummary, resourcesByWeek, information, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
     
     return (
         <div className="course-content">
@@ -13,8 +13,11 @@ function CourseContent({ currentUser, actions, resourcesSummary, resourcesByWeek
                 />
                 <CourseResources
                     currentUser={currentUser}
+                    course={course}
                     resourcesSummary={resourcesSummary}
                     resourcesByWeek={resourcesByWeek}
+                    handleUploadResource={handleUploadResource}
+                    handleEditResource={handleEditResource}
                     handleToggleResource={handleToggleResource}
                     handleDeleteResource={handleDeleteResource}
                 />

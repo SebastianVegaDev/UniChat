@@ -1,8 +1,13 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import ChatContent from "../../../shared/ui/content/chat/ChatContent.jsx";
-import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
-import { saveBootstrapCache } from "../../bootstrap/cache/bootstrap.cache.js";
+import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
+import {
+    addChatMessage,
+    markChatMessageDeleted,
+    setPinnedChatMessage,
+    updateChatChannelLock
+} from "../../bootstrap/updaters/bootstrap.updaters.js";
 import { mapCourseChatData } from "../mappers/courseChat.mapper.js";
 import { fetchSendMessage } from "../api/courseChat.api.js";
 import {
@@ -15,7 +20,7 @@ import { useState } from "react";
 
 function CourseChatPage() {
     const [activeChannelId, setActiveChannelId] = useState("");
-    const { data, setData, isLoading, error } = useBootstrapData();
+    const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
 
     const courseChatData = mapCourseChatData(data, courseSlug, activeChannelId);
@@ -30,21 +35,7 @@ function CourseChatPage() {
             const message = await fetchSendMessage(messageData);
 
             if (message) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        chatMessages: [
-                            ...(currentData.chatMessages ?? []),
-                            message
-                        ]
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
-                });
+                updateBootstrap((currentData) => addChatMessage(currentData, message));
             }
         } catch (error) {
             console.log(error)
@@ -56,23 +47,7 @@ function CourseChatPage() {
             const fixedMessage = await fetchSetTeacherFixedMessage(messageData);
 
             if (fixedMessage) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        chatMessages: (currentData.chatMessages ?? []).map((message) => ({
-                            ...message,
-                            isPinned: `${message.channelId}` === `${messageData.channelId}`
-                                ? `${message.id}` === `${messageData.messageId}`
-                                : message.isPinned
-                        }))
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
-                });
+                updateBootstrap((currentData) => setPinnedChatMessage(currentData, messageData));
             }
         } catch (error) {
             console.log(error)
@@ -84,24 +59,8 @@ function CourseChatPage() {
             const lockedChannel = await fetchToggleTeacherChatChannelLock(channelData);
 
             if (lockedChannel) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        chatChannels: (currentData.chatChannels ?? []).map((channel) => {
-                            if (`${channel.id}` !== `${channelData.channelId}`) return channel;
-
-                            return {
-                                ...channel,
-                                isLocked: lockedChannel.isLocked
-                            };
-                        })
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
+                updateBootstrap((currentData) => {
+                    return updateChatChannelLock(currentData, channelData.channelId, lockedChannel.isLocked);
                 });
             }
         } catch (error) {
@@ -114,26 +73,8 @@ function CourseChatPage() {
             const deletedMessage = await fetchDeleteTeacherChatMessage(messageData);
 
             if (deletedMessage) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
-
-                    const nextData = {
-                        ...currentData,
-                        chatMessages: (currentData.chatMessages ?? []).map((message) => {
-                            if (`${message.id}` !== `${messageData.messageId}`) return message;
-
-                            return {
-                                ...message,
-                                body: deletedMessage.body,
-                                isPinned: false,
-                                isDeleted: true
-                            };
-                        })
-                    };
-
-                    saveBootstrapCache(nextData);
-
-                    return nextData;
+                updateBootstrap((currentData) => {
+                    return markChatMessageDeleted(currentData, messageData.messageId, deletedMessage);
                 });
             }
         } catch (error) {

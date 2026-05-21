@@ -1,9 +1,11 @@
 import "./CourseResourcesOptions.css";
 import { Ellipsis } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import ResourceForm from "../../../../forms/create/ResourceForm.jsx";
 
-function CourseResourcesOptions() {
+function CourseResourcesOptions({ course, handleUploadResource }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isCreating, setIsCreating] = useState(false);
     const optionsRef = useRef(null);
 
     useEffect(() => {
@@ -23,20 +25,35 @@ function CourseResourcesOptions() {
         };
     }, []);
 
-    return (
-        <div ref={optionsRef} className="course-resources-options-wrapper">
-            <button
-                className="course-resources-options-trigger"
-                type="button"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <Ellipsis />
-            </button>
+    function openCreateForm() {
+        setIsCreating(true);
+        setIsOpen(false);
+    }
 
-            <div className="course-resources-options" hidden={!isOpen}>
-                <p className="course-resources-option">Add Resource</p>
+    return (
+        <>
+            <div ref={optionsRef} className="course-resources-options-wrapper">
+                <button
+                    className="course-resources-options-trigger"
+                    type="button"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <Ellipsis />
+                </button>
+
+                <div className="course-resources-options" hidden={!isOpen}>
+                    <p className="course-resources-option" onClick={openCreateForm}>Add Resource</p>
+                </div>
             </div>
-        </div>
+
+            {isCreating && (
+                <ResourceForm
+                    closeForm={() => setIsCreating(false)}
+                    course={course}
+                    handleUploadResource={handleUploadResource}
+                />
+            )}
+        </>
     );
 }
 

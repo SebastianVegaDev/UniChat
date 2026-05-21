@@ -16,7 +16,7 @@ async function request(path, options = {}) {
     const result = await response.json().catch(() => null);
 
     if (!response.ok) {
-        throw new Error(result?.error || "Request failed");
+        throw new Error(result?.error || result?.message || "Request failed");
     }
 
     return result;

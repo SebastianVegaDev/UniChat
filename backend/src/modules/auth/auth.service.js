@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { findUserByCode, findUserByEmail, insertUser } from "./auth.repository.js";
+import { UnauthorizedError, ConflictError } from "../../errors/AppError.js";
 
 export async function loginService(data) {
     const { code, password } = data;
@@ -8,13 +9,13 @@ export async function loginService(data) {
     const user = await findUserByCode(code);
 
     if (!user) {
-        throw new Error("Invalid credentials");
+        throw new UnauthorizedError("Invalid credentials");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
     if (!isPasswordValid) {
-        throw new Error("Invalid credentials");
+        throw new UnauthorizedError("Invalid credentials");
     }
 
     const token = jwt.sign(
@@ -43,7 +44,7 @@ export async function registerService(data) {
     const userExist = await findUserByEmail(email);
 
     if (userExist) {
-        throw new Error("User al ready exist!");
+        throw new ConflictError("User al ready exist!");
     }
 
     const passwordHash = await bcrypt.hash(password, 10);

@@ -1,4 +1,5 @@
 import { loginService, registerService } from "./auth.service.js"
+import { BadRequestError } from "../../errors/index.js";
 
 export async function login(req, res, next) {
     try {
@@ -23,7 +24,7 @@ export async function register(req, res, next) {
         const repeatPassword = req.body.repeatPassword;
 
         if (password !== repeatPassword) {
-            throw new Error("Passwords do not match");
+            throw new BadRequestError("Passwords do not match");
         }
 
         const user = await registerService({

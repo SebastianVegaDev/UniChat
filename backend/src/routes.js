@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import announcementsRoutes from "./modules/announcements/announcements.routes.js";
 import bootstrapRoutes from "./modules/bootstrap/bootstrap.routes.js";
 import calendarEventsRoutes from "./modules/calendarEvents/calendarEvents.routes.js";
