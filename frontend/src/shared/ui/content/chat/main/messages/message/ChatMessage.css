@@ -1,0 +1,122 @@
+.chat-content-main-message {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 8px;
+    user-select: none;
+}
+
+.chat-content-main-message-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.chat-content-main-message h4 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.chat-content-main-message-role {
+    padding: 2px 7px;
+    border-radius: 999px;
+    background-color: #373737;
+    color: #e5e5e5;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.chat-content-main-message-role.teacher {
+    background-color: rgba(243, 112, 33, 0.16);
+    color: #ff9b45;
+}
+
+.chat-content-main-message-role.delegate {
+    background-color: rgba(52, 211, 153, 0.16);
+    color: #4ade80;
+}
+
+.chat-content-main-message-checks {
+    align-self: flex-end;
+    color: #b3b3b3;
+    width: 16px;
+    height: 16px;
+}
+
+.chat-content-main-message-checks.read {
+    color: #ff9b45;
+}
+
+.chat-content-main-message-other {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    justify-content: flex-start;
+}
+
+.chat-content-main-message-me {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.chat-content-main-message-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    flex: 0 0 35px;
+    margin-bottom: 5px;
+    object-fit: cover;
+}
+
+span.chat-content-main-message-avatar {
+    color: white;
+    padding: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.chat-content-main-message-other > .chat-content-main-message-avatar {
+    background-color: #f37021;
+}
+
+.chat-content-main-message-me > .chat-content-main-message-avatar {
+    background-color: #4ade80;
+}
+
+.chat-content-main-message-other .chat-content-main-message {
+    border: 2px solid #3f3f3f;
+    width: fit-content;
+    max-width: 360px;
+}
+
+.chat-content-main-message-me .chat-content-main-message {
+    background-color: #f37021;
+    color: white;
+    width: fit-content;
+    max-width: 360px;
+}
+
+.chat-content-main-message.deleted-message {
+    background-color: #303030;
+    border: 2px solid #3f3f3f;
+    color: #b3b3b3;
+}
+
+.chat-content-main-message.deleted-message p {
+    font-style: italic;
+}
+
+.chat-content-main-message-other.message-deleted,
+.chat-content-main-message-me.message-deleted {
+    align-items: flex-end;
+}

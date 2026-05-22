@@ -43,6 +43,7 @@ export async function findCourseStats(userId) {
                 SELECT course_id
                 FROM user_courses
             )
+                AND calendar_events.is_deleted = FALSE
             GROUP BY calendar_events.course_id
         ),
         folder_stats AS (
@@ -54,6 +55,7 @@ export async function findCourseStats(userId) {
                 SELECT course_id
                 FROM user_courses
             )
+                AND resources.is_deleted = FALSE
             GROUP BY resources.course_id
         ),
         unread_stats AS (
@@ -71,6 +73,7 @@ export async function findCourseStats(userId) {
                 FROM user_courses
             )
                 AND chat_messages.sender_id <> $1
+                AND chat_messages.is_deleted = FALSE
                 AND chat_message_reads.user_id IS NULL
             GROUP BY chat_channels.course_id
         ),
@@ -89,6 +92,7 @@ export async function findCourseStats(userId) {
                     SELECT course_id
                     FROM user_courses
                 )
+                    AND chat_messages.is_deleted = FALSE
 
                 UNION ALL
 
@@ -100,6 +104,7 @@ export async function findCourseStats(userId) {
                     SELECT course_id
                     FROM user_courses
                 )
+                    AND resources.is_deleted = FALSE
 
                 UNION ALL
 
@@ -111,6 +116,7 @@ export async function findCourseStats(userId) {
                     SELECT course_id
                     FROM user_courses
                 )
+                    AND calendar_events.is_deleted = FALSE
             ) activities
             GROUP BY course_id
         )

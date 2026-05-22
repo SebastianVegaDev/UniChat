@@ -1,20 +1,30 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import ChatContent from "../../../shared/ui/content/chat/ChatContent.jsx";
-import { useBootstrapData } from "../../bootstrap/hooks/useBootstrapData.js";
-import { saveBootstrapCache } from "../../bootstrap/cache/bootstrap.cache.js";
+import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
+import {
+    addChatMessage,
+    markChatMessageDeleted,
+    setPinnedChatMessage,
+    updateChatChannelLock
+} from "../../bootstrap/updaters/bootstrap.updaters.js";
 import { mapCourseChatData } from "../mappers/courseChat.mapper.js";
 import { fetchSendMessage } from "../api/courseChat.api.js";
+import {
+    fetchDeleteTeacherChatMessage,
+    fetchSetTeacherFixedMessage,
+    fetchToggleTeacherChatChannelLock
+} from "../api/teacherChat.api.js";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 function CourseChatPage() {
     const [activeChannelId, setActiveChannelId] = useState("");
-    const { data, setData, isLoading, error } = useBootstrapData();
+    const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
 
     const courseChatData = mapCourseChatData(data, courseSlug, activeChannelId);
-    const { course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
+    const { currentUser, course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
     const selectedChannelId = channels.some((channel) => channel.id === activeChannelId) ? activeChannelId : activeChannel.channelId;
 
     if (isLoading) return <LoadingLayout />
@@ -25,20 +35,46 @@ function CourseChatPage() {
             const message = await fetchSendMessage(messageData);
 
             if (message) {
-                setData((currentData) => {
-                    if (!currentData) return currentData;
+                updateBootstrap((currentData) => addChatMessage(currentData, message));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-                    const nextData = {
-                        ...currentData,
-                        chatMessages: [
-                            ...(currentData.chatMessages ?? []),
-                            message
-                        ]
-                    };
+    async function handleSetFixedMessage(messageData) {
+        try {
+            const fixedMessage = await fetchSetTeacherFixedMessage(messageData);
 
-                    saveBootstrapCache(nextData);
+            if (fixedMessage) {
+                updateBootstrap((currentData) => setPinnedChatMessage(currentData, messageData));
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-                    return nextData;
+    async function handleToggleChannelLock(channelData) {
+        try {
+            const lockedChannel = await fetchToggleTeacherChatChannelLock(channelData);
+
+            if (lockedChannel) {
+                updateBootstrap((currentData) => {
+                    return updateChatChannelLock(currentData, channelData.channelId, lockedChannel.isLocked);
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function handleDeleteMessage(messageData) {
+        try {
+            const deletedMessage = await fetchDeleteTeacherChatMessage(messageData);
+
+            if (deletedMessage) {
+                updateBootstrap((currentData) => {
+                    return markChatMessageDeleted(currentData, messageData.messageId, deletedMessage);
                 });
             }
         } catch (error) {
@@ -57,6 +93,10 @@ function CourseChatPage() {
                 activeChannelId={selectedChannelId}
                 setActiveChannelId={setActiveChannelId}
                 handleSubmit={handleSubmit}
+                handleToggleChannelLock={handleToggleChannelLock}
+                handleSetFixedMessage={handleSetFixedMessage}
+                handleDeleteMessage={handleDeleteMessage}
+                currentUser={currentUser}
             />
         </SectionLayout>
     );

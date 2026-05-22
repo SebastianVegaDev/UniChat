@@ -102,6 +102,10 @@ function getInitial(user) {
     return user.firstName[0].toUpperCase();
 }
 
+function getAvatarUrl(user) {
+    return user?.avatarUrl ?? user?.avatar_url ?? "";
+}
+
 function wasRead(message) {
     const readBy = Array.isArray(message.readBy) ? message.readBy : [];
 
@@ -114,6 +118,16 @@ function isUnreadMessage(message, currentUserId) {
     const readBy = Array.isArray(message.readBy) ? message.readBy : [];
 
     return !readBy.some((userId) => isSameId(userId, currentUserId));
+}
+
+function mapCurrentUser(session, usersById) {
+    const user = usersById[session.currentUserId];
+
+    return {
+        "id": user?.id,
+        "name": user?.firstName ?? "User",
+        "role": user?.role ?? "student"
+    };
 }
 
 function mapCourse(course, classroom) {
@@ -148,11 +162,12 @@ function mapActiveChannel(activeChannel) {
 }
 
 function mapPinnedMessage(message, usersById) {
-    if (!message) return null;
+    if (!message || message.isDeleted) return null;
 
     const user = usersById[message.senderId];
 
     return {
+        "id": message.id,
         "body": message.body,
         "timeLabel": formatTimeLabel(message.createdAt),
         "author": getFullName(user)
@@ -162,15 +177,19 @@ function mapPinnedMessage(message, usersById) {
 function mapTimelineItem(message, usersById, currentUserId, courseMembers, course) {
     const user = usersById[message.senderId]
     const courseMember = findCourseMember(courseMembers, course, user);
+    const isDeleted = message.isDeleted ?? false;
+    const body = isDeleted ? "Este mensaje fue eliminado" : message.body;
 
     if (isSameId(message.senderId, currentUserId)) {
         return {
             "id": message.id,
             "type": "message-me",
-            "body": message.body,
+            "body": body,
+            "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": "Me",
             "initial": getInitial(user),
+            "avatarUrl": getAvatarUrl(user),
             "roleLabel": "",
             "roleClass": "",
             "wasRead": wasRead(message)
@@ -181,10 +200,12 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
         return {
             "id": message.id,
             "type": "message-other",
-            "body": message.body,
+            "body": body,
+            "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": getFullName(user),
             "initial": getInitial(user),
+            "avatarUrl": getAvatarUrl(user),
             "roleLabel": roleLabel,
             "roleClass": roleLabel.toLowerCase(),
             "wasRead": wasRead(message)
@@ -243,11 +264,11 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     if (!course) {
         return {
-            course: mapCourse({ slug: courseSlug }, null),
-            channels: [],
-            activeChannel: mapActiveChannel(null),
-            pinnedMessage: null,
-            timeline: []
+            "course": mapCourse({ slug: courseSlug }, null),
+            "channels": [],
+            "activeChannel": mapActiveChannel(null),
+            "pinnedMessage": null,
+            "timeline": []
         };
     }
 
@@ -259,11 +280,11 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     if (!activeChannel) {
         return {
-            course: mapCourse(course, classroom),
-            channels: courseChannels.map(mapChannel),
-            activeChannel: mapActiveChannel(null),
-            pinnedMessage: null,
-            timeline: []
+            "course": mapCourse(course, classroom),
+            "channels": courseChannels.map(mapChannel),
+            "activeChannel": mapActiveChannel(null),
+            "pinnedMessage": null,
+            "timeline": []
         };
     }
 
@@ -271,13 +292,14 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     const activeMessages = chatMessages.filter((message) => message.channelId === activeChannel.id);
 
-    const pinnedMessage = activeMessages.find((message) => message.isPinned);
+    const pinnedMessage = activeMessages.find((message) => message.isPinned && !message.isDeleted);
 
     return {
-        course: mapCourse(course, classroom),
-        channels: courseChannels.map(mapChannel),
-        activeChannel: mapActiveChannel(activeChannel),
-        pinnedMessage: mapPinnedMessage(pinnedMessage, usersById),
-        timeline: mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)
+        "currentUser": mapCurrentUser(session, usersById),
+        "course": mapCourse(course, classroom),
+        "channels": courseChannels.map(mapChannel),
+        "activeChannel": mapActiveChannel(activeChannel),
+        "pinnedMessage": mapPinnedMessage(pinnedMessage, usersById),
+        "timeline": mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)
     };
 }

@@ -12,6 +12,7 @@
 .course-resources-header {
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid #3f3f3f;
 }
 
 .course-resources-header > p {
@@ -21,10 +22,16 @@
     font-family: "Inter";
 }
 
-.course-resources-header > span {
+.course-resources-header > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.course-resources-header-folders {
     color: #b3b3b3;
-    font-size: 13px;
-    font-weight: 750;
+    font-size: 15px;
+    font-family: "Inter";
 }
 
 .course-resource {
@@ -46,72 +53,4 @@
     display: flex;
     flex-wrap: wrap;
     gap: 17px;
-}
-
-.course-resource-file {
-    border: 2px solid #3f3f3f;
-    width: calc((100% - 17px) / 2);
-    border-radius: 9px;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
-    background-color: #303030;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
-}
-
-.course-resource-file.available-file {
-    cursor: pointer;
-}
-
-.course-resource-file.available-file:hover {
-    transform: translateY(-2px);
-    background-color: rgba(255, 255, 255, 0.06);
-}
-
-.course-resource-file.unavailable-file {
-    cursor: not-allowed;
-    opacity: 0.65;
-}
-
-.course-resource-file-info {
-    display: flex;
-    align-items: center;
-    line-height: 1.35;
-}
-
-.course-resource-file-info > span {
-    color: #f37021;
-    margin-right: 17px;
-}
-
-.course-resource-file-info > div > h4 {
-    font-size: 17px;
-    font-weight: 580;
-}
-
-.course-resource-file-info > div > p {
-    font-weight: 250;
-    font-size: 15px;
-}
-
-.course-resource-file-info > div > span {
-    font-size: 13px;
-    color: #b3b3b3;
-}
-
-.course-resource-file-state {
-    background-color: rgba(52, 211, 153, 0.16);
-    padding: 5px 10px;
-    font-size: 14px;
-    color: #4ade80;
-    font-weight: bold;
-    border-radius: 14px;
-}
-
-.course-resource-file-state.unavailable {
-    background-color: #373737;
-    color: #ffffff;
 }

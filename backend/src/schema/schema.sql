@@ -58,6 +58,7 @@ CREATE TABLE calendar_events (
     starts_at TIMESTAMPTZ NOT NULL,
     ends_at TIMESTAMPTZ,
     is_cancelled BOOLEAN DEFAULT false,
+    is_deleted BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (ends_at IS NULL OR ends_at > starts_at)
 );
@@ -72,6 +73,7 @@ CREATE TABLE resources (
     uploaded_by_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     file_url TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'available' CHECK (status IN ('available', 'unavailable')),
+    is_deleted BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -102,6 +104,7 @@ CREATE TABLE chat_messages (
     sender_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     body TEXT NOT NULL,
     is_pinned BOOLEAN NOT NULL DEFAULT FALSE,
+    is_deleted BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -117,9 +120,12 @@ CREATE INDEX idx_course_members_course_id ON course_members(course_id);
 CREATE INDEX idx_courses_teacher_id ON courses(teacher_id);
 CREATE INDEX idx_class_sessions_course_id ON class_sessions(course_id);
 CREATE INDEX idx_calendar_events_course_id ON calendar_events(course_id);
+CREATE INDEX idx_calendar_events_is_deleted ON calendar_events(is_deleted);
 CREATE INDEX idx_resources_course_id ON resources(course_id);
+CREATE INDEX idx_resources_is_deleted ON resources(is_deleted);
 CREATE INDEX idx_chat_channels_course_id ON chat_channels(course_id);
 CREATE INDEX idx_chat_messages_channel_id ON chat_messages(channel_id);
+CREATE INDEX idx_chat_messages_is_deleted ON chat_messages(is_deleted);
 CREATE INDEX idx_chat_message_reads_user_id ON chat_message_reads(user_id);
 
 CREATE UNIQUE INDEX unique_default_channel_per_course

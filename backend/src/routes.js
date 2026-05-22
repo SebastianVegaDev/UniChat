@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import announcementsRoutes from "./modules/announcements/announcements.routes.js";
 import bootstrapRoutes from "./modules/bootstrap/bootstrap.routes.js";
 import calendarEventsRoutes from "./modules/calendarEvents/calendarEvents.routes.js";
@@ -13,7 +12,8 @@ import sessionRoutes from "./modules/session/session.routes.js";
 import usersRoutes from "./modules/users/users.routes.js";
 import courseStatsRoutes from "./modules/courseStats/courseStats.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";
-import { authMiddleware } from "./middlewares/auth.middleware.js";
+import teacherRoutes from "./modules/teacher/teacher.routes.js";
+import { authMiddleware, requireTeacher } from "./middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -33,5 +33,7 @@ router.use("/resources", resourcesRoutes);
 router.use("/session", sessionRoutes);
 router.use("/users", usersRoutes);
 router.use("/courseStats", courseStatsRoutes);
+
+router.use("/teacher", requireTeacher("teacher"), teacherRoutes);
 
 export default router;

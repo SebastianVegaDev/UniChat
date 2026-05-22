@@ -1,14 +1,14 @@
-import "./RegisterForm.css"
+import "./RegisterForm.css";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
-function RegisterForm({ handleSubmit }) {
+function RegisterForm({ handleSubmit, handleGoogleSubmit }) {
     const navigate = useNavigate();
 
     function onSubmit(e) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const loginData = {
+        const registerData = {
             firstName: formData.get("firstName"),
             lastName: formData.get("lastName"),
             email: formData.get("email"),
@@ -16,7 +16,7 @@ function RegisterForm({ handleSubmit }) {
             repeatPassword: formData.get("repeatPassword"),
         };
 
-        handleSubmit(loginData);
+        handleSubmit(registerData);
     }
 
     return (
@@ -55,15 +55,20 @@ function RegisterForm({ handleSubmit }) {
                 />
             </div>
             <div className="register-form-buttons">
-                <button className="register-form-button-code">Continue with email</button>
-                <button className="register-form-button-gmail" type="button">
+                <button className="register-form-button-code" type="submit">Continue with email</button>
+                <button className="register-form-button-gmail" type="button" onClick={handleGoogleSubmit}>
                     <FcGoogle className="register-form-google-icon" aria-hidden="true" />
                     Continue with Google
                 </button>
             </div>
-            <p className="register-form-footer">Already have an account? <span className="register-form-footer-link" onClick={() => navigate("/login")}>Log in</span></p>
+            <p className="register-form-footer">
+                Already have an account?{" "}
+                <span className="register-form-footer-link" onClick={() => navigate("/login")}>
+                    Log in
+                </span>
+            </p>
         </form>
-    )
+    );
 }
 
 export default RegisterForm;

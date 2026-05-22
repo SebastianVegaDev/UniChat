@@ -70,7 +70,13 @@ function mapCalendarEvent(calendarEvent) {
         "id": calendarEvent.id,
         "title": calendarEvent.title ?? "Untitled event",
         "date": calendarEvent.startsAt?.slice(0, 10) ?? "",
+        "courseId": calendarEvent.courseId,
+        "description": calendarEvent.description ?? "",
         "eventType": eventType,
+        "startsAt": calendarEvent.startsAt ?? "",
+        "endsAt": calendarEvent.endsAt ?? "",
+        "status": calendarEvent.status ?? "",
+        "classNames": ["calendar-event"],
         "backgroundColor": colors.backgroundColor,
         "borderColor": colors.backgroundColor,
         "textColor": colors.textColor
@@ -85,6 +91,7 @@ function mapClassSession(classSession) {
         "title": classSession.topic ?? "Class session",
         "date": classSession.startsAt?.slice(0, 10) ?? "",
         "eventType": "class",
+        "classNames": ["calendar-class"],
         "backgroundColor": colors.backgroundColor,
         "borderColor": colors.backgroundColor,
         "textColor": colors.textColor
@@ -102,15 +109,29 @@ function mapPendingItem(calendarEvent) {
 
 }
 
+function mapCurrentUser(session, usersById) {
+    const user = usersById[session.currentUserId];
+
+    return {
+        id: user?.id,
+        role: user?.role ?? "student"
+    };
+}
+
 export function mapCourseCalendarData(data, courseSlug) {
     const courses = data?.courses ?? [];
+    const users = data?.users ?? [];
+    const session = data?.session ?? {};
     const calendarEvents = data?.calendarEvents ?? [];
     const classSessions = data?.classSessions ?? [];
     const course = findCourse(courses, courseSlug);
     const courseCalendarEvents = filterCourseCalendarEvents(calendarEvents, course);
     const courseClassSessions = filterCourseClassSessions(classSessions, course);
+    const usersById = Object.fromEntries(users.map((user) => [user.id, user]));
 
     return {
+        course,
+        currentUser: mapCurrentUser(session, usersById),
         events: [
             ...courseClassSessions.map(mapClassSession),
             ...courseCalendarEvents.map(mapCalendarEvent)

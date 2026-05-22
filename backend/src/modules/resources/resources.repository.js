@@ -29,6 +29,7 @@ export async function findAllResources(userId) {
             SELECT course_id
             FROM user_courses
         )
+            AND resources.is_deleted = FALSE
         ORDER BY resources.course_id
     `, [userId]);
 

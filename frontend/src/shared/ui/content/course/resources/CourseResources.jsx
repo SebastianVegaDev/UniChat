@@ -1,23 +1,38 @@
 import "./CourseResources.css";
-import { FileText } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
+import CourseResource from "./resource/CourseResource.jsx";
 
-function CourseResources({ resourcesSummary, resourcesByWeek }) {
-    const navigate = useNavigate();
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const FILE_BASE_URL = API_URL.replace("/api", "");
+
+function CourseResources({ currentUser, course, resourcesSummary, resourcesByWeek, resourcesRef, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
 
     function handleResourceClick(resource) {
         const isUnavailable = resource.statusLabel === "unavailable";
+        const fileUrl = resource.fileUrl || resource.url;
 
-        if (isUnavailable) return;
+        if (isUnavailable || !fileUrl) return;
 
-        navigate(resource.url);
+        const fullFileUrl = fileUrl.startsWith("http")
+            ? fileUrl
+            : `${FILE_BASE_URL}${fileUrl}`;
+
+        window.open(fullFileUrl, "_blank", "noopener,noreferrer");
     }
 
     return (
-        <div className="course-resources">
+        <div className="course-resources" ref={resourcesRef}>
             <div className="course-resources-header">
                 <p>RESOURCES BY WEEK</p>
-                <span>{resourcesSummary.foldersCount} folders</span>
+                <div>
+                    <span className="course-resources-header-folders">{resourcesSummary.foldersCount} folders</span>
+                    {currentUser.role === "teacher" && (
+                        <CourseResourcesOptions
+                            course={course}
+                            handleUploadResource={handleUploadResource}
+                        />
+                    )}
+                </div>
             </div>
 
             {resourcesByWeek.map((resourcesItem) => (
@@ -29,29 +44,16 @@ function CourseResources({ resourcesSummary, resourcesByWeek }) {
                             const isUnavailable = resource.statusLabel === "unavailable";
 
                             return (
-                                <div
-                                    className={`course-resource-file ${isUnavailable ? "unavailable-file" : "available-file"}`}
+                                <CourseResource
                                     key={resource.id}
-                                    onClick={() => handleResourceClick(resource)}
-                                >
-                                    <div className="course-resource-file-info">
-                                        <span>
-                                            <FileText />
-                                        </span>
-
-                                        <div>
-                                            <h4>{resource.title}</h4>
-                                            <p>
-                                                {resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}
-                                            </p>
-                                            <span>Uploaded by {resource.uploadedBy}</span>
-                                        </div>
-                                    </div>
-
-                                    <p className={`course-resource-file-state ${isUnavailable ? "unavailable" : "available"}`}>
-                                        {resource.statusLabel}
-                                    </p>
-                                </div>
+                                    currentUser={currentUser}
+                                    isUnavailable={isUnavailable}
+                                    resource={resource}
+                                    handleResourceClick={handleResourceClick}
+                                    handleEditResource={handleEditResource}
+                                    handleToggleResource={handleToggleResource}
+                                    handleDeleteResource={handleDeleteResource}
+                                />
                             );
                         })}
                     </div>

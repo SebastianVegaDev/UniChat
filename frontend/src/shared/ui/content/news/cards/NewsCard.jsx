@@ -1,4 +1,4 @@
-import "./NewsCard.css"
+import "./NewsCard.css";
 
 function NewsCard({news}) {
     return (

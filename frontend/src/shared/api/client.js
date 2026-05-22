@@ -1,13 +1,14 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 async function request(path, options = {}) {
     const token = localStorage.getItem("token");
+    const isFormData = options.body instanceof FormData;
 
     const response = await fetch(`${API_URL}${path}`, {
         credentials: "include",
         ...options,
         headers: {
-            "Content-type": "application/json",
+            ...(!isFormData ? { "Content-Type": "application/json" } : {}),
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
             ...(options.headers ?? {})
         }
@@ -16,7 +17,7 @@ async function request(path, options = {}) {
     const result = await response.json().catch(() => null);
 
     if (!response.ok) {
-        throw new Error(result?.error || "Request failed");
+        throw new Error(result?.error || result?.message || "Request failed");
     }
 
     return result;
@@ -25,19 +26,40 @@ async function request(path, options = {}) {
 export async function apiGet(path) {
     return request(path, {
         method: "GET"
-    })
+    });
 }
 
 export async function apiPost(path, data) {
     return request(path, {
         method: "POST",
         body: JSON.stringify(data)
-    })
+    });
 }
 
 export async function apiPatch(path, data) {
     return request(path, {
         method: "PATCH",
         body: JSON.stringify(data)
-    })
+    });
+}
+
+export async function apiDelete(path, data) {
+    return request(path, {
+        method: "DELETE",
+        body: JSON.stringify(data)
+    });
+}
+
+export async function apiFormPost(path, data) {
+    return request(path, {
+        method: "POST",
+        body: data
+    });
+}
+
+export async function apiFormPatch(path, data) {
+    return request(path, {
+        method: "PATCH",
+        body: data
+    });
 }

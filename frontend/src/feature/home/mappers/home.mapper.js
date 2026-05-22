@@ -90,11 +90,13 @@ function getClassStatus(classSession, now = new Date()) {
     return "finished";
 }
 
-function mapStudent(session, usersById) {
-    const student = usersById[session.currentUserId];
+function mapCurrentUser(session, usersById) {
+    const user = usersById[session.currentUserId];
 
     return {
-        "name": student?.firstName ?? "Student"
+        "id": user?.id,
+        "name": user?.firstName ?? "User",
+        "role": user?.role ?? "student"
     };
 }
 
@@ -122,12 +124,14 @@ function mapTodayClass(classSession, coursesById, classroomsById, now) {
 }
 
 function mapNextClass(classSession, coursesById, classroomsById, usersById) {
+    if (!classSession) return null;
+
     const course = coursesById[classSession?.courseId];
     const classroom = classroomsById[classSession?.classroomId];
     const teacher = usersById[course?.teacherId];
 
     return {
-        "title": course?.title ?? "No next class",
+        "title": course?.title ?? "Course",
         "startTime": formatTimeLabel(classSession?.startsAt),
         "endTime": formatTimeLabel(classSession?.endsAt),
         "teacher": getFullName(teacher),
@@ -178,15 +182,12 @@ export function mapHomeData(data) {
     });
     const todayClasses = todayClassSessions
         .sort((firstClass, secondClass) => getTimeValue(firstClass.startsAt) - getTimeValue(secondClass.startsAt));
-    const futureClasses = uniqueClassSessions
-        .filter((classSession) => getClassStatus(classSession, now) === "upcoming")
-        .sort((firstClass, secondClass) => getTimeValue(firstClass.startsAt) - getTimeValue(secondClass.startsAt));
     const nextClass = todayClasses.find((classSession) => getClassStatus(classSession, now) === "now")
-        ?? futureClasses[0]
+        ?? todayClasses.find((classSession) => getClassStatus(classSession, now) === "upcoming")
         ?? null;
 
     return {
-        "student": mapStudent(session, usersById),
+        "currentUser": mapCurrentUser(session, usersById),
         "summary": mapSummary(todayClassSessions, now),
         "todayClasses": todayClasses.map((classSession) => mapTodayClass(classSession, coursesById, classroomsById, now)),
         "nextClass": mapNextClass(nextClass, coursesById, classroomsById, usersById),

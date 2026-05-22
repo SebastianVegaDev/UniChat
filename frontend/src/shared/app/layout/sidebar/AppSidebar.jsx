@@ -1,12 +1,12 @@
 import "./AppSidebar.css";
 import { House, LogOut, Newspaper } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useBootstrapData } from "../../../../feature/bootstrap/hooks/useBootstrapData.js";
+import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.js";
 import { mapSidebarData } from "../../../../feature/sidebar/mappers/sidebar.mapper.js";
 
 function AppSideBar() {
     const navigate = useNavigate();
-    const { data } = useBootstrapData();
+    const { data } = useBootstrap();
     const sidebarData = mapSidebarData(data);
     const { courses } = sidebarData;
 

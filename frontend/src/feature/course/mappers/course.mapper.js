@@ -80,7 +80,9 @@ function formatKindLabel(kind) {
         "ppt": "PowerPoint",
         "pdf": "Official PDF",
         "video": "Video",
-        "photo": "Photo"
+        "photo": "Photo",
+        "sql": "SQL",
+        "doc": "Document"
     };
 
     return kindLabels[kind] ?? "Resource";
@@ -102,8 +104,18 @@ function formatUserName(user) {
     return `${user.firstName} ${user.lastName}`;
 }
 
+function mapCurrentUser(session, usersById) {
+    const user = usersById[session.currentUserId];
+
+    return {
+        id: user?.id,
+        role: user?.role ?? "student"
+    };
+}
+
 function mapCourse(course, teacher, classroom, stats) {
     return {
+        "id": course.id,
         "shortName": course.shortName ?? "",
         "title": course.title ?? "Course",
         "route": `/course/${course.slug ?? ""}`,
@@ -136,13 +148,19 @@ function mapResourceItem(resource, usersById) {
 
     return {
         "id": resource.id,
+        "courseId": resource.courseId,
+        "weekNumber": resource.weekNumber,
         "title": resource.title ?? "Untitled resource",
+        "kind": resource.kind,
         "kindLabel": formatKindLabel(resource.kind),
+        "sizeBytes": resource.sizeBytes,
         "sizeLabel": formatSizeLabel(resource.sizeBytes),
         "dateLabel": formatDateLabel(resource.createdAt),
         "uploadedBy": formatUserName(user),
+        "status": resource.status ?? "",
         "statusLabel": resource.status ?? "",
-        "url": resource.url ?? "/"
+        "url": resource.url ?? resource.fileUrl ?? "/",
+        "fileUrl": resource.fileUrl ?? resource.url ?? "/"
     };
 }
 
@@ -176,13 +194,13 @@ function mapCourseInformation(course, teacher, delegates, stats) {
 }
 
 export function mapCourseData(data, courseSlug) {
+    const session = data?.session ?? {};
     const courses = data?.courses ?? [];
     const users = data?.users ?? [];
     const classrooms = data?.classrooms ?? [];
     const courseStats = data?.courseStats ?? [];
     const courseMembers = data?.courseMembers ?? [];
     const allResources = data?.resources ?? [];
-
     const course = findCourse(courses, courseSlug);
 
     if (!course) {
@@ -196,7 +214,7 @@ export function mapCourseData(data, courseSlug) {
             "information": mapCourseInformation(fallbackCourse, null, [], null)
         };
     }
-
+    
     const teacher = findTeacher(users, course);
     const classroom = findClassroom(classrooms, course);
     const stats = findCourseStats(courseStats, course);
@@ -207,6 +225,7 @@ export function mapCourseData(data, courseSlug) {
     const resources = allResources.filter((resource) => resource.courseId === course.id);
 
     return {
+        "currentUser": mapCurrentUser(session, usersById),
         "course": mapCourse(course, teacher, classroom, stats),
         "actions": mapCourseActions(course, stats),
         "resourcesSummary": mapResourcesSummary(stats),

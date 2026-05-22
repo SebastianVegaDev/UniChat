@@ -1,41 +1,38 @@
-import { loginService, registerService } from "./auth.service.js"
+import { loginService, registerService, googleAuthService } from "./auth.service.js"
+import { validateLogin, validateRegister, validateGoogleAuth } from "../../validators/auth.validator.js";
 
 export async function login(req, res, next) {
     try {
-        const code = req.body.code;
-        const password = req.body.password;
+        const data = validateLogin(req.body);
 
-        const session = await loginService({ code, password });
+        const session = await loginService(data);
 
         res.json(session)
 
     } catch (error) {
         next(error)
     }
-
 }
+
 export async function register(req, res, next) {
     try {
-        const firstName = req.body.firstName;
-        const lastName = req.body.lastName;
-        const email = req.body.email;
-        const password = req.body.password;
-        const repeatPassword = req.body.repeatPassword;
+        const data = await validateRegister(req.body);
 
-        if (password !== repeatPassword) {
-            throw new Error("Passwords do not match");
-        }
-
-        const user = await registerService({
-            firstName,
-            lastName,
-            email,
-            password
-        });
+        const user = await registerService(data);
 
         res.json(user)
     } catch (error) {
         next(error);
     }
+}
 
+export async function googleAuth(req, res, next) {
+    try {
+        const data = await validateGoogleAuth(req.body);
+        const session = await googleAuthService(data);
+
+        res.json(session)
+    } catch (error) {
+        next(error);
+    }
 }

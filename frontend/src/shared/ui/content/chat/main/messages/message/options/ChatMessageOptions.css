@@ -1,0 +1,40 @@
+.chat-message-options {
+    position: absolute;
+    right: 8px;
+    bottom: calc(100% + 8px);
+    z-index: 5;
+    background-color: #303030;
+    border: 2px solid #3f3f3f;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 130px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32);
+}
+
+.chat-message-options button {
+    border: none;
+    background: transparent;
+    color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 10px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.chat-message-options button:hover {
+    background-color: rgba(243, 112, 33, 0.16);
+    color: #ff9b45;
+}
+
+.chat-message-options svg {
+    width: 16px;
+    height: 16px;
+    color: #ff9b45;
+}

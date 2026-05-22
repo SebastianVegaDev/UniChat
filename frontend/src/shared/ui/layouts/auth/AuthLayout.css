@@ -16,7 +16,6 @@
     width: 100%;
     height: 100%;
     border-radius: 15px;
-    box-shadow: 0 0 45px rgba(243, 112, 33, 0.55), 0 0 110px rgba(217, 90, 22, 0.34), 0 0 180px rgba(185, 74, 15, 0.24);
 }
 
 .auth-layout-form {

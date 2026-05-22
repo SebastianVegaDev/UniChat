@@ -51,6 +51,16 @@
     font-family: "Inter";
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.register-form-button-code:hover {
+    background-color: #bb5515;
+}
+
+.register-form-button-code:active {
+    transform: scale(0.98);
 }
 
 .register-form-button-gmail {
@@ -66,6 +76,17 @@
     font-family: "Inter";
     font-size: 15px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.register-form-button-gmail:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgb(105, 105, 105);
+}
+
+.register-form-button-gmail:active {
+    transform: scale(0.98);
 }
 
 .register-form-google-icon {

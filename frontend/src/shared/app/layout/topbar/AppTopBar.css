@@ -57,17 +57,26 @@
     cursor: pointer;
 }
 
-.app-top-bar-user > span {
+.app-top-bar-user > span,
+.app-top-bar-user > img {
     background-color: #f37021;
-    color: white;
     width: 28px;
     height: 28px;
     border-radius: 999px;
+    flex: 0 0 28px;
+}
+
+.app-top-bar-user > span {
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 13px;
     font-weight: 800;
+}
+
+.app-top-bar-user > img {
+    object-fit: cover;
 }
 
 .app-top-bar-user > p {
@@ -84,17 +93,31 @@
     background-color: #414141;
     border: 2px solid #5d5d5d;
     border-radius: 10px;
-    box-shadow: 0 12px 28px rgba(31, 41, 55, 0.12);
     padding: 12px;
     display: flex;
     gap: 10px;
 }
 
-.app-top-bar-user-info > img {
+.app-top-bar-user-info > img,
+.app-top-bar-user-info > span {
     width: 46px;
     height: 46px;
     border-radius: 999px;
+    flex: 0 0 46px;
+    background-color: #f37021;
+}
+
+.app-top-bar-user-info > img {
     object-fit: cover;
+}
+
+.app-top-bar-user-info > span {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
 }
 
 .app-top-bar-user-info p {
