@@ -1,38 +1,68 @@
 import "./CreateForm.css";
-import { X } from "lucide-react";
+import { Upload, X } from "lucide-react";
+import { useRef, useState } from "react";
 
 function ResourceForm({ closeForm, course, resource, handleUploadResource, handleEditResource }) {
     const isEditing = Boolean(resource);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const fileInputRef = useRef(null);
 
     function closeResourceForm(event) {
         event.stopPropagation();
         closeForm();
     }
 
-    function handleSubmit(event) {
+    function handleFileChange(event) {
+        setSelectedFile(event.target.files[0] ?? null);
+    }
+
+    function clearFile() {
+        setSelectedFile(null);
+
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+        }
+    }
+
+    function formatFileSize(size) {
+        return `${(size / 1000000).toFixed(1)} MB`;
+    }
+
+    async function handleSubmit(event) {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
-        const resourceData = {
-            courseId: course.id,
-            weekNumber: Number(formData.get("weekNumber")),
-            title: formData.get("title"),
-            kind: formData.get("kind"),
-            sizeBytes: Number(formData.get("sizeBytes")),
-            fileUrl: formData.get("fileUrl"),
-            status: formData.get("status")
-        };
 
         if (isEditing) {
-            handleEditResource({
-                ...resourceData,
-                resourceId: resource.id
-            });
-        } else {
-            handleUploadResource(resourceData);
+            const resourceData = {
+                resourceId: resource.id,
+                weekNumber: Number(formData.get("weekNumber")),
+                title: formData.get("title"),
+                kind: formData.get("kind"),
+                sizeBytes: Number(formData.get("sizeBytes")),
+                fileUrl: formData.get("fileUrl"),
+                status: formData.get("status")
+            };
+
+            const isSaved = await handleEditResource(resourceData);
+
+            if (isSaved) closeForm();
+
+            return;
         }
 
-        closeForm();
+        const file = formData.get("file");
+
+        const resourceData = new FormData();
+        resourceData.append("courseId", course.id);
+        resourceData.append("weekNumber", formData.get("weekNumber"));
+        resourceData.append("title", formData.get("title"));
+        resourceData.append("status", formData.get("status"));
+        resourceData.append("file", file);
+
+        const isSaved = await handleUploadResource(resourceData);
+
+        if (isSaved) closeForm();
     }
 
     return (
@@ -52,17 +82,41 @@ function ResourceForm({ closeForm, course, resource, handleUploadResource, handl
                     <input className="create-form-input" name="title" placeholder="Title" defaultValue={resource?.title ?? ""} />
                     <input className="create-form-input" name="weekNumber" type="number" placeholder="Week" defaultValue={resource?.weekNumber ?? ""} />
 
-                    <select className="create-form-input" name="kind" defaultValue={resource?.kind ?? ""}>
-                        <option value="" disabled>Kind</option>
-                        <option value="pdf">PDF</option>
-                        <option value="ppt">PowerPoint</option>
-                        <option value="video">Video</option>
-                        <option value="photo">Photo</option>
-                        <option value="sql">SQL</option>
-                    </select>
+                    {!isEditing && (
+                        <label className="create-form-file">
+                            <input
+                                className="create-form-file-input"
+                                name="file"
+                                type="file"
+                                ref={fileInputRef}
+                                required
+                                onChange={handleFileChange}
+                            />
+                            <span className="create-form-file-icon">
+                                <Upload />
+                            </span>
+                            <span className="create-form-file-info">
+                                <span>Upload file</span>
+                                <small>Choose the resource file from your device.</small>
+                            </span>
+                        </label>
+                    )}
 
-                    <input className="create-form-input" name="sizeBytes" type="number" placeholder="Size bytes" defaultValue={resource?.sizeBytes ?? ""} />
-                    <input className="create-form-input" name="fileUrl" placeholder="File URL" defaultValue={resource?.fileUrl ?? resource?.url ?? ""} />
+                    {selectedFile ? (
+                        <div className="create-form-file-selected">
+                            <div>
+                                <span>{selectedFile.name}</span>
+                                <small>{formatFileSize(selectedFile.size)}</small>
+                            </div>
+                            <button type="button" onClick={clearFile}>
+                                <X />
+                            </button>
+                        </div>
+                    ) : null}
+
+                    <input name="sizeBytes" type="hidden" defaultValue={resource?.sizeBytes ?? 0} />
+                    <input name="fileUrl" type="hidden" defaultValue={resource?.fileUrl ?? resource?.url ?? ""} />
+                    <input name="kind" type="hidden" defaultValue={resource?.kind ?? ""} />
 
                     <select className="create-form-input" name="status" defaultValue={resource?.status ?? "available"}>
                         <option value="available">Available</option>

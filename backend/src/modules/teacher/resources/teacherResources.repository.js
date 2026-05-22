@@ -26,7 +26,18 @@ export async function insertTeacherResource(
         
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 
-        RETURNING id;
+        RETURNING
+            id,
+            course_id AS "courseId",
+            week_number AS "weekNumber",
+            title,
+            kind,
+            size_bytes AS "sizeBytes",
+            uploaded_by_id AS "uploadedById",
+            file_url AS "fileUrl",
+            file_url AS "url",
+            status,
+            created_at AS "createdAt";
     `, [
         courseId,
         weekNumber,
@@ -86,7 +97,18 @@ export async function updateTeacherResource(
             status = $6
         WHERE id = $7
             AND is_deleted = FALSE
-        RETURNING id;
+        RETURNING
+            id,
+            course_id AS "courseId",
+            week_number AS "weekNumber",
+            title,
+            kind,
+            size_bytes AS "sizeBytes",
+            uploaded_by_id AS "uploadedById",
+            file_url AS "fileUrl",
+            file_url AS "url",
+            status,
+            created_at AS "createdAt";
     `, [
         weekNumber,
         title,

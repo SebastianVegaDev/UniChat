@@ -1,7 +1,7 @@
-import { apiDelete, apiPatch, apiPost } from "../../../shared/api/client.js";
+import { apiDelete, apiPatch, apiFormPost } from "../../../shared/api/client.js";
 
 export async function fetchUploadTeacherResource(resourceData) {
-    return apiPost("/teacher/resources/upload", resourceData);
+    return apiFormPost("/teacher/resources/upload", resourceData);
 }
 
 export async function fetchEditTeacherResource(resourceData) {

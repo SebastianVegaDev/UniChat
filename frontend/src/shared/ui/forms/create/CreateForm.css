@@ -102,6 +102,130 @@
     resize: vertical;
 }
 
+.create-form-file {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    border: 2px dashed #3f3f3f;
+    background-color: #303030;
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.create-form-file:hover {
+    background-color: #373737;
+    border-color: #f37021;
+}
+
+.create-form-file:active {
+    transform: scale(0.99);
+}
+
+.create-form-file-input {
+    display: none;
+}
+
+.create-form-file-icon {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background-color: rgba(243, 112, 33, 0.14);
+    color: #f37021;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-form-file-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.create-form-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.create-form-file-info > span {
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.create-form-file-info > small {
+    color: #b3b3b3;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.create-form-file-selected {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 2px solid #3f3f3f;
+    background-color: #303030;
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.create-form-file-selected > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.create-form-file-selected span {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 750;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.create-form-file-selected small {
+    color: #b3b3b3;
+    font-size: 13px;
+}
+
+.create-form-file-selected button {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 8px;
+    background-color: #373737;
+    color: #b3b3b3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.create-form-file-selected button:hover {
+    background-color: #3f3f3f;
+    color: #ffffff;
+}
+
+.create-form-file-selected button:active {
+    transform: scale(0.94);
+}
+
+.create-form-file-selected svg {
+    width: 16px;
+    height: 16px;
+}
+
 .create-form-dates {
     display: flex;
     gap: 10px;

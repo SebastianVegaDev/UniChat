@@ -10,6 +10,8 @@ import {
     validateToggleTeacherResource,
     validateUploadTeacherResource
 } from "../../../validators/teacherResources.validator.js";
+import { getResourceFileData } from "./teacherResources.helper.js";
+import { BadRequestError } from "../../../errors/index.js";
 
 export async function deleteTeacherResource(req, res, next) {
     try {
@@ -59,7 +61,16 @@ export async function toggleTeacherResource(req, res, next) {
 export async function uploadTeacherResource(req, res, next) {
     try {
         const uploadedById = req.user.id;
-        const data = validateUploadTeacherResource(req.body);
+        const fileData = getResourceFileData(req.file);
+
+        if (!fileData) {
+            throw new BadRequestError("Resource file is required");
+        }
+
+        const data = validateUploadTeacherResource({
+            ...req.body,
+            ...fileData
+        });
 
         const uploadResource = await uploadTeacherResourceService({
             ...data,

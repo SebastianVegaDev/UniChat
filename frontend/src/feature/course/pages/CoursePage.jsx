@@ -33,17 +33,15 @@ function CoursePage() {
             const uploadedResource = await fetchUploadTeacherResource(resourceData);
 
             if (uploadedResource) {
-                updateBootstrap((currentData) => addResource(currentData, {
-                    ...resourceData,
-                    id: uploadedResource.id,
-                    uploadedById: currentUser.id,
-                    createdAt: new Date().toISOString(),
-                    url: resourceData.fileUrl
-                }));
+                updateBootstrap((currentData) => addResource(currentData, uploadedResource));
+
+                return true;
             }
         } catch (error) {
             console.log(error)
         }
+
+        return false;
     }
 
     async function handleEditResource(resourceData) {
@@ -52,10 +50,14 @@ function CoursePage() {
 
             if (editedResource) {
                 updateBootstrap((currentData) => editResource(currentData, resourceData));
+
+                return true;
             }
         } catch (error) {
             console.log(error)
         }
+
+        return false;
     }
 
     async function handleToggleResource(resource) {

@@ -1,17 +1,23 @@
 import "./CourseResources.css";
-import { useNavigate } from "react-router-dom";
 import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
 import CourseResource from "./resource/CourseResource.jsx";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
+const FILE_BASE_URL = API_URL.replace("/api", "");
+
 function CourseResources({ currentUser, course, resourcesSummary, resourcesByWeek, resourcesRef, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
-    const navigate = useNavigate();
 
     function handleResourceClick(resource) {
         const isUnavailable = resource.statusLabel === "unavailable";
+        const fileUrl = resource.fileUrl || resource.url;
 
-        if (isUnavailable) return;
+        if (isUnavailable || !fileUrl) return;
 
-        navigate(resource.url);
+        const fullFileUrl = fileUrl.startsWith("http")
+            ? fileUrl
+            : `${FILE_BASE_URL}${fileUrl}`;
+
+        window.open(fullFileUrl, "_blank", "noopener,noreferrer");
     }
 
     return (

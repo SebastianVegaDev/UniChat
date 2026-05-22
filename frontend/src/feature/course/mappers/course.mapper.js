@@ -80,7 +80,9 @@ function formatKindLabel(kind) {
         "ppt": "PowerPoint",
         "pdf": "Official PDF",
         "video": "Video",
-        "photo": "Photo"
+        "photo": "Photo",
+        "sql": "SQL",
+        "doc": "Document"
     };
 
     return kindLabels[kind] ?? "Resource";

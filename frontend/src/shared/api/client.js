@@ -2,12 +2,13 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 async function request(path, options = {}) {
     const token = localStorage.getItem("token");
+    const isFormData = options.body instanceof FormData;
 
     const response = await fetch(`${API_URL}${path}`, {
         credentials: "include",
         ...options,
         headers: {
-            "Content-type": "application/json",
+            ...(!isFormData ? { "Content-Type": "application/json" } : {}),
             ...(token ? { Authorization: `Bearer ${token}` } : {}),
             ...(options.headers ?? {})
         }
@@ -46,5 +47,12 @@ export async function apiDelete(path, data) {
     return request(path, {
         method: "DELETE",
         body: JSON.stringify(data)
+    });
+}
+
+export async function apiFormPost(path, data) {
+    return request(path, {
+        method: "POST",
+        body: data
     });
 }
