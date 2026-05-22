@@ -12,6 +12,6 @@ const router = Router();
 router.post("/upload", uploadTeacherResourceFile, uploadTeacherResource);
 router.delete("/delete", deleteTeacherResource);
 router.patch("/toggle", toggleTeacherResource);
-router.patch("/edit", editTeacherResource);
+router.patch("/edit", uploadTeacherResourceFile, editTeacherResource);
 
 export default router;

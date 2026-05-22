@@ -1,4 +1,5 @@
 import {
+    findTeacherResourceById,
     insertTeacherResource,
     softDeleteTeacherResource,
     toggleTeacherResourceAvailability,
@@ -6,6 +7,7 @@ import {
 } from "./teacherResources.repository.js"
 import { NotFoundError } from "../../../errors/index.js";
 import { findTeacherCourseAccess, findTeacherResourceAccess } from "../../access/access.repository.js";
+import { deleteResourceFile } from "./teacherResources.helper.js";
 
 export async function deleteTeacherResourceService({teacherId, resourceId}) {
     const access = await findTeacherResourceAccess({
@@ -38,10 +40,16 @@ export async function editTeacherResourceService(data) {
         throw new NotFoundError("Resource not found");
     }
 
+    const oldResource = await findTeacherResourceById({ resourceId });
+
     const resource = await updateTeacherResource(data);
 
     if (!resource) {
         throw new NotFoundError("Resource not found");
+    }
+
+    if (oldResource.fileUrl !== resource.fileUrl) {
+        await deleteResourceFile(oldResource.fileUrl);
     }
 
     return resource;

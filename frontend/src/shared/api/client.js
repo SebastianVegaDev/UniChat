@@ -56,3 +56,10 @@ export async function apiFormPost(path, data) {
         body: data
     });
 }
+
+export async function apiFormPatch(path, data) {
+    return request(path, {
+        method: "PATCH",
+        body: data
+    });
+}

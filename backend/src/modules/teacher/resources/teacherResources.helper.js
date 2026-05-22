@@ -1,3 +1,14 @@
+import path from "node:path";
+import fs from "node:fs/promises";
+
+export async function deleteResourceFile(fileUrl) {
+    if (!fileUrl?.startsWith("/uploads/resources/")) return;
+
+    const filePath = path.resolve(`.${fileUrl}`);
+
+    await fs.unlink(filePath).catch(() => null);
+}
+
 export function getResourceFileData(file) {
     if (!file) return null;
 

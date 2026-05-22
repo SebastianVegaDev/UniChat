@@ -29,11 +29,17 @@ export async function deleteTeacherResource(req, res, next) {
 export async function editTeacherResource(req, res, next) {
     try {
         const teacherId = req.user.id;
-        const data = validateEditTeacherResource(req.body);
+        const fileData = getResourceFileData(req.file);
+
+        const data = await validateEditTeacherResource({
+            ...req.body,
+            ...(fileData ?? {})
+        });
 
         const editResource = await editTeacherResourceService({
             ...data,
-            teacherId
+            teacherId,
+            oldFileUrl: req.body.fileUrl
         });
 
         res.json(editResource)
@@ -69,7 +75,7 @@ export async function uploadTeacherResource(req, res, next) {
 
         const data = validateUploadTeacherResource({
             ...req.body,
-            ...fileData
+            ...(fileData ?? {})
         });
 
         const uploadResource = await uploadTeacherResourceService({

@@ -32,28 +32,32 @@ function ResourceForm({ closeForm, course, resource, handleUploadResource, handl
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
+        const file = formData.get("file");
 
         if (isEditing) {
-            const resourceData = {
-                resourceId: resource.id,
-                weekNumber: Number(formData.get("weekNumber")),
-                title: formData.get("title"),
-                kind: formData.get("kind"),
-                sizeBytes: Number(formData.get("sizeBytes")),
-                fileUrl: formData.get("fileUrl"),
-                status: formData.get("status")
-            };
+            const resourceData = new FormData()
 
-            const isSaved = await handleEditResource(resourceData);
+            resourceData.append("resourceId", resource.id);
+            resourceData.append("weekNumber", Number(formData.get("weekNumber")));
+            resourceData.append("title", formData.get("title"))
+            resourceData.append("kind", formData.get("kind"))
+            resourceData.append("sizeBytes", Number(formData.get("sizeBytes")))
+            resourceData.append("fileUrl", formData.get("fileUrl"))
+            resourceData.append("status", formData.get("status"))
+
+            if (file && file.size > 0) {
+                resourceData.append("file", file);
+            }
+
+            const isSaved = await handleEditResource(resourceData)
 
             if (isSaved) closeForm();
 
             return;
         }
 
-        const file = formData.get("file");
-
         const resourceData = new FormData();
+
         resourceData.append("courseId", course.id);
         resourceData.append("weekNumber", formData.get("weekNumber"));
         resourceData.append("title", formData.get("title"));
@@ -82,25 +86,23 @@ function ResourceForm({ closeForm, course, resource, handleUploadResource, handl
                     <input className="create-form-input" name="title" placeholder="Title" defaultValue={resource?.title ?? ""} />
                     <input className="create-form-input" name="weekNumber" type="number" placeholder="Week" defaultValue={resource?.weekNumber ?? ""} />
 
-                    {!isEditing && (
-                        <label className="create-form-file">
-                            <input
-                                className="create-form-file-input"
-                                name="file"
-                                type="file"
-                                ref={fileInputRef}
-                                required
-                                onChange={handleFileChange}
-                            />
-                            <span className="create-form-file-icon">
-                                <Upload />
-                            </span>
-                            <span className="create-form-file-info">
-                                <span>Upload file</span>
-                                <small>Choose the resource file from your device.</small>
-                            </span>
-                        </label>
-                    )}
+                    <label className="create-form-file">
+                        <input
+                            className="create-form-file-input"
+                            name="file"
+                            type="file"
+                            ref={fileInputRef}
+                            required={!isEditing}
+                            onChange={handleFileChange}
+                        />
+                        <span className="create-form-file-icon">
+                            <Upload />
+                        </span>
+                        <span className="create-form-file-info">
+                            <span>{isEditing ? "Replace file" : "Upload file"}</span>
+                            <small>{isEditing ? "Choose a new file if needed." : "Choose the resource file from your device."}</small>
+                        </span>
+                    </label>
 
                     {selectedFile ? (
                         <div className="create-form-file-selected">

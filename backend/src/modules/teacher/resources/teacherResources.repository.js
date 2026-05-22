@@ -121,3 +121,16 @@ export async function updateTeacherResource(
         
     return rows[0];
 }
+
+export async function findTeacherResourceById({ resourceId }) {
+    const { rows } = await pool.query(`
+        SELECT
+            id,
+            file_url AS "fileUrl"
+        FROM resources
+        WHERE id = $1
+            AND is_deleted = FALSE;
+    `, [resourceId])
+
+    return rows[0];
+}
