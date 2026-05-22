@@ -2,7 +2,7 @@ import "./RegisterForm.css";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
-function RegisterForm({ handleSubmit }) {
+function RegisterForm({ handleSubmit, handleGoogleSubmit }) {
     const navigate = useNavigate();
 
     function onSubmit(e) {
@@ -56,7 +56,7 @@ function RegisterForm({ handleSubmit }) {
             </div>
             <div className="register-form-buttons">
                 <button className="register-form-button-code" type="submit">Continue with email</button>
-                <button className="register-form-button-gmail" type="button">
+                <button className="register-form-button-gmail" type="button" onClick={handleGoogleSubmit}>
                     <FcGoogle className="register-form-google-icon" aria-hidden="true" />
                     Continue with Google
                 </button>

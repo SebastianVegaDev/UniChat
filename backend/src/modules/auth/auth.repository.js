@@ -1,7 +1,7 @@
 import { pool } from "../../config/db.js";
 
 export async function findUserByCode(code) {
-    const result = await pool.query(`
+    const { rows } = await pool.query(`
         SELECT
             id,
             code,
@@ -15,27 +15,41 @@ export async function findUserByCode(code) {
         WHERE code = $1
     `, [code]);
 
-    return result.rows[0];
+    return rows[0];
 }
 
-export async function findUserByEmail(email) {
-    const result = await pool.query(`
+export async function findUserByEmailOrCode(email, code) {
+    const { rows } = await pool.query(`
         SELECT
-            email
+            id,
+            code,
+            first_name,
+            last_name,
+            email,
+            role,
+            avatar_url
         FROM users
         WHERE email = $1
-    `, [email]);
+            OR code = $2;
+    `, [email, code]);
 
-    return result.rows[0];
+    return rows[0];
 }
 
 export async function insertUser({firstName, lastName, email, code, passwordHash}) {
-    const result = await pool.query(`
+    const { rows } = await pool.query(`
         INSERT INTO users
         (code, first_name, last_name, email, password_hash, role)
         VALUES ($1, $2, $3, $4, $5, 'student')
-        RETURNING id;
+        RETURNING
+            id,
+            code,
+            first_name,
+            last_name,
+            email,
+            role,
+            avatar_url;
     `, [code, firstName, lastName, email, passwordHash])
 
-    return result.rows[0];
+    return rows[0];
 }

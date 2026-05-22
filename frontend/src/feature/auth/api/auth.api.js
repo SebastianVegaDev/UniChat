@@ -7,3 +7,7 @@ export async function fetchLogin(data) {
 export async function fetchRegister(data) {
     return apiPost("/auth/register", data);
 }
+
+export async function fetchGoogleAuth(data) {
+    return apiPost("/auth/google", data);
+}

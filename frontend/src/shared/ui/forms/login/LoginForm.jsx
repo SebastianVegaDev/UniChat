@@ -2,7 +2,7 @@ import "./LoginForm.css";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm({ handleSubmit }) {
+function LoginForm({ handleSubmit, handleGoogleSubmit }) {
     const navigate = useNavigate();
 
     function onSubmit(e) {
@@ -34,7 +34,7 @@ function LoginForm({ handleSubmit }) {
             </div>
             <div className="login-form-buttons">
                 <button className="login-form-button-code" type="submit">Continue with Code</button>
-                <button className="login-form-button-gmail" type="button">
+                <button className="login-form-button-gmail" type="button" onClick={handleGoogleSubmit}>
                     <FcGoogle className="login-form-google-icon" aria-hidden="true" />
                     Continue with Google
                 </button>
