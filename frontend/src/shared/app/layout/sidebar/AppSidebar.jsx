@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.js";
 import { mapSidebarData } from "../../../../feature/sidebar/mappers/sidebar.mapper.js";
 import { toast } from "react-toastify"
+import { disconnectSocket } from "../../../../feature/realtime/socket.js";
 
 function AppSideBar() {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ function AppSideBar() {
     const { courses } = sidebarData;
 
     function handleLogout() {
+        disconnectSocket();
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("unichat_bootstrap_cache");

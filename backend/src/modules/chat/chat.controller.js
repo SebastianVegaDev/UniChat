@@ -1,5 +1,6 @@
 import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, markChatChannelAsReadService, sendChatMessageService, toggleChatMessageReactionService } from "./chat.service.js";
 import { validateDeleteChatMessage, validateMarkChatChannelAsRead, validateSendChatMessage, validateToggleChatMessageReaction } from "../../validators/chat.validator.js";
+import { emitToChatChannel } from "../../socket/socket.js";
 
 export async function getChatChannels(req, res, next) {
     try {
@@ -35,6 +36,7 @@ export async function sendChatMessage(req, res, next) {
             userId
         });
 
+        emitToChatChannel(message.channelId, "chat:message-created", message);
 
         res.status(201).json(message);
     } catch (error) {
@@ -49,6 +51,11 @@ export async function deleteChatMessage(req, res, next) {
         const userId = req.user.id;
         const deletedMessage = await deleteChatMessageService({messageId, userId});
 
+        emitToChatChannel(deletedMessage.channelId, "chat:message-deleted", {
+            messageId: deletedMessage.id,
+            deletedMessage
+        });
+
         res.json(deletedMessage);
     } catch (error) {
         next(error);
@@ -60,12 +67,18 @@ export async function toggleChatMessageReaction(req, res, next) {
         const userId = req.user.id;
         const data = validateToggleChatMessageReaction(req.body);
 
-        const reactions = await toggleChatMessageReactionService({
+        const result = await toggleChatMessageReactionService({
             ...data,
             userId
         });
 
-        res.json(reactions)
+        emitToChatChannel(result.channelId, "chat:message-reactions-updated", {
+            messageId: result.messageId,
+            userId,
+            reactions: result.reactions
+        });
+
+        res.json(result.reactions);
     } catch (error) {
         next(error)
     }
@@ -78,6 +91,10 @@ export async function markChatChannelAsRead(req, res, next) {
 
         const result = await markChatChannelAsReadService({
             ...data,
+            userId
+        });
+        emitToChatChannel(result.channelId, "chat:messages-read", {
+            ...result,
             userId
         });
 

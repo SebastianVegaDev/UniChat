@@ -69,50 +69,36 @@ export async function deleteChatMessageService({messageId, userId}) {
         throw new NotFoundError("Chat message not found");
     }
 
-    return message;
+    return {
+        ...message,
+        channelId: access.channelId
+    };
 }
 
 export async function toggleChatMessageReactionService({ messageId, userId, emoji }) {
-    const access = await findChatMessageAccess({
-        userId,
-        messageId
-    });
+    const access = await findChatMessageAccess({ userId, messageId });
 
     if (!access) {
         throw new NotFoundError("Chat message not found");
     }
 
-    const reaction = await findChatMessageReaction({
-        messageId,
-        userId
-    });
+    const reaction = await findChatMessageReaction({ messageId, userId });
 
     if (!reaction) {
-        await createChatMessageReaction({
-            messageId,
-            userId,
-            emoji
-        });
-
-        return await findChatMessageReactions({ messageId, userId });
+        await createChatMessageReaction({ messageId, userId, emoji });
+    } else if (reaction.emoji === emoji) {
+        await deleteChatMessageReaction({ messageId, userId });
+    } else {
+        await updateChatMessageReaction({ messageId, userId, emoji });
     }
 
-    if (reaction.emoji === emoji) {
-        await deleteChatMessageReaction({
-            messageId,
-            userId
-        });
+    const reactions = await findChatMessageReactions({ messageId, userId });
 
-        return await findChatMessageReactions({ messageId, userId });
-    }
-
-    await updateChatMessageReaction({
+    return {
         messageId,
-        userId,
-        emoji
-    });
-
-    return await findChatMessageReactions({ messageId, userId });
+        channelId: access.channelId,
+        reactions
+    };
 }
 
 export async function markChatChannelAsReadService({ channelId, userId }) {

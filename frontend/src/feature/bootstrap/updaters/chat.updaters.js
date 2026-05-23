@@ -5,6 +5,15 @@ import {
     updateCourseStats
 } from "./bootstrapUpdater.utils.js";
 
+function isUnreadForUser(message, userId) {
+    if (!message || message.isDeleted) return false;
+    if (isSameId(message.senderId, userId)) return false;
+
+    const readBy = Array.isArray(message.readBy) ? message.readBy : [];
+
+    return !readBy.some((readUserId) => isSameId(readUserId, userId));
+}
+
 export function addChatMessage(data, message) {
     const messageAlreadyExists = (data.chatMessages ?? []).some((chatMessage) => {
         return isSameId(chatMessage.id, message.id);
@@ -21,9 +30,14 @@ export function addChatMessage(data, message) {
     };
 
     const courseId = findCourseIdByChannel(nextData, message.channelId);
+    const currentUserId = data.session?.currentUserId;
+    const shouldCountAsUnread = isUnreadForUser(message, currentUserId);
 
     return updateCourseStats(nextData, courseId, (stat) => ({
         ...stat,
+        unreadMessagesCount: shouldCountAsUnread
+            ? (stat.unreadMessagesCount ?? 0) + 1
+            : (stat.unreadMessagesCount ?? 0),
         lastActivityAt: message.createdAt ?? getNow()
     }));
 }
@@ -58,6 +72,8 @@ export function markChatMessageDeleted(data, messageId, deletedMessage) {
     const messageToDelete = (data.chatMessages ?? []).find((message) => {
         return isSameId(message.id, messageId);
     });
+    const currentUserId = data.session?.currentUserId;
+    const shouldDecreaseUnreadCount = isUnreadForUser(messageToDelete, currentUserId);
 
     const nextData = {
         ...data,
@@ -77,28 +93,46 @@ export function markChatMessageDeleted(data, messageId, deletedMessage) {
 
     return updateCourseStats(nextData, courseId, (stat) => ({
         ...stat,
+        unreadMessagesCount: shouldDecreaseUnreadCount
+            ? Math.max((stat.unreadMessagesCount ?? 0) - 1, 0)
+            : (stat.unreadMessagesCount ?? 0),
         lastActivityAt: getNow()
     }));
 }
 
-export function updateChatMessageReactions(data, messageId, reactions) {
+export function updateChatMessageReactions(data, messageId, reactions, actorUserId) {
+    const currentUserId = data.session?.currentUserId;
+
     return {
         ...data,
         chatMessages: (data.chatMessages ?? []).map((message) => {
             if (!isSameId(message.id, messageId)) return message;
 
+            const currentReactions = message.reactions ?? [];
+            const shouldUsePayloadAsMine = !actorUserId || isSameId(actorUserId, currentUserId);
+
             return {
                 ...message,
-                reactions
+                reactions: shouldUsePayloadAsMine
+                    ? reactions
+                    : reactions.map((reaction) => ({
+                        ...reaction,
+                        reactedByMe: currentReactions.some((currentReaction) => {
+                            return currentReaction.emoji === reaction.emoji
+                                && currentReaction.reactedByMe;
+                        })
+                    }))
             };
         })
     };
 }
 
 export function markChatChannelMessagesRead(data, channelId, userId, readMessagesIds = []) {
-    const readMessageIdsSet = new Set(readMessagesIds.map((id)  => `${id}`));
+    const readMessageIdsSet = new Set(readMessagesIds.map((id) => `${id}`));
 
     if (readMessageIdsSet.size === 0) return data;
+
+    let addedReadCount = 0;
 
     const nextData = {
         ...data,
@@ -106,30 +140,29 @@ export function markChatChannelMessagesRead(data, channelId, userId, readMessage
             if (!isSameId(message.channelId, channelId)) return message;
             if (!readMessageIdsSet.has(`${message.id}`)) return message;
 
-            const readBy = Array.isArray(message.readBy) ? message.readBy: [];
+            const readBy = Array.isArray(message.readBy) ? message.readBy : [];
             const alreadyReadByUser = readBy.some((readUserId) => {
                 return isSameId(readUserId, userId);
             });
 
             if (alreadyReadByUser) return message;
 
+            addedReadCount += 1;
+
             return {
                 ...message,
-                readBy: [
-                    ...readBy,
-                    userId
-                ]
+                readBy: [...readBy, userId]
             };
         })
     };
 
     const courseId = findCourseIdByChannel(nextData, channelId);
+    const shouldUpdateUnreadCount = isSameId(userId, data.session?.currentUserId);
 
     return updateCourseStats(nextData, courseId, (stat) => ({
         ...stat,
-        unreadMessagesCount: Math.max(
-            (stat.unreadMessagesCount ?? 0) - readMessageIdsSet.size,
-            0
-        )
+        unreadMessagesCount: shouldUpdateUnreadCount
+            ? Math.max((stat.unreadMessagesCount ?? 0) - addedReadCount, 0)
+            : (stat.unreadMessagesCount ?? 0)
     }));
 }
