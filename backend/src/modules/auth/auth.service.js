@@ -57,7 +57,7 @@ export async function registerService(data) {
     const userExist = await findUserByEmailOrCode(email, code);
 
     if (userExist) {
-        throw new ConflictError("User al ready exist!");
+        throw new ConflictError("User already exists!");
     }
 
     const passwordHash = await bcrypt.hash(password, 10);

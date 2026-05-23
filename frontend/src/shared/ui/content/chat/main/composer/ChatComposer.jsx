@@ -11,7 +11,7 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
         e.preventDefault();
         const form = e.currentTarget;
         const formData = new FormData(form);
-        const body = formData.get("body")?.trim();
+        const body = formData.get("messageBody")?.trim();
 
         if (!body || isComposerDisabled) return;
 
@@ -40,7 +40,7 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
     }, []);
 
     return (
-        <form className="chat-content-main-toolbar" onSubmit={onSubmit}>
+        <form className="chat-content-main-toolbar" autoComplete="off" onSubmit={onSubmit}>
             <div className="chat-content-main-toolbar-clip-wrapper" ref={optionsRef}>
                 {showOptions && !isComposerDisabled && (
                     <span className="chat-content-main-toolbar-options">
@@ -59,9 +59,10 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
                 </button>
             </div>
             <input
-                name="body" 
+                name="messageBody"
                 className={`chat-content-main-toolbar-input ${isComposerDisabled ? "disabled" : ""}`}
                 placeholder={isComposerDisabled ? "Chat is locked" : "Write your message..."}
+                autoComplete="off"
                 disabled={isComposerDisabled}
             />
             <button className="chat-content-main-toolbar-send" type="submit" disabled={isComposerDisabled}>

@@ -97,8 +97,16 @@ export async function findChatMessageAccess({ userId, messageId }) {
             ON chat_channels.id = chat_messages.channel_id
         INNER JOIN courses
             ON courses.id = chat_channels.course_id
+        LEFT JOIN course_members
+            ON course_members.course_id = courses.id
+            AND course_members.user_id = $2
+            AND course_members.status = 'active'
         WHERE chat_messages.id = $1
-            AND chat_messages.is_deleted = FALSE;
+            AND chat_messages.is_deleted = FALSE
+            AND (
+                courses.teacher_id = $2
+                OR course_members.user_id IS NOT NULL
+            );
     `, [messageId, userId]);
 
     return rows[0] ?? null;

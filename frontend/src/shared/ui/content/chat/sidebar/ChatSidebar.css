@@ -135,3 +135,25 @@
     font-weight: 350;
     color: #b3b3b3;
 }
+
+.chat-content-sidebar-chat-badge {
+    margin-left: auto;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background-color: #ff0000ff;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat-content-sidebar-empty {
+    color: #b3b3b3;
+    font-size: 14px;
+    padding: 10px 4px;
+    text-align: center;
+}

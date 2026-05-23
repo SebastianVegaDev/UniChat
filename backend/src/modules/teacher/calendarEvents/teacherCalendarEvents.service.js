@@ -23,12 +23,7 @@ export async function cancelTeacherCalendarEventService({calendarEventId, teache
 export async function createTeacherCalendarEventService(data) {
     const {
         courseId,
-        createdById,
-        title,
-        description,
-        eventType,
-        startsAt,
-        endsAt
+        createdById
     } = data
 
     const access = await findTeacherCourseAccess({

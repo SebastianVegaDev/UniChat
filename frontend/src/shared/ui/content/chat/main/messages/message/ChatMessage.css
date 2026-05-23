@@ -43,13 +43,13 @@
 
 .chat-content-main-message-checks {
     align-self: flex-end;
-    color: #b3b3b3;
+    color: rgba(255, 255, 255, 0.74);
     width: 16px;
     height: 16px;
 }
 
 .chat-content-main-message-checks.read {
-    color: #ff9b45;
+    color: #1d4ed8;
 }
 
 .chat-content-main-message-other {
@@ -114,6 +114,14 @@ span.chat-content-main-message-avatar {
 
 .chat-content-main-message.deleted-message p {
     font-style: italic;
+}
+
+.chat-content-main-message.has-reactions {
+    margin-bottom: 16px;
+}
+
+.chat-content-main-message-other.has-reactions {
+    margin-bottom: 8px;
 }
 
 .chat-content-main-message-other.message-deleted,

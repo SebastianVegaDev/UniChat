@@ -1,5 +1,5 @@
-import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, sendChatMessageService } from "./chat.service.js";
-import { validateDeleteChatMessage, validateSendChatMessage } from "../../validators/chat.validator.js";
+import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, markChatChannelAsReadService, sendChatMessageService, toggleChatMessageReactionService } from "./chat.service.js";
+import { validateDeleteChatMessage, validateMarkChatChannelAsRead, validateSendChatMessage, validateToggleChatMessageReaction } from "../../validators/chat.validator.js";
 
 export async function getChatChannels(req, res, next) {
     try {
@@ -35,6 +35,7 @@ export async function sendChatMessage(req, res, next) {
             userId
         });
 
+
         res.status(201).json(message);
     } catch (error) {
         next(error);
@@ -49,6 +50,38 @@ export async function deleteChatMessage(req, res, next) {
         const deletedMessage = await deleteChatMessageService({messageId, userId});
 
         res.json(deletedMessage);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export async function toggleChatMessageReaction(req, res, next) {
+    try {
+        const userId = req.user.id;
+        const data = validateToggleChatMessageReaction(req.body);
+
+        const reactions = await toggleChatMessageReactionService({
+            ...data,
+            userId
+        });
+
+        res.json(reactions)
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function markChatChannelAsRead(req, res, next) {
+    try {
+        const userId = req.user.id;
+        const data = validateMarkChatChannelAsRead(req.body);
+
+        const result = await markChatChannelAsReadService({
+            ...data,
+            userId
+        });
+
+        res.json(result)
     } catch (error) {
         next(error);
     }

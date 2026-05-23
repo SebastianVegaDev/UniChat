@@ -120,6 +120,14 @@ function isUnreadMessage(message, currentUserId) {
     return !readBy.some((userId) => isSameId(userId, currentUserId));
 }
 
+function countUnreadMessagesByChannel(messages, channelId, currentUserId) {
+    return messages.filter((message) => {
+        return isSameId(message.channelId, channelId)
+            && isUnreadMessage(message, currentUserId)
+            && !message.isDeleted;
+    }).length;
+}
+
 function mapCurrentUser(session, usersById) {
     const user = usersById[session.currentUserId];
 
@@ -141,12 +149,17 @@ function mapCourse(course, classroom) {
     };
 }
 
-function mapChannel(channel) {
+function mapChannel(channel, chatMessages, currentUserId) {
     return {
         "id": channel.id,
         "title": channel.name,
-        "description": channel.description
-    }
+        "description": channel.description,
+        "unreadCount": countUnreadMessagesByChannel(
+            chatMessages,
+            channel.id,
+            currentUserId
+        )
+    };
 }
 
 function mapActiveChannel(activeChannel) {
@@ -192,7 +205,8 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "avatarUrl": getAvatarUrl(user),
             "roleLabel": "",
             "roleClass": "",
-            "wasRead": wasRead(message)
+            "wasRead": wasRead(message),
+            "reactions": message.reactions ?? []
         }
     } else {
         const roleLabel = getRoleLabel(user, courseMember);
@@ -208,7 +222,8 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "avatarUrl": getAvatarUrl(user),
             "roleLabel": roleLabel,
             "roleClass": roleLabel.toLowerCase(),
-            "wasRead": wasRead(message)
+            "wasRead": wasRead(message),
+            "reactions": message.reactions ?? []
         }
     }
 }
@@ -235,7 +250,7 @@ function mapTimeline(messages, usersById, currentUserId, courseMembers, course) 
             lastDateKey = dateKey;
         }
 
-        if (!hasUnreadSeparator && isUnreadMessage(message, currentUserId)) {
+        if (!hasUnreadSeparator && isUnreadMessage(message, currentUserId) && !message.isDeleted) {
             timeline.push({
                 "id": `unread-${message.id}`,
                 "type": "unread",
@@ -281,7 +296,9 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
     if (!activeChannel) {
         return {
             "course": mapCourse(course, classroom),
-            "channels": courseChannels.map(mapChannel),
+            "channels": courseChannels.map((channel) => {
+                return mapChannel(channel, chatMessages, session.currentUserId);
+            }),
             "activeChannel": mapActiveChannel(null),
             "pinnedMessage": null,
             "timeline": []
@@ -297,7 +314,9 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
     return {
         "currentUser": mapCurrentUser(session, usersById),
         "course": mapCourse(course, classroom),
-        "channels": courseChannels.map(mapChannel),
+        "channels": courseChannels.map((channel) => {
+            return mapChannel(channel, chatMessages, session.currentUserId);
+        }),
         "activeChannel": mapActiveChannel(activeChannel),
         "pinnedMessage": mapPinnedMessage(pinnedMessage, usersById),
         "timeline": mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)

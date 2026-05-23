@@ -1,4 +1,4 @@
-export function errorMiddleware(error, req, res, next) {
+export function errorMiddleware(error, req, res, _next) {
     const statusCode = error.statusCode || 500;
 
     res.status(statusCode).json({

@@ -10,7 +10,7 @@ function formatDateInput(dateValue) {
 function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handleEditEvent }) {
     const isEditing = Boolean(calendarEvent);
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
@@ -23,16 +23,14 @@ function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handl
             endsAt: formData.get("endsAt")
         };
 
-        if (isEditing) {
-            handleEditEvent({
+        const isSaved = isEditing
+            ? await handleEditEvent({
                 ...calendarEventData,
                 calendarEventId: calendarEvent.id
-            });
-        } else {
-            handleCreateEvent(calendarEventData);
-        }
+            })
+            : await handleCreateEvent(calendarEventData);
 
-        closeForm();
+        if (isSaved) closeForm();
     }
 
     return (

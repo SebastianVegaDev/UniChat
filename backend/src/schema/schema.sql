@@ -115,6 +115,14 @@ CREATE TABLE chat_message_reads (
     PRIMARY KEY (message_id, user_id)
 );
 
+CREATE TABLE chat_message_reactions (
+    message_id INTEGER NOT NULL REFERENCES chat_messages(id) ON DELETE CASCADE,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    emoji TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (message_id, user_id)
+);
+
 CREATE INDEX idx_course_members_user_id ON course_members(user_id);
 CREATE INDEX idx_course_members_course_id ON course_members(course_id);
 CREATE INDEX idx_courses_teacher_id ON courses(teacher_id);
@@ -127,6 +135,7 @@ CREATE INDEX idx_chat_channels_course_id ON chat_channels(course_id);
 CREATE INDEX idx_chat_messages_channel_id ON chat_messages(channel_id);
 CREATE INDEX idx_chat_messages_is_deleted ON chat_messages(is_deleted);
 CREATE INDEX idx_chat_message_reads_user_id ON chat_message_reads(user_id);
+CREATE INDEX idx_chat_message_reactions_message_id ON chat_message_reactions(message_id);
 
 CREATE UNIQUE INDEX unique_default_channel_per_course
 ON chat_channels(course_id)

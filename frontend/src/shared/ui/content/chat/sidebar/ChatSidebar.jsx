@@ -1,9 +1,18 @@
 import "./ChatSidebar.css";
 import { ChevronLeft, Search, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) {
     const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState("");
+    const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+    const filteredChannels = normalizedSearchTerm
+        ? channels.filter((channel) => {
+            return (channel.title ?? "").toLowerCase().includes(normalizedSearchTerm)
+                || (channel.description ?? "").toLowerCase().includes(normalizedSearchTerm);
+        })
+        : channels;
 
     return (
         <div className="chat-content-sidebar">
@@ -20,9 +29,15 @@ function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) 
             </button>
             <div className="chat-content-sidebar-search-container">
                 <Search className="chat-content-sidebar-search-icon" />
-                <input className="chat-content-sidebar-search" placeholder="Search chat" />
+                <input
+                    className="chat-content-sidebar-search"
+                    placeholder="Search chat"
+                    value={searchTerm}
+                    autoComplete="off"
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                />
             </div>
-            {channels.map((channel) => (
+            {filteredChannels.map((channel) => (
                 <div
                     className={`chat-content-sidebar-chat ${channel.id === activeChannelId ? "selected" : ""}`}
                     key={channel.id}
@@ -31,12 +46,22 @@ function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) 
                     <span>
                         <MessageCircle />
                     </span>
+
                     <div className="chat-content-sidebar-chat-info">
                         <p>{channel.title}</p>
                         <span>{channel.description}</span>
                     </div>
+
+                    {channel.unreadCount > 0 && (
+                        <span className="chat-content-sidebar-chat-badge">
+                            {channel.unreadCount}
+                        </span>
+                    )}
                 </div>
             ))}
+            {filteredChannels.length === 0 && (
+                <p className="chat-content-sidebar-empty">No chats found</p>
+            )}
         </div>
     );
 }

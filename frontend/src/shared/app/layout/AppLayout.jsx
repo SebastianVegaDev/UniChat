@@ -11,11 +11,11 @@ function AppLayout() {
             <AppSideBar />
             <div className="app-layout-content">
                 <AppTopBar/>
-                <main className="app-layout-main">
+                <div className="app-layout-main">
                     <div className="app-layout-page" key={location.pathname}>
                         <Outlet/>
                     </div>
-                </main>
+                </div>
             </div>
         </div>
     );

@@ -3,7 +3,7 @@ import { getUsersService } from "../users/users.service.js";
 import { getClassroomsService } from "../classrooms/classrooms.service.js";
 import { getCoursesService } from "../courses/courses.service.js";
 import { getCourseMembersService } from "../courseMembers/courseMembers.service.js";
-import { getcourseStatsService } from "../courseStats/courseStats.service.js";
+import { getCourseStatsService } from "../courseStats/courseStats.service.js";
 import { getClassSessionsService } from "../classSessions/classSessions.service.js";
 import { getCalendarEventsService } from "../calendarEvents/calendarEvents.service.js";
 import { getResourcesService } from "../resources/resources.service.js";
@@ -32,7 +32,7 @@ export async function getBootstrapService(userId) {
         getClassroomsService(userId),
         getCoursesService(userId),
         getCourseMembersService(userId),
-        getcourseStatsService(userId),
+        getCourseStatsService(userId),
         getClassSessionsService(userId),
         getCalendarEventsService(userId),
         getResourcesService(userId),

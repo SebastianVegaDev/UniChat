@@ -4,7 +4,7 @@ function NewsCard({news}) {
     return (
         <>
             {news.map((newsItem) => (
-                <article className="news-card" key={newsItem.id}>
+                <div className="news-card" key={newsItem.id}>
                     <div className="news-card-header">
                         <h3>{newsItem.category}</h3>
                         <h3>{newsItem.dateLabel}</h3>
@@ -16,7 +16,7 @@ function NewsCard({news}) {
                     <div className="news-card-footer">
                         <h4>{newsItem.author}</h4>
                     </div>
-                </article>
+                </div>
             ))}
 
         </>

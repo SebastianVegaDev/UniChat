@@ -3,6 +3,7 @@ import { House, LogOut, Newspaper } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.js";
 import { mapSidebarData } from "../../../../feature/sidebar/mappers/sidebar.mapper.js";
+import { toast } from "react-toastify"
 
 function AppSideBar() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ function AppSideBar() {
         localStorage.removeItem("user");
         localStorage.removeItem("unichat_bootstrap_cache");
         navigate("/login", { replace: true });
+        toast.success("Logout successful!")
     }
 
     return (

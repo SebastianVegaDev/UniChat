@@ -4,7 +4,7 @@ import ChatComposer from "./composer/ChatComposer.jsx";
 import ChatHeader from "./header/ChatHeader.jsx";
 import ChatMessages from "./messages/ChatMessages.jsx";
 
-function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser }) {
+function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser, handleToggleReaction }) {
     const messagesRef = useRef(null);
     const isChatLocked = activeChannel.isLocked;
 
@@ -45,6 +45,7 @@ function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handle
                 activeChannel={activeChannel}
                 handleSetFixedMessage={handleSetFixedMessage}
                 handleDeleteMessage={handleDeleteMessage}
+                handleToggleReaction={handleToggleReaction}
             />
             <ChatComposer
                 activeChannel={activeChannel}
