@@ -2,10 +2,12 @@ import "./ChatSidebar.css";
 import { ChevronLeft, Search, MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { usePreferenceTexts } from "../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
+    const { chat } = usePreferenceTexts();
     const normalizedSearchTerm = searchTerm.trim().toLowerCase();
     const filteredChannels = normalizedSearchTerm
         ? channels.filter((channel) => {
@@ -25,13 +27,13 @@ function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) 
             </div>
             <button className="chat-content-sidebar-button" type="button" onClick={() => navigate(course.route)}>
                 <ChevronLeft />
-                Back to course
+                {chat.backToCourse}
             </button>
             <div className="chat-content-sidebar-search-container">
                 <Search className="chat-content-sidebar-search-icon" />
                 <input
                     className="chat-content-sidebar-search"
-                    placeholder="Search chat"
+                    placeholder={chat.searchChat}
                     value={searchTerm}
                     autoComplete="off"
                     onChange={(event) => setSearchTerm(event.target.value)}
@@ -60,7 +62,7 @@ function ChatSidebar({ course, channels, activeChannelId, setActiveChannelId }) 
                 </div>
             ))}
             {filteredChannels.length === 0 && (
-                <p className="chat-content-sidebar-empty">No chats found</p>
+                <p className="chat-content-sidebar-empty">{chat.noChatsFound}</p>
             )}
         </div>
     );

@@ -1,3 +1,7 @@
+import { getPreferenceTexts } from "../../preferences/constants/preferences.constants.js";
+
+const DEFAULT_CHAT_TEXTS = getPreferenceTexts("English").chat;
+
 function findCourse(courses, courseSlug) {
     return courses.find((course) => course.slug === `${courseSlug}`);
 }
@@ -28,8 +32,8 @@ function findDefaultChannel(chatChannels) {
     ) ?? chatChannels[0];
 }
 
-function getFullName(user) {
-    if (!user) return "Unknown user";
+function getFullName(user, chatTexts = DEFAULT_CHAT_TEXTS) {
+    if (!user) return chatTexts.unknownUser;
 
     if (user.role === "teacher") {
         return `Prof. ${user.firstName} ${user.lastName}`;
@@ -52,11 +56,25 @@ function getCourseRole(courseMember) {
     return courseMember?.courseRole ?? courseMember?.role ?? "student";
 }
 
-function getRoleLabel(user, courseMember) {
-    if (user?.role === "teacher") return "Teacher";
-    if (getCourseRole(courseMember) === "delegate") return "Delegate";
+function getRoleData(user, courseMember, chatTexts = DEFAULT_CHAT_TEXTS) {
+    if (user?.role === "teacher") {
+        return {
+            label: chatTexts.roles.teacher,
+            className: "teacher"
+        };
+    }
 
-    return "Student";
+    if (getCourseRole(courseMember) === "delegate") {
+        return {
+            label: chatTexts.roles.delegate,
+            className: "delegate"
+        };
+    }
+
+    return {
+        label: chatTexts.roles.student,
+        className: "student"
+    };
 }
 
 function formatTimeLabel(date) {
@@ -79,7 +97,7 @@ function formatDateKey(date) {
     return `${year}-${month}-${day}`;
 }
 
-function formatDateSeparatorLabel(date) {
+function formatDateSeparatorLabel(date, chatTexts = DEFAULT_CHAT_TEXTS) {
     if (!date) return "";
 
     const today = new Date();
@@ -90,10 +108,10 @@ function formatDateSeparatorLabel(date) {
 
     const diffInDays = Math.floor((today - messageDate) / 1000 / 60 / 60 / 24);
 
-    if (diffInDays <= 0) return "Today";
-    if (diffInDays === 1) return "Yesterday";
+    if (diffInDays <= 0) return chatTexts.today;
+    if (diffInDays === 1) return chatTexts.yesterday;
 
-    return `${diffInDays} days ago`;
+    return chatTexts.daysAgo(diffInDays);
 }
 
 function getInitial(user) {
@@ -128,32 +146,36 @@ function countUnreadMessagesByChannel(messages, channelId, currentUserId) {
     }).length;
 }
 
-function mapCurrentUser(session, usersById) {
+function mapCurrentUser(session, usersById, chatTexts = DEFAULT_CHAT_TEXTS) {
     const user = usersById[session.currentUserId];
 
     return {
         "id": user?.id,
-        "name": user?.firstName ?? "User",
+        "name": user?.firstName ?? chatTexts.user,
         "role": user?.role ?? "student"
     };
 }
 
-function mapCourse(course, classroom) {
+function mapCourse(course, classroom, chatTexts = DEFAULT_CHAT_TEXTS) {
 
     return {
         "id": course?.id ?? "",
         "shortName": course?.shortName ?? "",
-        "title": course?.title ?? "Course",
+        "title": course?.title ?? chatTexts.course,
         "route": `/course/${course?.slug ?? ""}`,
-        "classroom": classroom?.name ?? "No classroom"
+        "classroom": classroom?.name ?? chatTexts.noClassroom
     };
 }
 
-function mapChannel(channel, chatMessages, currentUserId) {
+function mapChannel(channel, chatMessages, currentUserId, chatTexts = DEFAULT_CHAT_TEXTS) {
+    const type = channel.type ?? "";
+
     return {
         "id": channel.id,
-        "title": channel.name,
-        "description": channel.description,
+        "title": chatTexts.channelTitles[type] ?? channel.name,
+        "description": chatTexts.channelDescriptions[type] ?? channel.description,
+        "type": type,
+        "typeLabel": chatTexts.channelTypes[type] ?? type,
         "unreadCount": countUnreadMessagesByChannel(
             chatMessages,
             channel.id,
@@ -162,19 +184,19 @@ function mapChannel(channel, chatMessages, currentUserId) {
     };
 }
 
-function mapActiveChannel(activeChannel) {
+function mapActiveChannel(activeChannel, chatTexts = DEFAULT_CHAT_TEXTS) {
     let type = activeChannel?.type ?? ""
 
     return {
         "id": activeChannel?.id ?? "",
         "channelId": activeChannel?.id ?? "",
-        "name": activeChannel?.name ?? "Course chat",
-        "type": type ? type[0].toUpperCase() + type.slice(1) : "",
+        "name": activeChannel?.name ?? chatTexts.courseChat,
+        "type": type ? chatTexts.channelTypes[type] ?? type[0].toUpperCase() + type.slice(1) : "",
         "isLocked": activeChannel?.isLocked ?? false
     }
 }
 
-function mapPinnedMessage(message, usersById) {
+function mapPinnedMessage(message, usersById, chatTexts = DEFAULT_CHAT_TEXTS) {
     if (!message || message.isDeleted) return null;
 
     const user = usersById[message.senderId];
@@ -183,15 +205,15 @@ function mapPinnedMessage(message, usersById) {
         "id": message.id,
         "body": message.body,
         "timeLabel": formatTimeLabel(message.createdAt),
-        "author": getFullName(user)
+        "author": getFullName(user, chatTexts)
     }
 }
 
-function mapTimelineItem(message, usersById, currentUserId, courseMembers, course) {
+function mapTimelineItem(message, usersById, currentUserId, courseMembers, course, chatTexts = DEFAULT_CHAT_TEXTS) {
     const user = usersById[message.senderId]
     const courseMember = findCourseMember(courseMembers, course, user);
     const isDeleted = message.isDeleted ?? false;
-    const body = isDeleted ? "Este mensaje fue eliminado" : message.body;
+    const body = isDeleted ? chatTexts.deletedMessage : message.body;
 
     if (isSameId(message.senderId, currentUserId)) {
         return {
@@ -200,7 +222,7 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "body": body,
             "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
-            "author": "Me",
+            "author": chatTexts.me,
             "initial": getInitial(user),
             "avatarUrl": getAvatarUrl(user),
             "roleLabel": "",
@@ -209,7 +231,7 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "reactions": message.reactions ?? []
         }
     } else {
-        const roleLabel = getRoleLabel(user, courseMember);
+        const role = getRoleData(user, courseMember, chatTexts);
 
         return {
             "id": message.id,
@@ -217,18 +239,18 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "body": body,
             "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
-            "author": getFullName(user),
+            "author": getFullName(user, chatTexts),
             "initial": getInitial(user),
             "avatarUrl": getAvatarUrl(user),
-            "roleLabel": roleLabel,
-            "roleClass": roleLabel.toLowerCase(),
+            "roleLabel": role.label,
+            "roleClass": role.className,
             "wasRead": wasRead(message),
             "reactions": message.reactions ?? []
         }
     }
 }
 
-function mapTimeline(messages, usersById, currentUserId, courseMembers, course) {
+function mapTimeline(messages, usersById, currentUserId, courseMembers, course, chatTexts = DEFAULT_CHAT_TEXTS) {
     const timeline = [];
     let lastDateKey = "";
     let hasUnreadSeparator = false;
@@ -244,7 +266,7 @@ function mapTimeline(messages, usersById, currentUserId, courseMembers, course) 
             timeline.push({
                 "id": `date-${dateKey}`,
                 "type": "date",
-                "label": formatDateSeparatorLabel(message.createdAt)
+                "label": formatDateSeparatorLabel(message.createdAt, chatTexts)
             });
 
             lastDateKey = dateKey;
@@ -254,19 +276,19 @@ function mapTimeline(messages, usersById, currentUserId, courseMembers, course) 
             timeline.push({
                 "id": `unread-${message.id}`,
                 "type": "unread",
-                "label": "Unread messages"
+                "label": chatTexts.unreadMessages
             });
 
             hasUnreadSeparator = true;
         }
 
-        timeline.push(mapTimelineItem(message, usersById, currentUserId, courseMembers, course));
+        timeline.push(mapTimelineItem(message, usersById, currentUserId, courseMembers, course, chatTexts));
     });
 
     return timeline;
 }
 
-export function mapCourseChatData(data, courseSlug, activeChannelId) {
+export function mapCourseChatData(data, courseSlug, activeChannelId, chatTexts = DEFAULT_CHAT_TEXTS) {
     const courses = data?.courses ?? [];
     const classrooms = data?.classrooms ?? [];
     const users = data?.users ?? [];
@@ -279,9 +301,9 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     if (!course) {
         return {
-            "course": mapCourse({ slug: courseSlug }, null),
+            "course": mapCourse({ slug: courseSlug }, null, chatTexts),
             "channels": [],
-            "activeChannel": mapActiveChannel(null),
+            "activeChannel": mapActiveChannel(null, chatTexts),
             "pinnedMessage": null,
             "timeline": []
         };
@@ -295,11 +317,11 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
 
     if (!activeChannel) {
         return {
-            "course": mapCourse(course, classroom),
+            "course": mapCourse(course, classroom, chatTexts),
             "channels": courseChannels.map((channel) => {
-                return mapChannel(channel, chatMessages, session.currentUserId);
+                return mapChannel(channel, chatMessages, session.currentUserId, chatTexts);
             }),
-            "activeChannel": mapActiveChannel(null),
+            "activeChannel": mapActiveChannel(null, chatTexts),
             "pinnedMessage": null,
             "timeline": []
         };
@@ -312,13 +334,13 @@ export function mapCourseChatData(data, courseSlug, activeChannelId) {
     const pinnedMessage = activeMessages.find((message) => message.isPinned && !message.isDeleted);
 
     return {
-        "currentUser": mapCurrentUser(session, usersById),
-        "course": mapCourse(course, classroom),
+        "currentUser": mapCurrentUser(session, usersById, chatTexts),
+        "course": mapCourse(course, classroom, chatTexts),
         "channels": courseChannels.map((channel) => {
-            return mapChannel(channel, chatMessages, session.currentUserId);
+            return mapChannel(channel, chatMessages, session.currentUserId, chatTexts);
         }),
-        "activeChannel": mapActiveChannel(activeChannel),
-        "pinnedMessage": mapPinnedMessage(pinnedMessage, usersById),
-        "timeline": mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course)
+        "activeChannel": mapActiveChannel(activeChannel, chatTexts),
+        "pinnedMessage": mapPinnedMessage(pinnedMessage, usersById, chatTexts),
+        "timeline": mapTimeline(activeMessages, usersById, session.currentUserId, courseMembers, course, chatTexts)
     };
 }

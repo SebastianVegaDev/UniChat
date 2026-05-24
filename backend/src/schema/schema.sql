@@ -123,6 +123,17 @@ CREATE TABLE chat_message_reactions (
     PRIMARY KEY (message_id, user_id)
 );
 
+CREATE TABLE user_preferences (
+    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+    language TEXT NOT NULL DEFAULT 'English' CHECK (language IN ('English', 'Spanish', 'Portuguese')),
+    chat_wallpaper_name TEXT NOT NULL DEFAULT '',
+    chat_wallpaper_url TEXT NOT NULL DEFAULT '',
+    color_palette TEXT NOT NULL DEFAULT 'dark' CHECK (color_palette IN ('dark', 'white', 'pink', 'gamer')),
+    chat_font_size TEXT NOT NULL DEFAULT 'Medium' CHECK (chat_font_size IN ('Small', 'Medium', 'Large')),
+    show_read_check BOOLEAN NOT NULL DEFAULT TRUE,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE INDEX idx_course_members_user_id ON course_members(user_id);
 CREATE INDEX idx_course_members_course_id ON course_members(course_id);
 CREATE INDEX idx_courses_teacher_id ON courses(teacher_id);

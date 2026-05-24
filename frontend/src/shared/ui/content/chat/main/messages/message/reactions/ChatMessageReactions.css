@@ -6,8 +6,8 @@
     display: flex;
     gap: 6px;
     padding: 7px;
-    background-color: #303030;
-    border: 2px solid #3f3f3f;
+    background-color: var(--chat-main-surface, #303030);
+    border: 2px solid var(--chat-main-border-color, #3f3f3f);
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32);
 }
@@ -24,7 +24,7 @@
 
 .chat-content-main-message-emojis button:hover,
 .chat-content-main-message-emojis button.selected {
-    background-color: rgba(243, 112, 33, 0.16);
+    background-color: var(--chat-accent-soft-color, rgba(243, 112, 33, 0.16));
 }
 
 .chat-content-main-message-reactions {
@@ -42,26 +42,26 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-    background-color: #303030;
-    border: 2px solid #3f3f3f;
+    background-color: var(--chat-main-surface, #303030);
+    border: 2px solid var(--chat-main-border-color, #3f3f3f);
     border-radius: 999px;
-    color: #ffffff;
+    color: var(--chat-text-color, #ffffff);
     cursor: pointer;
     font-size: 15px;
 }
 
 .chat-content-main-message-reactions button.selected {
-    background-color: rgba(243, 112, 33, 0.16);
-    border-color: #f37021;
+    background-color: var(--chat-accent-soft-color, rgba(243, 112, 33, 0.16));
+    border-color: var(--chat-accent-color, #f37021);
 }
 
 .chat-content-main-message-me .chat-content-main-message-reactions button.selected {
-    background-color: #303030;
-    border-color: #3f3f3f;
+    background-color: var(--chat-main-surface, #303030);
+    border-color: var(--chat-main-border-color, #3f3f3f);
 }
 
 .chat-content-main-message-reactions span {
-    color: #b3b3b3;
+    color: var(--chat-message-muted-color, #b3b3b3);
     font-size: 12px;
     font-weight: 750;
 }

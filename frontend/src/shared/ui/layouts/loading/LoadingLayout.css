@@ -12,7 +12,7 @@
     display: block;
     width: 200px;
     height: 200px;
-    color: #f37021;
+    color: var(--app-accent-color, #f37021);
 }
 
 .loading-layout-pencil-body-primary,

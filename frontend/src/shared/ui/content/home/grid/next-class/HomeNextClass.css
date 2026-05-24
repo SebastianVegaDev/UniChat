@@ -5,14 +5,14 @@
 }
 
 .home-grid-next-class > h3 {
-    color: #f37021;
+    color: var(--app-accent-color);
     font-family: "Inter";
     font-size: 15px;
     font-weight: 700;
 }
 
 .home-grid-next-class > h2 {
-    color: #ffffff;
+    color: var(--app-text-color);
     font-family: "Inter";
     font-size: 19px;
     font-weight: 700;
@@ -24,11 +24,11 @@
     font-size: 15px;
     font-weight: 400;
     padding-bottom: 7px;
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
 }
 
 .home-grid-next-class > button {
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
     border: none;
     padding: 10px;
     color: white;
@@ -40,5 +40,5 @@
 }
 
 .home-grid-next-class > button:hover {
-    background-color: #bb5515;
+    background-color: var(--app-accent-hover-color);
 }

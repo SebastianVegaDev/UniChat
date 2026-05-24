@@ -1,0 +1,92 @@
+export const DEFAULT_COLOR_PALETTE = "dark";
+
+export const COLOR_PALETTES = [
+    {
+        id: "dark",
+        label: "Dark",
+        colors: ["#222222", "#303030", "#3f3f3f", "#f37021", "#ffffff"],
+        chatBackground: "#222222",
+        chatSurface: "#303030",
+        chatSurfaceSoft: "#373737",
+        chatBorder: "#3f3f3f",
+        textColor: "#ffffff",
+        accent: "#f37021",
+        accentHover: "#bb5515",
+        accentSoft: "rgba(243, 112, 33, 0.16)",
+        accentBorder: "rgba(243, 112, 33, 0.42)",
+        myMessage: "#f37021",
+        myMessageText: "#ffffff",
+        otherMessage: "#303030",
+        otherMessageText: "#ffffff",
+        otherMessageBorder: "#3f3f3f",
+        mutedText: "#b3b3b3",
+        readCheck: "#1d4ed8"
+    },
+    {
+        id: "white",
+        label: "White",
+        colors: ["#ffffff", "#f3f4f6", "#d1d5db", "#f37021", "#111827"],
+        chatBackground: "#f8fafc",
+        chatSurface: "#ffffff",
+        chatSurfaceSoft: "#f3f4f6",
+        chatBorder: "#d1d5db",
+        textColor: "#111827",
+        accent: "#f37021",
+        accentHover: "#bb5515",
+        accentSoft: "rgba(243, 112, 33, 0.14)",
+        accentBorder: "rgba(243, 112, 33, 0.42)",
+        myMessage: "#f37021",
+        myMessageText: "#ffffff",
+        otherMessage: "#ffffff",
+        otherMessageText: "#111827",
+        otherMessageBorder: "#d1d5db",
+        mutedText: "#4b5563",
+        readCheck: "#2563eb"
+    },
+    {
+        id: "pink",
+        label: "Pink",
+        colors: ["#2a1a24", "#382631", "#6b465b", "#d46a92", "#fff7fb"],
+        chatBackground: "#2a1a24",
+        chatSurface: "#382631",
+        chatSurfaceSoft: "#45303c",
+        chatBorder: "#6b465b",
+        textColor: "#fff7fb",
+        accent: "#d46a92",
+        accentHover: "#a94d70",
+        accentSoft: "rgba(212, 106, 146, 0.18)",
+        accentBorder: "rgba(212, 106, 146, 0.48)",
+        myMessage: "#d46a92",
+        myMessageText: "#fff7fb",
+        otherMessage: "#382631",
+        otherMessageText: "#fff7fb",
+        otherMessageBorder: "#6b465b",
+        mutedText: "#e8b9cb",
+        readCheck: "#f3bfd3"
+    },
+    {
+        id: "gamer",
+        label: "Gamer",
+        colors: ["#0f172a", "#1e293b", "#334155", "#14b8a6", "#e2e8f0"],
+        chatBackground: "#0f172a",
+        chatSurface: "#1e293b",
+        chatSurfaceSoft: "#263449",
+        chatBorder: "#334155",
+        textColor: "#e2e8f0",
+        accent: "#14b8a6",
+        accentHover: "#0f766e",
+        accentSoft: "rgba(20, 184, 166, 0.18)",
+        accentBorder: "rgba(20, 184, 166, 0.44)",
+        myMessage: "#14b8a6",
+        myMessageText: "#ecfeff",
+        otherMessage: "#1e293b",
+        otherMessageText: "#e2e8f0",
+        otherMessageBorder: "#334155",
+        mutedText: "#94a3b8",
+        readCheck: "#67e8f9"
+    }
+];
+
+export function getPreferencePalette(paletteId) {
+    return COLOR_PALETTES.find((palette) => palette.id === paletteId) ?? COLOR_PALETTES[0];
+}

@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    background-color: #222222;
-    border: 2px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 2px solid var(--app-border-color);
     border-radius: 8px;
     margin-top: 20px;
     padding: 15px;
@@ -12,11 +12,11 @@
 .course-resources-header {
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid #3f3f3f;
+    border-bottom: 2px solid var(--app-border-color);
 }
 
 .course-resources-header > p {
-    color: #f37021;
+    color: var(--app-accent-color);
     font-size: 13px;
     font-weight: 800;
     font-family: "Inter";
@@ -29,7 +29,7 @@
 }
 
 .course-resources-header-folders {
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     font-size: 15px;
     font-family: "Inter";
 }
@@ -37,8 +37,8 @@
 .course-resource {
     display: flex;
     flex-direction: column;
-    background-color: #373737;
-    border: 2px solid #3f3f3f;
+    background-color: var(--app-surface-soft);
+    border: 2px solid var(--app-border-color);
     border-radius: 9px;
     padding: 15px;
     gap: 8px;

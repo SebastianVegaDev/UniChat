@@ -6,13 +6,15 @@ import { mapCourseChatData } from "../mappers/courseChat.mapper.js";
 import { useCourseChatActions } from "../hooks/courseChat.hooks.js";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
 
 function CourseChatPage() {
     const [activeChannelId, setActiveChannelId] = useState("");
     const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
+    const { chat } = usePreferenceTexts();
 
-    const courseChatData = mapCourseChatData(data, courseSlug, activeChannelId);
+    const courseChatData = mapCourseChatData(data, courseSlug, activeChannelId, chat);
     const { currentUser, course, channels, pinnedMessage, timeline, activeChannel } = courseChatData;
     const selectedChannelId = channels.some((channel) => channel.id === activeChannelId) ? activeChannelId : activeChannel.channelId;
     const {

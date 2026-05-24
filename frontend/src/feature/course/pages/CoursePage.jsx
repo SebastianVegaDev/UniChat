@@ -6,10 +6,12 @@ import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { mapCourseData } from "../mappers/course.mapper.js";
 import { useCourseResourceActions } from "../hooks/courseResources.hooks.js";
 import { useParams } from "react-router-dom";
+import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
 
 function CoursePage() {
     const { data, updateBootstrap, isLoading, error } = useBootstrap();
     const { courseSlug } = useParams();
+    const texts = usePreferenceTexts();
     const {
         handleUploadResource,
         handleEditResource,
@@ -20,7 +22,7 @@ function CoursePage() {
     if (isLoading) return <LoadingLayout />
     if (error) return <p>{error}</p>
 
-    const courseData = mapCourseData(data, courseSlug);
+    const courseData = mapCourseData(data, courseSlug, texts);
     const { currentUser, course, actions, resourcesSummary, resourcesByWeek, information } = courseData;
 
     return (

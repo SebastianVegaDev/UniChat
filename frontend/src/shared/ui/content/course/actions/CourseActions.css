@@ -18,7 +18,7 @@
 
 .course-action:hover {
     transform: translateY(-2px);
-    border-color: #f37021;
+    border-color: var(--app-accent-color);
 }
 
 .course-action-info {
@@ -34,15 +34,15 @@
 .course-action-info > div > span {
     font-size: 18px;
     font-weight: 350;
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
 }
 
 .course-action-icon {
     align-content: center;
     padding: 10px;
     margin: 5px;
-    color: #ff9b45;
-    background-color: rgba(243, 112, 33, 0.16);
+    color: var(--app-accent-color);
+    background-color: var(--app-accent-soft-color);
     border-radius: 7px;
     margin-right: 23px;
 }
@@ -57,11 +57,11 @@
 }
 
 .course-action-calendar {
-    background-color: rgba(243, 112, 33, 0.16);
-    border: 2px solid rgba(243, 112, 33, 0.42);
+    background-color: var(--app-accent-soft-color);
+    border: 2px solid var(--app-accent-border-color);
 }
 
 .course-action-chat {
-    background-color: #222222;
-    border: 2px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 2px solid var(--app-border-color);
 }

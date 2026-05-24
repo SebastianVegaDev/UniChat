@@ -3,14 +3,18 @@ import { CheckCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ChatMessageOptions from "./options/ChatMessageOptions.jsx";
 import ChatMessageReactions from "./reactions/ChatMessageReactions.jsx";
+import { usePreferenceTexts } from "../../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage, handleToggleReaction }) {
     const [showOptions, setShowOptions] = useState(false);
     const messageRef = useRef(null);
     const pressTimerRef = useRef(null);
+    const { chat } = usePreferenceTexts();
     const isMyMessage = message.type === "message-me";
     const isDeleted = message.isDeleted;
     const hasReactions = (message.reactions ?? []).length > 0;
+    const author = isMyMessage ? chat.me : message.author;
+    const body = isDeleted ? chat.deletedMessage : message.body;
     const messageClassName = isMyMessage
         ? "chat-content-main-message-me"
         : "chat-content-main-message-other";
@@ -63,7 +67,7 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
             {!isDeleted && (
                 <div className="chat-content-main-message-header">
                     <h4>
-                        {message.author}
+                        {author}
                         {message.roleLabel && (
                             <span className={`chat-content-main-message-role ${message.roleClass}`}>
                                 {message.roleLabel}
@@ -73,7 +77,7 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
                     <span>{message.timeLabel}</span>
                 </div>
             )}
-            <p>{message.body}</p>
+            <p>{body}</p>
             {!isDeleted && isMyMessage && (
                 <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
             )}
@@ -103,7 +107,7 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
         <MessageAvatar
             avatarUrl={message.avatarUrl}
             initial={message.initial}
-            author={message.author}
+            author={author}
         />
     );
 

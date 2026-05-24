@@ -1,7 +1,7 @@
 .calendar-view {
     position: relative;
-    background-color: #222222;
-    border: 1px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border-color);
     flex: 1 1 auto;
     min-width: 0;
     min-height: 0;
@@ -25,25 +25,25 @@
 
 .calendar-view .fc-theme-standard td,
 .calendar-view .fc-theme-standard th {
-    border: 5px solid #222222 !important;
+    border: 5px solid var(--app-surface) !important;
 }
 
 .calendar-view .fc-col-header-cell {
-    background-color: #373737;
+    background-color: var(--app-surface-soft);
     border-radius: 8px;
 }
 
 .calendar-view .fc-col-header-cell-cushion {
     display: block;
     padding: 10px 0;
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     font-size: 12px;
     font-weight: 800;
     text-decoration: none;
 }
 
 .calendar-view .fc-daygrid-day {
-    background-color: #303030;
+    background-color: var(--app-background);
     border-radius: 8px;
     overflow: hidden;
 }
@@ -53,7 +53,7 @@
 }
 
 .calendar-view .fc-daygrid-day-number {
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     font-size: 12px;
     font-weight: 800;
     text-decoration: none;
@@ -61,15 +61,15 @@
 }
 
 .calendar-view .fc-daygrid-day:hover {
-    background-color: #373737;
+    background-color: var(--app-surface-soft);
 }
 
 .calendar-view .fc-day-today {
-    background-color: rgba(243, 112, 33, 0.16) !important;
+    background-color: var(--app-accent-soft-color) !important;
 }
 
 .calendar-view .fc-day-other {
-    background-color: #222222;
+    background-color: var(--app-surface);
 }
 
 .calendar-view .fc-event {
@@ -87,7 +87,7 @@
 }
 
 .calendar-view .calendar-event {
-    border-left: 4px solid #f37021;
+    border-left: 4px solid var(--app-accent-color);
 }
 
 .calendar-view .fc-event-title {
@@ -109,7 +109,7 @@
 }
 
 .calendar-view .calendar-event .fc-event-title::before {
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
 }
 
 .calendar-view .fc-daygrid-day-events {
@@ -122,7 +122,7 @@
 }
 
 .calendar-view .fc-toolbar-title {
-    color: #f37021;
+    color: var(--app-accent-color);
     font-size: 22px;
     font-weight: 900;
     font-family: "Inter";

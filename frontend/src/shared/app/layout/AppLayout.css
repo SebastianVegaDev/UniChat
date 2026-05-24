@@ -1,9 +1,39 @@
 .app-layout {
+    --app-background: #222222;
+    --app-surface: #303030;
+    --app-surface-soft: #373737;
+    --app-border-color: #3f3f3f;
+    --app-text-color: #ffffff;
+    --app-muted-text-color: #b3b3b3;
+    --app-accent-color: #f37021;
+    --app-accent-hover-color: #bb5515;
+    --app-accent-soft-color: rgba(243, 112, 33, 0.14);
+    --app-accent-border-color: rgba(243, 112, 33, 0.42);
+    --chat-main-background: #222222;
+    --chat-main-surface: #303030;
+    --chat-main-surface-soft: #373737;
+    --chat-main-border-color: #3f3f3f;
+    --chat-text-color: #ffffff;
+    --chat-accent-color: #f37021;
+    --chat-accent-hover-color: #bb5515;
+    --chat-accent-soft-color: rgba(243, 112, 33, 0.14);
+    --chat-accent-border-color: rgba(243, 112, 33, 0.42);
+    --chat-me-message-color: #f37021;
+    --chat-me-message-text-color: #ffffff;
+    --chat-other-message-color: transparent;
+    --chat-other-message-text-color: #ffffff;
+    --chat-other-message-border-color: #3f3f3f;
+    --chat-resource-background: #373737;
+    --chat-message-muted-color: #b3b3b3;
+    --chat-message-font-size: 15px;
+    --chat-read-check-color: #1d4ed8;
+    --chat-wallpaper-image: none;
+
     display: flex;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    color: #ffffff;
+    color: var(--app-text-color);
     font-family: "Inter";
 }
 
@@ -15,16 +45,26 @@
 }
 
 .app-layout-main {
+    position: relative;
     flex: 1 1 auto;
     min-height: 0;
     padding: 20px 30px;
     overflow-y: auto;
-    background-color: #2b2b2b;
+    background-color: var(--app-background);
 }
 
 .app-layout-page {
     height: 100%;
     min-height: 0;
+}
+
+.app-layout-preferences-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 14;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .app-layout-page > * {

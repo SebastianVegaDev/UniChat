@@ -1,6 +1,6 @@
 .chat-content-main-header {
     flex: 0 0 auto;
-    border-bottom: 2px solid #3f3f3f;
+    border-bottom: 2px solid var(--chat-main-border-color, #3f3f3f);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,7 +10,7 @@
 
 .chat-content-main-header h4 {
     font-size: 17px;
-    color: #b3b3b3;
+    color: var(--chat-message-muted-color, #b3b3b3);
     font-weight: 420;
 }
 

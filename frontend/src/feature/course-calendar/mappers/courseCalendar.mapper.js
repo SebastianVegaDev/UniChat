@@ -1,3 +1,5 @@
+import { getPreferenceTexts } from "../../preferences/constants/preferences.constants.js";
+
 function findCourse(courses, courseSlug) {
     return courses.find((course) => course.slug === `${courseSlug}`);
 }
@@ -14,21 +16,21 @@ function filterCourseClassSessions(classSessions, course) {
     return classSessions.filter((classSession) => `${classSession.courseId}` === `${course.id}`);
 }
 
-function formatDateLabel(dateValue) {
+function formatDateLabel(dateValue, locale) {
     if (!dateValue) return "";
 
     const date = new Date(dateValue);
 
-    return new Date(date).toLocaleDateString("en-us", {
+    return new Date(date).toLocaleDateString(locale, {
         day: "2-digit",
         month: "short"
     });
 }
 
-function formatEventType(eventType) {
-    if (!eventType) return "Other";
+function formatEventType(eventType, texts) {
+    if (!eventType) return texts.common.other;
 
-    return eventType[0].toUpperCase() + eventType.slice(1);
+    return texts.calendar.eventTypes[eventType] ?? eventType[0].toUpperCase() + eventType.slice(1);
 }
 
 function getEventColors(eventType) {
@@ -62,13 +64,13 @@ function getEventColors(eventType) {
     return eventColors[eventType] ?? eventColors.other;
 }
 
-function mapCalendarEvent(calendarEvent) {
+function mapCalendarEvent(calendarEvent, texts) {
     const eventType = calendarEvent.eventType ?? "other";
     const colors = getEventColors(eventType);
 
     return {
         "id": calendarEvent.id,
-        "title": calendarEvent.title ?? "Untitled event",
+        "title": calendarEvent.title ?? texts.common.untitledEvent,
         "date": calendarEvent.startsAt?.slice(0, 10) ?? "",
         "courseId": calendarEvent.courseId,
         "description": calendarEvent.description ?? "",
@@ -83,12 +85,12 @@ function mapCalendarEvent(calendarEvent) {
     };
 }
 
-function mapClassSession(classSession) {
+function mapClassSession(classSession, texts) {
     const colors = getEventColors("class");
 
     return {
         "id": `class-${classSession.id}`,
-        "title": classSession.topic ?? "Class session",
+        "title": classSession.topic ?? texts.common.classSession,
         "date": classSession.startsAt?.slice(0, 10) ?? "",
         "eventType": "class",
         "classNames": ["calendar-class"],
@@ -98,12 +100,12 @@ function mapClassSession(classSession) {
     };
 }
 
-function mapPendingItem(calendarEvent) {
+function mapPendingItem(calendarEvent, texts) {
     return {
         "id": `pending-${calendarEvent.id}`,
-        "title": calendarEvent.title ?? "Pending item",
-        "eventType": formatEventType(calendarEvent.eventType),
-        "dateLabel": formatDateLabel(calendarEvent.startsAt),
+        "title": calendarEvent.title ?? texts.common.pendingItem,
+        "eventType": formatEventType(calendarEvent.eventType, texts),
+        "dateLabel": formatDateLabel(calendarEvent.startsAt, texts.locale),
         "detail": calendarEvent.description ?? ""
     }
 
@@ -118,7 +120,8 @@ function mapCurrentUser(session, usersById) {
     };
 }
 
-export function mapCourseCalendarData(data, courseSlug) {
+export function mapCourseCalendarData(data, courseSlug, preferenceTexts = getPreferenceTexts("English")) {
+    const texts = preferenceTexts;
     const courses = data?.courses ?? [];
     const users = data?.users ?? [];
     const session = data?.session ?? {};
@@ -133,12 +136,12 @@ export function mapCourseCalendarData(data, courseSlug) {
         course,
         currentUser: mapCurrentUser(session, usersById),
         events: [
-            ...courseClassSessions.map(mapClassSession),
-            ...courseCalendarEvents.map(mapCalendarEvent)
+            ...courseClassSessions.map((classSession) => mapClassSession(classSession, texts)),
+            ...courseCalendarEvents.map((calendarEvent) => mapCalendarEvent(calendarEvent, texts))
         ],
 
         pendingItems: courseCalendarEvents
             .filter((item) => item.status === "pending")
-            .map(mapPendingItem)
+            .map((calendarEvent) => mapPendingItem(calendarEvent, texts))
     };
 }

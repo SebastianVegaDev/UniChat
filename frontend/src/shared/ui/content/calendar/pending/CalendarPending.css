@@ -1,6 +1,6 @@
 .calendar-pending {
-    background-color: #222222;
-    border: 1px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border-color);
     flex: 0 0 340px;
     width: 340px;
     max-width: 100%;
@@ -16,7 +16,7 @@
 }
 
 .calendar-pending > p {
-    color: #f37021;
+    color: var(--app-accent-color);
     font-size: 15px;
     font-weight: 800;
     font-family: "Inter";
@@ -35,17 +35,17 @@
     gap: 12px;
     padding: 12px;
     border-radius: 9px;
-    border: 2px solid #3f3f3f;
-    background-color: #303030;
+    border: 2px solid var(--app-border-color);
+    background-color: var(--app-background);
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
 }
 
 .calendar-pending-card > span {
-    background-color: rgba(243, 112, 33, 0.16);
+    background-color: var(--app-accent-soft-color);
     border-radius: 8px;
-    color: #f37021;
+    color: var(--app-accent-color);
     font-size: 14px;
     font-weight: 800;
     font-family: "Inter";
@@ -65,15 +65,15 @@
 }
 
 .calendar-pending-card-title > p {
-    color: #ffffff;
+    color: var(--app-text-color);
     font-size: 16px;
     font-weight: 650;
     min-width: 0;
 }
 
 .calendar-pending-card-title > span {
-    background-color: rgba(243, 112, 33, 0.16);
-    color: #f37021;
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color);
     border-radius: 999px;
     padding: 3px 7px;
     font-size: 11px;
@@ -85,6 +85,6 @@
     margin-top: 4px;
     font-size: 14px;
     font-weight: 450;
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     line-height: 1.35;
 }

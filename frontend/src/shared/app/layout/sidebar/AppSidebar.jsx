@@ -5,20 +5,22 @@ import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.j
 import { mapSidebarData } from "../../../../feature/sidebar/mappers/sidebar.mapper.js";
 import { toast } from "react-toastify"
 import { disconnectSocket } from "../../../../feature/realtime/socket.js";
+import { usePreferenceTexts } from "../../../../feature/preferences/context/PreferencesContext.js";
 
 function AppSideBar() {
     const navigate = useNavigate();
     const { data } = useBootstrap();
-    const sidebarData = mapSidebarData(data);
+    const texts = usePreferenceTexts();
+    const { sidebar } = texts;
+    const sidebarData = mapSidebarData(data, texts);
     const { courses } = sidebarData;
-
     function handleLogout() {
         disconnectSocket();
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         localStorage.removeItem("unichat_bootstrap_cache");
         navigate("/login", { replace: true });
-        toast.success("Logout successful!")
+        toast.success(sidebar.logoutSuccess)
     }
 
     return (
@@ -31,7 +33,7 @@ function AppSideBar() {
             }
         >
             <span className="app-sidebar-icon"><House /></span>
-            <span className="app-sidebar-tooltip">Home</span>
+            <span className="app-sidebar-tooltip">{sidebar.home}</span>
         </NavLink>
 
         <NavLink
@@ -43,7 +45,7 @@ function AppSideBar() {
             }
         >
             <span className="app-sidebar-icon"><Newspaper /></span>
-            <span className="app-sidebar-tooltip">News</span>
+            <span className="app-sidebar-tooltip">{sidebar.news}</span>
         </NavLink>
 
         {courses.map((course) => (
@@ -66,11 +68,11 @@ function AppSideBar() {
         <button
             type="button"
             className="app-sidebar-course app-sidebar-logout"
-            title="Cerrar sesión"
+            title={sidebar.logout}
             onClick={handleLogout}
         >
             <span className="app-sidebar-icon"><LogOut /></span>
-            <span className="app-sidebar-tooltip">Cerrar sesión</span>
+            <span className="app-sidebar-tooltip">{sidebar.logout}</span>
         </button>
         </div>
     );

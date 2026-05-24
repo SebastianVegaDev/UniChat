@@ -1,14 +1,16 @@
-function formatDateLabel(date) {
+import { getPreferenceTexts } from "../../preferences/constants/preferences.constants.js";
+
+function formatDateLabel(date, locale) {
     if (!date) return "";
 
-    return new Date(date).toLocaleDateString("en-us", {
+    return new Date(date).toLocaleDateString(locale, {
         day: "2-digit",
         month: "short"
     });
 }
 
-function formatLastActivityLabel(date) {
-    if (!date) return "No recent activity";
+function formatLastActivityLabel(date, courseTexts) {
+    if (!date) return courseTexts.noRecentActivity;
 
     const now = Date.now();
     const activityDate = new Date(date).getTime();
@@ -17,34 +19,34 @@ function formatLastActivityLabel(date) {
     const diffInMinutes = Math.floor(diffInMs / 1000 / 60);
 
     if (diffInMinutes < 1) {
-        return "Updated just now";
+        return courseTexts.updatedJustNow;
     }
 
     if (diffInMinutes < 60) {
-        return `Updated ${diffInMinutes} min ago`;
+        return courseTexts.updatedMinutesAgo(diffInMinutes);
     }
 
     const diffInHours = Math.floor(diffInMinutes / 60);
 
     if (diffInHours < 24) {
-        return `Updated ${diffInHours} ${diffInHours === 1 ? "hour" : "hours"} ago`;
+        return courseTexts.updatedHoursAgo(diffInHours);
     }
 
     const diffInDays = Math.floor(diffInHours / 24);
 
     if (diffInDays < 7) {
-        return `Updated ${diffInDays} ${diffInDays === 1 ? "day" : "days"} ago`;
+        return courseTexts.updatedDaysAgo(diffInDays);
     }
 
     const diffInWeeks = Math.floor(diffInDays / 7);
 
     if (diffInWeeks < 4) {
-        return `Updated ${diffInWeeks} ${diffInWeeks === 1 ? "week" : "weeks"} ago`;
+        return courseTexts.updatedWeeksAgo(diffInWeeks);
     }
 
     const diffInMonths = Math.floor(diffInDays / 30);
 
-    return `Updated ${diffInMonths} ${diffInMonths === 1 ? "month" : "months"} ago`;
+    return courseTexts.updatedMonthsAgo(diffInMonths);
 }
 
 function findCourse(courses, courseSlug) {
@@ -75,17 +77,8 @@ function findCourseDelegates(courseMembers, users, course) {
     return delegateUsers;
 }
 
-function formatKindLabel(kind) {
-    const kindLabels = {
-        "ppt": "PowerPoint",
-        "pdf": "Official PDF",
-        "video": "Video",
-        "photo": "Photo",
-        "sql": "SQL",
-        "doc": "Document"
-    };
-
-    return kindLabels[kind] ?? "Resource";
+function formatKindLabel(kind, courseTexts) {
+    return courseTexts.resourceKinds[kind] ?? courseTexts.resource;
 }
 
 function formatSizeLabel(sizeBytes) {
@@ -94,8 +87,8 @@ function formatSizeLabel(sizeBytes) {
     return `${(sizeBytes / 1000000).toFixed(1)} MB`;
 }
 
-function formatUserName(user) {
-    if (!user) return "Unknown user";
+function formatUserName(user, commonTexts) {
+    if (!user) return commonTexts.unknownUser;
 
     if (user.role === "teacher") {
         return `Prof. ${user.firstName} ${user.lastName}`;
@@ -113,27 +106,27 @@ function mapCurrentUser(session, usersById) {
     };
 }
 
-function mapCourse(course, teacher, classroom, stats) {
+function mapCourse(course, teacher, classroom, stats, texts) {
     return {
         "id": course.id,
         "shortName": course.shortName ?? "",
-        "title": course.title ?? "Course",
+        "title": course.title ?? texts.common.course,
         "route": `/course/${course.slug ?? ""}`,
-        "teacher": formatUserName(teacher),
-        "classroom": classroom?.name ?? "No classroom",
+        "teacher": formatUserName(teacher, texts.common),
+        "classroom": classroom?.name ?? texts.common.noClassroom,
         "studentsCount": stats?.studentsCount ?? 0,
         "delegatesCount": stats?.delegatesCount ?? 0,
-        "lastActivityLabel": formatLastActivityLabel(stats?.lastActivityAt),
+        "lastActivityLabel": formatLastActivityLabel(stats?.lastActivityAt, texts.course),
         "currentWeek": course.currentWeek ?? 0
     };
 }
 
-function mapCourseActions(course, stats) {
+function mapCourseActions(course, stats, texts) {
     return {
         "chatRoute": `/course/${course.slug ?? ""}/chat`,
-        "chatMetaLabel": `${stats?.unreadMessagesCount ?? 0} unread messages`,
+        "chatMetaLabel": `${stats?.unreadMessagesCount ?? 0} ${texts.course.unreadMessages}`,
         "calendarRoute": `/course/${course.slug ?? ""}/calendar`,
-        "calendarMetaLabel": `${stats?.pendingItemsCount ?? 0} pending this month`
+        "calendarMetaLabel": `${stats?.pendingItemsCount ?? 0} ${texts.course.pendingThisMonth}`
     }
 }
 
@@ -143,28 +136,30 @@ function mapResourcesSummary(stats) {
     }
 }
 
-function mapResourceItem(resource, usersById) {
+function mapResourceItem(resource, usersById, texts) {
     const user = usersById[resource.uploadedById];
+    const status = resource.status ?? "";
 
     return {
         "id": resource.id,
         "courseId": resource.courseId,
         "weekNumber": resource.weekNumber,
-        "title": resource.title ?? "Untitled resource",
+        "title": resource.title ?? texts.course.untitledResource,
         "kind": resource.kind,
-        "kindLabel": formatKindLabel(resource.kind),
+        "kindLabel": formatKindLabel(resource.kind, texts.course),
         "sizeBytes": resource.sizeBytes,
         "sizeLabel": formatSizeLabel(resource.sizeBytes),
-        "dateLabel": formatDateLabel(resource.createdAt),
-        "uploadedBy": formatUserName(user),
-        "status": resource.status ?? "",
-        "statusLabel": resource.status ?? "",
+        "dateLabel": formatDateLabel(resource.createdAt, texts.locale),
+        "uploadedBy": formatUserName(user, texts.common),
+        "status": status,
+        "statusLabel": status,
+        "statusText": texts.common[status] ?? status,
         "url": resource.url ?? resource.fileUrl ?? "/",
         "fileUrl": resource.fileUrl ?? resource.url ?? "/"
     };
 }
 
-function mapResourcesByWeek(resources, usersById) {
+function mapResourcesByWeek(resources, usersById, texts) {
     const weeks = {};
 
     resources.forEach((resource) => {
@@ -178,22 +173,23 @@ function mapResourcesByWeek(resources, usersById) {
             };
         }
 
-        weeks[weekId].files.push(mapResourceItem(resource, usersById));
+        weeks[weekId].files.push(mapResourceItem(resource, usersById, texts));
     });
 
     return Object.values(weeks);
 }
 
-function mapCourseInformation(course, teacher, delegates, stats) {
+function mapCourseInformation(course, teacher, delegates, stats, texts) {
     return {
         "currentWeek": course.currentWeek ?? 0,
-        "professor": formatUserName(teacher),
-        "delegates": delegates.length ? delegates.map((delegate) => `${delegate.firstName} ${delegate.lastName}`).join(", ") : "No delegates",
-        "activity": formatLastActivityLabel(stats?.lastActivityAt)
+        "professor": formatUserName(teacher, texts.common),
+        "delegates": delegates.length ? delegates.map((delegate) => `${delegate.firstName} ${delegate.lastName}`).join(", ") : texts.course.noDelegates,
+        "activity": formatLastActivityLabel(stats?.lastActivityAt, texts.course)
     };
 }
 
-export function mapCourseData(data, courseSlug) {
+export function mapCourseData(data, courseSlug, preferenceTexts = getPreferenceTexts("English")) {
+    const texts = preferenceTexts;
     const session = data?.session ?? {};
     const courses = data?.courses ?? [];
     const users = data?.users ?? [];
@@ -207,11 +203,11 @@ export function mapCourseData(data, courseSlug) {
         const fallbackCourse = { slug: courseSlug };
 
         return {
-            "course": mapCourse(fallbackCourse, null, null, null),
-            "actions": mapCourseActions(fallbackCourse, null),
+            "course": mapCourse(fallbackCourse, null, null, null, texts),
+            "actions": mapCourseActions(fallbackCourse, null, texts),
             "resourcesSummary": mapResourcesSummary(null),
             "resourcesByWeek": [],
-            "information": mapCourseInformation(fallbackCourse, null, [], null)
+            "information": mapCourseInformation(fallbackCourse, null, [], null, texts)
         };
     }
     
@@ -226,10 +222,10 @@ export function mapCourseData(data, courseSlug) {
 
     return {
         "currentUser": mapCurrentUser(session, usersById),
-        "course": mapCourse(course, teacher, classroom, stats),
-        "actions": mapCourseActions(course, stats),
+        "course": mapCourse(course, teacher, classroom, stats, texts),
+        "actions": mapCourseActions(course, stats, texts),
         "resourcesSummary": mapResourcesSummary(stats),
-        "resourcesByWeek": mapResourcesByWeek(resources, usersById),
-        "information": mapCourseInformation(course, teacher, delegates, stats)
+        "resourcesByWeek": mapResourcesByWeek(resources, usersById, texts),
+        "information": mapCourseInformation(course, teacher, delegates, stats, texts)
     };
 }

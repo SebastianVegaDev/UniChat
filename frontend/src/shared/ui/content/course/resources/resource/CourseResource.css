@@ -1,6 +1,6 @@
 .course-resource-file {
     position: relative;
-    border: 2px solid #3f3f3f;
+    border: 2px solid var(--app-border-color);
     width: calc((100% - 17px) / 2);
     border-radius: 9px;
     display: flex;
@@ -9,7 +9,7 @@
     align-items: center;
     text-decoration: none;
     color: inherit;
-    background-color: #303030;
+    background-color: var(--app-surface);
     transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
 }
 
@@ -24,12 +24,12 @@
 
 .course-resource-file.available-file.options-open:hover {
     transform: none;
-    background-color: #303030;
+    background-color: var(--app-surface);
 }
 
 .course-resource-file.available-file.editing-file:hover {
     transform: none;
-    background-color: #303030;
+    background-color: var(--app-surface);
 }
 
 .course-resource-file.unavailable-file {
@@ -44,7 +44,7 @@
 }
 
 .course-resource-file-info > span {
-    color: #f37021;
+    color: var(--app-accent-color);
     margin-right: 17px;
 }
 
@@ -60,7 +60,7 @@
 
 .course-resource-file-info > div > span {
     font-size: 13px;
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
 }
 
 .course-resource-file-state {
@@ -73,6 +73,6 @@
 }
 
 .course-resource-file-state.unavailable {
-    background-color: #373737;
-    color: #ffffff;
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
 }

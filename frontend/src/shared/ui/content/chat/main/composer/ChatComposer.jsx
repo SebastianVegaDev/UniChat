@@ -1,11 +1,13 @@
 import "./ChatComposer.css";
 import { Paperclip, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }) {
     const [showOptions, setShowOptions] = useState(false);
     const optionsRef = useRef(null);
     const isComposerDisabled = isChatLocked && currentUser.role !== "teacher";
+    const { chat } = usePreferenceTexts();
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -44,9 +46,9 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
             <div className="chat-content-main-toolbar-clip-wrapper" ref={optionsRef}>
                 {showOptions && !isComposerDisabled && (
                     <span className="chat-content-main-toolbar-options">
-                        <p className="chat-content-main-toolbar-option">Select a file</p>
-                        <p className="chat-content-main-toolbar-option">Select a photo</p>
-                        <p className="chat-content-main-toolbar-option">Select a video</p>
+                        <p className="chat-content-main-toolbar-option">{chat.selectFile}</p>
+                        <p className="chat-content-main-toolbar-option">{chat.selectPhoto}</p>
+                        <p className="chat-content-main-toolbar-option">{chat.selectVideo}</p>
                     </span>
                 )}
                 <button
@@ -61,7 +63,7 @@ function ChatComposer({ currentUser, activeChannel, isChatLocked, handleSubmit }
             <input
                 name="messageBody"
                 className={`chat-content-main-toolbar-input ${isComposerDisabled ? "disabled" : ""}`}
-                placeholder={isComposerDisabled ? "Chat is locked" : "Write your message..."}
+                placeholder={isComposerDisabled ? chat.lockedPlaceholder : chat.messagePlaceholder}
                 autoComplete="off"
                 disabled={isComposerDisabled}
             />

@@ -4,19 +4,21 @@ import HomeContent from "../../../shared/ui/content/home/HomeContent.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import { mapHomeData } from "../../home/mappers/home.mapper.js";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
+import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
 
 function HomePage() {
     const now = new Date();
     const { data, isLoading, error } = useBootstrap();
+    const texts = usePreferenceTexts();
 
     if (isLoading) return <LoadingLayout />
     if (error) return <p>{error}</p>
 
-    const homeData = mapHomeData(data);
+    const homeData = mapHomeData(data, texts);
     const { currentUser, summary, todayClasses, nextClass, news, courses } = homeData;
     const isTeacher = currentUser.role === "teacher";
 
-    const date = now.toLocaleDateString("en-US", {
+    const date = now.toLocaleDateString(texts.locale, {
         weekday: "long",
         month: "short",
         day: "numeric",
@@ -25,9 +27,9 @@ function HomePage() {
     return (
         <SectionLayout>
             <SectionHero
-                eyebrow={`Welcome ${isTeacher ? "Proff": ""} ${currentUser.name}!`}
-                title="My Day"
-                description={`${date} · ${summary.pendingClasses} pending classes · ${summary.classesInProgress} class in progress`}
+                eyebrow={`${texts.home.welcome} ${isTeacher ? texts.home.teacherShortName : ""} ${currentUser.name}!`}
+                title={texts.home.title}
+                description={`${date} · ${summary.pendingClasses} ${texts.home.pendingClasses} · ${summary.classesInProgress} ${texts.home.classInProgress}`}
             />
             <HomeContent 
                 todayClasses={todayClasses}

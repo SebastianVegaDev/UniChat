@@ -10,8 +10,8 @@
 }
 
 .home-quick-access-course {
-    background-color: #222222;
-    border: 2px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 2px solid var(--app-border-color);
     flex: 0 0 calc((100% - 45px) / 4);
     border-radius: 10px;
     padding: 10px;
@@ -24,7 +24,7 @@
 
 .home-quick-access-course:hover {
     transform: translateY(-2px);
-    border-color: #f37021;
+    border-color: var(--app-accent-color);
 }
 
 .home-quick-access-course > div {
@@ -33,7 +33,7 @@
 }
 
 .home-quick-access-course-icon {
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
     color: white;
     font-family: "Inter";
     font-weight: 750;
@@ -45,21 +45,21 @@
 }
 
 .home-quick-access-course-title {
-    color: #ffffff;
+    color: var(--app-text-color);
     font-family: "Inter";
     font-size: 16px;
     font-weight: 700;
 }
 
 .home-quick-access-course-teacher {
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     font-family: "Inter";
     font-size: 14px;
     font-weight: 400;
 }
 
 .home-quick-access-course-classroom {
-    color: #e5e5e5;
+    color: var(--app-text-color);
     font-family: "Inter";
     font-size: 14px;
     font-weight: 500;
@@ -68,12 +68,12 @@
 .home-quick-access-course > button {
     background-color: transparent;
     border: none;
-    color: #ffffff;
+    color: var(--app-text-color);
     cursor: pointer;
 }
 
 .home-quick-access-course > svg {
-    color: #ffffff;
+    color: var(--app-text-color);
 }
 
 .home-quick-access-back,
@@ -81,7 +81,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
     color: white;
     border: none;
     border-radius: 50%;
