@@ -79,8 +79,8 @@ export function useRealtime({ data, updateBootstrap }) {
             });
         }
 
-        function handleConnectError(error) {
-            console.log("Socket connection error:", error.message);
+        function handleConnectError() {
+            socket.disconnect();
         }
 
         socket.on("chat:message-created", handleMessageCreated);

@@ -33,8 +33,8 @@ export function usePreferences() {
                 if (!isCancelled) {
                     updatePreferencesData(preferences);
                 }
-            } catch (error) {
-                console.log(error);
+            } catch {
+                return;
             }
         }
 
@@ -70,9 +70,7 @@ export function usePreferences() {
             updatePreferencesData(savedPreferences);
 
             return true;
-        } catch (error) {
-            console.log(error);
-
+        } catch {
             return false;
         }
     }, [updatePreferencesData]);

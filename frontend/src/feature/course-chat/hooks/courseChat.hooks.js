@@ -24,8 +24,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
             if (message) {
                 updateBootstrap((currentData) => addChatMessage(currentData, message));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -36,8 +36,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
             if (fixedMessage) {
                 updateBootstrap((currentData) => setPinnedChatMessage(currentData, messageData));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -50,8 +50,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
                     return updateChatChannelLock(currentData, channelData.channelId, lockedChannel.isLocked);
                 });
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -64,8 +64,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
                     return markChatMessageDeleted(currentData, messageData.messageId, deletedMessage);
                 });
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -82,8 +82,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
                     );
                 });
             }
-        } catch (error) {
-            console.log(error);
+        } catch {
+            return false;
         }
     }
 
@@ -124,8 +124,8 @@ export function useCourseChatActions({ data, currentUser, selectedChannelId, upd
                         result.readMessageIds
                     );
                 });
-            } catch (error) {
-                console.log(error);
+            } catch {
+                return;
             }
         }
 

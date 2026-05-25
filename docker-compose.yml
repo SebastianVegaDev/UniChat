@@ -29,7 +29,11 @@ services:
       DB_NAME: ${POSTGRES_DB:-unichat}
       DB_USER: ${POSTGRES_USER:-unichat}
       DB_PASSWORD: ${POSTGRES_PASSWORD:-unichat_password}
+      DB_SSL: ${DB_SSL:-false}
+      DB_SSL_REJECT_UNAUTHORIZED: ${DB_SSL_REJECT_UNAUTHORIZED:-true}
       JWT_SECRET: ${JWT_SECRET:-change-me-in-local-docker}
+      RATE_LIMIT_MAX_REQUESTS: ${RATE_LIMIT_MAX_REQUESTS:-600}
+      JSON_BODY_LIMIT: ${JSON_BODY_LIMIT:-1mb}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5-nano}

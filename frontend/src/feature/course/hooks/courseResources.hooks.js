@@ -21,8 +21,8 @@ export function useCourseResourceActions({ updateBootstrap }) {
 
                 return true;
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
 
         return false;
@@ -37,8 +37,8 @@ export function useCourseResourceActions({ updateBootstrap }) {
 
                 return true;
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
 
         return false;
@@ -56,8 +56,8 @@ export function useCourseResourceActions({ updateBootstrap }) {
             if (toggledResource) {
                 updateBootstrap((currentData) => updateResourceStatus(currentData, resource.id, nextStatus));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -70,8 +70,8 @@ export function useCourseResourceActions({ updateBootstrap }) {
             if (deletedResource) {
                 updateBootstrap((currentData) => removeResource(currentData, resource.id));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 

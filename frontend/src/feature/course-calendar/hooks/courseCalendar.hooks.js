@@ -25,8 +25,8 @@ export function useCourseCalendarActions({ updateBootstrap }) {
 
                 return true;
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
 
         return false;
@@ -41,8 +41,8 @@ export function useCourseCalendarActions({ updateBootstrap }) {
 
                 return true;
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
 
         return false;
@@ -55,8 +55,8 @@ export function useCourseCalendarActions({ updateBootstrap }) {
             if (canceledEvent) {
                 updateBootstrap((currentData) => cancelCalendarEvent(currentData, calendarEventData.calendarEventId));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 
@@ -67,8 +67,8 @@ export function useCourseCalendarActions({ updateBootstrap }) {
             if (deletedEvent) {
                 updateBootstrap((currentData) => removeCalendarEvent(currentData, calendarEventData.calendarEventId));
             }
-        } catch (error) {
-            console.log(error)
+        } catch {
+            return false;
         }
     }
 

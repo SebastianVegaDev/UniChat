@@ -1,4 +1,4 @@
-const DEFAULT_CLIENT_ORIGINS = ["http://localhost:5173"];
+const DEFAULT_CLIENT_ORIGINS = ["http://localhost:5173", "http://localhost:8080"];
 
 function parseOrigins(value = "") {
     return value
@@ -17,7 +17,9 @@ export function getClientOrigins() {
 }
 
 export function isAllowedOrigin(origin) {
-    return !origin || getClientOrigins().includes(origin);
+    if (!origin) return true;
+
+    return getClientOrigins().includes(origin);
 }
 
 export function createCorsOptions() {
