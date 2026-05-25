@@ -1,5 +1,6 @@
 import "./CreateForm.css";
 import { X } from "lucide-react";
+import { usePreferenceTexts } from "../../../../feature/preferences/context/PreferencesContext.js";
 
 function formatDateInput(dateValue) {
     if (!dateValue) return "";
@@ -9,8 +10,9 @@ function formatDateInput(dateValue) {
 
 function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handleEditEvent }) {
     const isEditing = Boolean(calendarEvent);
+    const { calendar, common } = usePreferenceTexts();
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
@@ -23,16 +25,14 @@ function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handl
             endsAt: formData.get("endsAt")
         };
 
-        if (isEditing) {
-            handleEditEvent({
+        const isSaved = isEditing
+            ? await handleEditEvent({
                 ...calendarEventData,
                 calendarEventId: calendarEvent.id
-            });
-        } else {
-            handleCreateEvent(calendarEventData);
-        }
+            })
+            : await handleCreateEvent(calendarEventData);
 
-        closeForm();
+        if (isSaved) closeForm();
     }
 
     return (
@@ -40,8 +40,8 @@ function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handl
             <form className="create-form" onSubmit={handleSubmit} onClick={(event) => event.stopPropagation()}>
                 <div className="create-form-header">
                     <div>
-                        <p>{isEditing ? "Edit event" : "Create event"}</p>
-                        <span>{isEditing ? "Update this course calendar activity." : "Add a new activity to this course calendar."}</span>
+                        <p>{isEditing ? calendar.editEvent : calendar.createEvent}</p>
+                        <span>{isEditing ? calendar.editDescription : calendar.createDescription}</span>
                     </div>
                     <button className="create-form-close" type="button" onClick={closeForm}>
                         <X />
@@ -49,16 +49,16 @@ function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handl
                 </div>
 
                 <div className="create-form-fields">
-                    <input className="create-form-input" name="title" placeholder="Title" defaultValue={calendarEvent?.title ?? ""} />
-                    <textarea className="create-form-input create-form-textarea" name="description" placeholder="Description" defaultValue={calendarEvent?.description ?? ""} />
+                    <input className="create-form-input" name="title" placeholder={calendar.titlePlaceholder} defaultValue={calendarEvent?.title ?? ""} />
+                    <textarea className="create-form-input create-form-textarea" name="description" placeholder={calendar.descriptionPlaceholder} defaultValue={calendarEvent?.description ?? ""} />
 
                     <select className="create-form-input" name="eventType" defaultValue={calendarEvent?.eventType ?? ""}>
-                        <option value="" disabled>Type</option>
-                        <option value="assignment">Assignment</option>
-                        <option value="exam">Exam</option>
-                        <option value="reminder">Reminder</option>
-                        <option value="announcement">Announcement</option>
-                        <option value="other">Other</option>
+                        <option value="" disabled>{calendar.type}</option>
+                        <option value="assignment">{calendar.eventTypes.assignment}</option>
+                        <option value="exam">{calendar.eventTypes.exam}</option>
+                        <option value="reminder">{calendar.eventTypes.reminder}</option>
+                        <option value="announcement">{calendar.eventTypes.announcement}</option>
+                        <option value="other">{calendar.eventTypes.other}</option>
                     </select>
 
                     <div className="create-form-dates">
@@ -68,8 +68,8 @@ function CreateForm({ closeForm, course, calendarEvent, handleCreateEvent, handl
                 </div>
 
                 <div className="create-form-actions">
-                    <button className="create-form-cancel" type="button" onClick={closeForm}>Cancel</button>
-                    <button className="create-form-submit" type="submit">{isEditing ? "Save event" : "Create event"}</button>
+                    <button className="create-form-cancel" type="button" onClick={closeForm}>{common.cancel}</button>
+                    <button className="create-form-submit" type="submit">{isEditing ? calendar.saveEvent : calendar.createEvent}</button>
                 </div>
             </form>
         </div>

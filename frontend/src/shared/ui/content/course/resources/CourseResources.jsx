@@ -1,11 +1,11 @@
 import "./CourseResources.css";
 import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
 import CourseResource from "./resource/CourseResource.jsx";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const FILE_BASE_URL = API_URL.replace("/api", "");
+import { getApiAssetUrl } from "../../../../api/config.js";
+import { usePreferenceTexts } from "../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CourseResources({ currentUser, course, resourcesSummary, resourcesByWeek, resourcesRef, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
+    const { course: courseTexts } = usePreferenceTexts();
 
     function handleResourceClick(resource) {
         const isUnavailable = resource.statusLabel === "unavailable";
@@ -13,19 +13,15 @@ function CourseResources({ currentUser, course, resourcesSummary, resourcesByWee
 
         if (isUnavailable || !fileUrl) return;
 
-        const fullFileUrl = fileUrl.startsWith("http")
-            ? fileUrl
-            : `${FILE_BASE_URL}${fileUrl}`;
-
-        window.open(fullFileUrl, "_blank", "noopener,noreferrer");
+        window.open(getApiAssetUrl(fileUrl), "_blank", "noopener,noreferrer");
     }
 
     return (
         <div className="course-resources" ref={resourcesRef}>
             <div className="course-resources-header">
-                <p>RESOURCES BY WEEK</p>
+                <p>{courseTexts.resourcesByWeek}</p>
                 <div>
-                    <span className="course-resources-header-folders">{resourcesSummary.foldersCount} folders</span>
+                    <span className="course-resources-header-folders">{resourcesSummary.foldersCount} {courseTexts.folders}</span>
                     {currentUser.role === "teacher" && (
                         <CourseResourcesOptions
                             course={course}
@@ -37,7 +33,7 @@ function CourseResources({ currentUser, course, resourcesSummary, resourcesByWee
 
             {resourcesByWeek.map((resourcesItem) => (
                 <div className="course-resource" key={resourcesItem.id}>
-                    <p>Week {resourcesItem.weekNumber}</p>
+                    <p>{courseTexts.week} {resourcesItem.weekNumber}</p>
 
                     <div className="course-resource-files">
                         {resourcesItem.files.map((resource) => {

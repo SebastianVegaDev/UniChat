@@ -6,6 +6,7 @@ import {
     validateSetTeacherFixedMessage,
     validateToggleTeacherChatChannelLock
 } from "../../../validators/teacherChat.validator.js";
+import { emitToChatChannel } from "../../../socket/socket.js";
 
 export async function toggleTeacherChatChannelLock(req, res, next) {
     try {
@@ -15,6 +16,11 @@ export async function toggleTeacherChatChannelLock(req, res, next) {
         const toggleChatChannelLock = await toggleTeacherChatChannelLockService({
             ...data,
             teacherId
+        });
+
+        emitToChatChannel(toggleChatChannelLock.id, "chat:channel-lock-updated", {
+            channelId: toggleChatChannelLock.id,
+            isLocked: toggleChatChannelLock.isLocked
         });
 
         res.json(toggleChatChannelLock)
@@ -31,6 +37,11 @@ export async function setTeacherFixedMessage(req, res, next) {
         const setFixedMessage = await setTeacherFixedMessageService({
             ...data,
             teacherId
+        });
+
+        emitToChatChannel(data.channelId, "chat:pinned-message-updated", {
+            channelId: data.channelId,
+            messageId: data.messageId
         });
 
         res.json(setFixedMessage)

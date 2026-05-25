@@ -6,10 +6,10 @@
 .course-resources-options-trigger {
     width: 30px;
     height: 30px;
-    border: 2px solid rgba(243, 112, 33, 0.42);
+    border: 2px solid var(--app-accent-border-color);
     border-radius: 8px;
-    background-color: rgba(243, 112, 33, 0.16);
-    color: #ff9b45;
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,8 +18,8 @@
 }
 
 .course-resources-options-trigger:hover {
-    background-color: rgba(243, 112, 33, 0.24);
-    border-color: #f37021;
+    background-color: var(--app-accent-soft-color);
+    border-color: var(--app-accent-color);
 }
 
 .course-resources-options-trigger:active {
@@ -37,10 +37,10 @@
     right: 0;
     z-index:2;
     min-width: 190px;
-    background-color: #303030;
-    border: 2px solid #3f3f3f;
+    background-color: var(--app-surface);
+    border: 2px solid var(--app-border-color);
     padding: 8px;
-    color: #ffffff;
+    color: var(--app-text-color);
     border-radius: 8px;
     font-size: 14px;
 }
@@ -48,14 +48,13 @@
 .course-resources-option {
     padding: 9px 10px;
     border-radius: 7px;
-    color: #e5e5e5;
+    color: var(--app-text-color);
     cursor: pointer;
     font-weight: 650;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .course-resources-option:hover {
-    background-color: rgba(243, 112, 33, 0.16);
-    color: #ff9b45;
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color);
 }
-

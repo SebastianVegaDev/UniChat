@@ -1,6 +1,9 @@
 import "./CourseResourceOptions.css";
+import { usePreferenceTexts } from "../../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CourseResourceOptions({ resource, closeOptions, openEditForm, handleToggleResource, handleDeleteResource }) {
+    const { common, course } = usePreferenceTexts();
+
     function editResource(event) {
         event.stopPropagation();
         openEditForm();
@@ -20,9 +23,9 @@ function CourseResourceOptions({ resource, closeOptions, openEditForm, handleTog
 
     return (
         <div className="course-resource-options" onClick={(event) => event.stopPropagation()}>
-            <p className="course-resource-option" onClick={editResource}>Edit</p>
-            <p className="course-resource-option" onClick={toggleResource}>Toggle availability</p>
-            <p className="course-resource-option" onClick={deleteResource}>Delete</p>
+            <p className="course-resource-option" onClick={editResource}>{common.edit}</p>
+            <p className="course-resource-option" onClick={toggleResource}>{course.toggleAvailability}</p>
+            <p className="course-resource-option" onClick={deleteResource}>{common.delete}</p>
         </div>
     );
 }

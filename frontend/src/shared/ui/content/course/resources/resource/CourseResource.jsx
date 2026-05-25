@@ -3,12 +3,14 @@ import { FileText } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import CourseResourceOptions from "./options/CourseResourceOptions.jsx";
 import ResourceForm from "../../../../forms/create/ResourceForm.jsx";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CourseResource({ currentUser, isUnavailable, resource, handleResourceClick, handleEditResource, handleToggleResource, handleDeleteResource }) {
     const [showOptions, setShowOptions] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const resourceRef = useRef(null);
     const isTeacher = currentUser?.role === "teacher";
+    const { course } = usePreferenceTexts();
 
     function handleRightClick(event) {
         event.preventDefault();
@@ -53,12 +55,12 @@ function CourseResource({ currentUser, isUnavailable, resource, handleResourceCl
                     <p>
                         {resource.kindLabel} · {resource.sizeLabel} · {resource.dateLabel}
                     </p>
-                    <span>Uploaded by {resource.uploadedBy}</span>
+                    <span>{course.uploadedBy} {resource.uploadedBy}</span>
                 </div>
             </div>
 
             <p className={`course-resource-file-state ${isUnavailable ? "unavailable" : "available"}`}>
-                {resource.statusLabel}
+                {resource.statusText}
             </p>
             {showOptions && isTeacher && (
                 <CourseResourceOptions

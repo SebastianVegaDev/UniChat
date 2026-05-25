@@ -14,5 +14,6 @@
 @media (max-width: 980px) {
     .calendar-content {
         flex-direction: column;
+        overflow-y: auto;
     }
 }

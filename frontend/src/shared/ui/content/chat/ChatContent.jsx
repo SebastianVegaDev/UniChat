@@ -2,7 +2,7 @@ import "./ChatContent.css";
 import ChatMain from "./main/ChatMain.jsx";
 import ChatSidebar from "./sidebar/ChatSidebar.jsx";
 
-function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, activeChannelId, setActiveChannelId, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser}) {
+function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, activeChannelId, setActiveChannelId, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser, handleToggleReaction}) {
     return (
         <div className="chat-content">
             <ChatSidebar 
@@ -20,6 +20,7 @@ function ChatContent({course, channels, pinnedMessage, timeline, activeChannel, 
                 handleToggleChannelLock={handleToggleChannelLock}
                 handleSetFixedMessage={handleSetFixedMessage}
                 handleDeleteMessage={handleDeleteMessage}
+                handleToggleReaction={handleToggleReaction}
             />
         </div>
     );

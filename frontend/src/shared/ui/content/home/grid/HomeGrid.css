@@ -6,14 +6,27 @@
     grid-template-rows: repeat(3, minmax(0, 1fr));
     gap: 10px;
     line-height: 1.3;
-    color: #ffffff;
+    color: var(--app-text-color);
     font-family: "Inter";
 }
 
 .home-grid > div {
-    background-color: #222222;
-    border: 2px solid #3f3f3f;
-    border-radius: 10px;
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
     padding: 14px;
     min-height: 0;
+}
+
+@media (max-width: 1180px) {
+    .home-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+    .home-grid > div {
+        grid-column: auto;
+        grid-row: auto;
+    }
 }

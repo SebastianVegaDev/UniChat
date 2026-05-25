@@ -7,6 +7,10 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    border-radius: 8px;
+    background-image: var(--chat-wallpaper-image, none);
+    background-position: center;
+    background-size: cover;
 }
 
 .chat-content-main-messages::before {
@@ -16,7 +20,7 @@
 
 .chat-content-main-message-date {
     display: flex;
-    color: #b3b3b3;
+    color: var(--chat-message-muted-color, #b3b3b3);
     font-size: 15px;
     font-weight: bold;
     align-items: center;
@@ -28,13 +32,13 @@
     content: "";
     flex: 1;
     height: 2px;
-    background-color: #3f3f3f;
+    background-color: var(--chat-main-border-color, #3f3f3f);
 }
 
 .chat-content-main-message-resource {
     display: flex;
-    background-color: #373737;
-    color: #b3b3b3;
+    background-color: var(--chat-resource-background, #373737);
+    color: var(--chat-message-muted-color, #b3b3b3);
     border-radius: 13px;
     padding: 8px 14px;
     width: fit-content;

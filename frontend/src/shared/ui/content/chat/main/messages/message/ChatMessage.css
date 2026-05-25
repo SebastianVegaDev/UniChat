@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 6px;
     border-radius: 8px;
+    font-size: var(--chat-message-font-size, 15px);
     user-select: none;
 }
 
@@ -12,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     gap: 12px;
-    font-size: 15px;
+    font-size: inherit;
     font-weight: 400;
 }
 
@@ -22,18 +23,38 @@
     gap: 7px;
 }
 
+.chat-content-main-message > p {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.chat-content-main-message-photo {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
+}
+
+.chat-content-main-message-photo > img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+}
+
 .chat-content-main-message-role {
     padding: 2px 7px;
     border-radius: 999px;
-    background-color: #373737;
-    color: #e5e5e5;
+    background-color: var(--chat-main-surface-soft, #373737);
+    color: var(--chat-text-color, #ffffff);
     font-size: 11px;
     font-weight: 750;
 }
 
 .chat-content-main-message-role.teacher {
-    background-color: rgba(243, 112, 33, 0.16);
-    color: #ff9b45;
+    background-color: var(--chat-accent-soft-color, rgba(243, 112, 33, 0.16));
+    color: var(--chat-accent-color, #f37021);
 }
 
 .chat-content-main-message-role.delegate {
@@ -43,13 +64,17 @@
 
 .chat-content-main-message-checks {
     align-self: flex-end;
-    color: #b3b3b3;
+    color: rgba(255, 255, 255, 0.74);
     width: 16px;
     height: 16px;
 }
 
 .chat-content-main-message-checks.read {
-    color: #ff9b45;
+    color: var(--chat-read-check-color, #1d4ed8);
+}
+
+.app-layout.hide-read-checks .chat-content-main-message-checks {
+    display: none;
 }
 
 .chat-content-main-message-other {
@@ -57,6 +82,7 @@
     align-items: flex-end;
     gap: 8px;
     justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .chat-content-main-message-me {
@@ -86,7 +112,7 @@ span.chat-content-main-message-avatar {
 }
 
 .chat-content-main-message-other > .chat-content-main-message-avatar {
-    background-color: #f37021;
+    background-color: var(--chat-accent-color, #f37021);
 }
 
 .chat-content-main-message-me > .chat-content-main-message-avatar {
@@ -94,26 +120,48 @@ span.chat-content-main-message-avatar {
 }
 
 .chat-content-main-message-other .chat-content-main-message {
-    border: 2px solid #3f3f3f;
+    border: 1px solid var(--chat-other-message-border-color, #3f3f3f);
+    background-color: var(--chat-other-message-color, transparent);
+    color: var(--chat-other-message-text-color, #ffffff);
     width: fit-content;
-    max-width: 360px;
+    max-width: min(420px, 72%);
 }
 
 .chat-content-main-message-me .chat-content-main-message {
-    background-color: #f37021;
-    color: white;
+    background-color: var(--chat-me-message-color, #f37021);
+    color: var(--chat-me-message-text-color, #ffffff);
     width: fit-content;
-    max-width: 360px;
+    max-width: min(420px, 72%);
 }
 
 .chat-content-main-message.deleted-message {
-    background-color: #303030;
-    border: 2px solid #3f3f3f;
-    color: #b3b3b3;
+    background-color: color-mix(in srgb, var(--chat-accent-color, #f37021) 16%, var(--chat-main-background, #222222));
+    border: 1px solid var(--chat-main-border-color, #3f3f3f);
+    color: var(--chat-message-muted-color, #b3b3b3);
+}
+
+.chat-content-main-message-me .chat-content-main-message.deleted-message {
+    background-color: var(--chat-me-message-color, #f37021);
+    border-color: var(--chat-me-message-color, #f37021);
+    color: var(--chat-me-message-text-color, #ffffff);
+}
+
+.chat-content-main-message-other .chat-content-main-message.deleted-message {
+    background-color: var(--chat-other-message-color, #303030);
+    border-color: var(--chat-other-message-border-color, #3f3f3f);
+    color: var(--chat-other-message-text-color, #ffffff);
 }
 
 .chat-content-main-message.deleted-message p {
     font-style: italic;
+}
+
+.chat-content-main-message.has-reactions {
+    margin-bottom: 16px;
+}
+
+.chat-content-main-message-other.has-reactions {
+    margin-bottom: 8px;
 }
 
 .chat-content-main-message-other.message-deleted,

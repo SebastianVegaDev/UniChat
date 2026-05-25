@@ -1,0 +1,87 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Length 2766 >>
+stream
+BT /F2 18 Tf 50 790.00 Td (Base de Datos - Semana 5) Tj ET
+BT /F1 11 Tf 50 751.70 Td (Material demo para UniChat. Curso BD. Tema: JOIN y agregaciones.) Tj ET
+BT /F2 13 Tf 50 718.85 Td (Resumen de la semana) Tj ET
+BT /F1 11 Tf 50 693.30 Td (Esta lectura resume la semana 5 del curso Base de Datos. El tema central es JOIN y) Tj ET
+BT /F1 11 Tf 50 676.45 Td (agregaciones.) Tj ET
+BT /F1 11 Tf 50 655.60 Td (La idea principal es entender como cruzar tablas y resumir datos con COUNT, GROUP BY y) Tj ET
+BT /F1 11 Tf 50 638.75 Td (filtros y aplicarlo en ejercicios pequenos antes de pasar a casos mas grandes.) Tj ET
+BT /F1 11 Tf 50 617.90 Td (Usa este documento como base para hacer preguntas a la IA, preparar una practica o) Tj ET
+BT /F1 11 Tf 50 601.05 Td (repasar antes de clase.) Tj ET
+BT /F1 11 Tf 50 580.20 Td () Tj ET
+BT /F2 13 Tf 50 557.35 Td (Conceptos clave) Tj ET
+BT /F1 11 Tf 50 531.80 Td (1. Definicion: JOIN y agregaciones se estudia para reconocer problemas reales y) Tj ET
+BT /F1 11 Tf 50 514.95 Td (decidir una solucion ordenada.) Tj ET
+BT /F1 11 Tf 50 494.10 Td (2. Criterio: no basta memorizar; hay que justificar por que una alternativa funciona) Tj ET
+BT /F1 11 Tf 50 477.25 Td (mejor que otra.) Tj ET
+BT /F1 11 Tf 50 456.40 Td (3. Error comun: saltar directo a la respuesta sin revisar restricciones, datos) Tj ET
+BT /F1 11 Tf 50 439.55 Td (disponibles y resultado esperado.) Tj ET
+BT /F1 11 Tf 50 418.70 Td (4. Buena practica: escribir supuestos, pasos y una conclusion corta despues de cada) Tj ET
+BT /F1 11 Tf 50 401.85 Td (ejercicio.) Tj ET
+BT /F1 11 Tf 50 381.00 Td () Tj ET
+BT /F2 13 Tf 50 358.15 Td (Ejemplo guiado) Tj ET
+BT /F1 11 Tf 50 332.60 Td (Para contar alumnos por curso se unen courses y course_members, agrupando por) Tj ET
+BT /F1 11 Tf 50 315.75 Td (course_id.) Tj ET
+BT /F1 11 Tf 50 294.90 Td (Primero identifica el contexto, luego separa datos importantes, despues compara) Tj ET
+BT /F1 11 Tf 50 278.05 Td (alternativas y al final valida la respuesta.) Tj ET
+BT /F1 11 Tf 50 257.20 Td (Si el resultado no se entiende, vuelve al enunciado y pregunta que informacion falta) Tj ET
+BT /F1 11 Tf 50 240.35 Td (antes de resolver.) Tj ET
+BT /F1 11 Tf 50 219.50 Td () Tj ET
+BT /F2 13 Tf 50 196.65 Td (Actividad sugerida) Tj ET
+BT /F1 11 Tf 50 171.10 Td (Construye una consulta que muestre curso, profesor y cantidad de estudiantes activos.) Tj ET
+BT /F1 11 Tf 50 150.25 Td (Entrega una respuesta breve, con pasos claros y una conclusion de maximo cinco lineas.) Tj ET
+BT /F1 11 Tf 50 129.40 Td (Marca las dudas que no puedas resolver para llevarlas al chat del curso.) Tj ET
+BT /F1 11 Tf 50 108.55 Td () Tj ET
+BT /F2 13 Tf 50 85.70 Td (Preguntas para practicar con la IA) Tj ET
+BT /F1 9 Tf 50 30 Td (UniChat demo - pagina 1 de 2) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 550 >>
+stream
+BT /F1 11 Tf 50 790.00 Td (Explicame con un ejemplo sencillo el tema de JOIN y agregaciones.) Tj ET
+BT /F1 11 Tf 50 769.15 Td (Que partes de la semana 5 son mas importantes para estudiar antes de una practica?) Tj ET
+BT /F1 11 Tf 50 748.30 Td (Crea 3 preguntas tipo examen sobre JOIN y agregaciones y dame una pista para cada una.) Tj ET
+BT /F1 11 Tf 50 727.45 Td (Revisa si mi explicacion sobre JOIN y agregaciones esta completa y dime que me falta.) Tj ET
+BT /F1 11 Tf 50 706.60 Td () Tj ET
+BT /F1 9 Tf 50 30 Td (UniChat demo - pagina 2 de 2) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000224 00000 n 
+0000000326 00000 n 
+0000003144 00000 n 
+0000003280 00000 n 
+0000003881 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+4017
+%%EOF

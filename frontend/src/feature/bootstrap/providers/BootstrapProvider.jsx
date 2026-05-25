@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { saveBootstrapCache } from "../cache/bootstrap.cache.js";
 import { BootstrapContext } from "../context/BootstrapContext.js";
 import { getBootstrapData } from "../service/bootstrap.service.js";
+import { useRealtime } from "../../realtime/useRealtime.js";
 
 export function BootstrapProvider({ children }) {
     const [data, setData] = useState(null);
@@ -36,6 +37,11 @@ export function BootstrapProvider({ children }) {
             return nextData;
         });
     }, []);
+
+    useRealtime({
+        data,
+        updateBootstrap
+    });
 
     const value = useMemo(() => ({
         data,

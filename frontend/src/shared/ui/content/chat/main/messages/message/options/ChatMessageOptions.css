@@ -3,8 +3,8 @@
     right: 8px;
     bottom: calc(100% + 8px);
     z-index: 5;
-    background-color: #303030;
-    border: 2px solid #3f3f3f;
+    background-color: var(--chat-main-surface, #303030);
+    border: 2px solid var(--chat-main-border-color, #3f3f3f);
     border-radius: 8px;
     padding: 8px;
     display: flex;
@@ -17,7 +17,7 @@
 .chat-message-options button {
     border: none;
     background: transparent;
-    color: #e5e5e5;
+    color: var(--chat-text-color, #e5e5e5);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -29,12 +29,12 @@
 }
 
 .chat-message-options button:hover {
-    background-color: rgba(243, 112, 33, 0.16);
-    color: #ff9b45;
+    background-color: var(--chat-accent-soft-color, rgba(243, 112, 33, 0.16));
+    color: var(--chat-accent-color, #ff9b45);
 }
 
 .chat-message-options svg {
     width: 16px;
     height: 16px;
-    color: #ff9b45;
+    color: var(--chat-accent-color, #ff9b45);
 }

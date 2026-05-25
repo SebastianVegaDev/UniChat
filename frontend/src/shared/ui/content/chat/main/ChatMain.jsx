@@ -3,10 +3,12 @@ import { useEffect, useRef } from "react";
 import ChatComposer from "./composer/ChatComposer.jsx";
 import ChatHeader from "./header/ChatHeader.jsx";
 import ChatMessages from "./messages/ChatMessages.jsx";
+import { usePreferenceTexts } from "../../../../../feature/preferences/context/PreferencesContext.js";
 
-function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser }) {
+function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handleToggleChannelLock, handleSetFixedMessage, handleDeleteMessage, currentUser, handleToggleReaction }) {
     const messagesRef = useRef(null);
     const isChatLocked = activeChannel.isLocked;
+    const { chat } = usePreferenceTexts();
 
     function goToPinnedMessage() {
         if (!messagesRef.current || !pinnedMessage) return;
@@ -34,7 +36,7 @@ function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handle
             />
             {pinnedMessage && (
                 <button className="chat-content-main-pinned" onClick={goToPinnedMessage}>
-                    <span>Mensaje fijado</span>
+                    <span>{chat.pinnedMessage}</span>
                     <p>{pinnedMessage.body}</p>
                 </button>
             )}
@@ -45,6 +47,7 @@ function ChatMain({ pinnedMessage, timeline, activeChannel, handleSubmit, handle
                 activeChannel={activeChannel}
                 handleSetFixedMessage={handleSetFixedMessage}
                 handleDeleteMessage={handleDeleteMessage}
+                handleToggleReaction={handleToggleReaction}
             />
             <ChatComposer
                 activeChannel={activeChannel}

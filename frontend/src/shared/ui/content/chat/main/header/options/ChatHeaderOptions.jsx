@@ -1,10 +1,12 @@
 import "./ChatHeaderOptions.css";
 import { EllipsisVertical, Lock, Unlock } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { usePreferenceTexts } from "../../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatHeaderOptions({ activeChannel, isChatLocked, handleToggleChannelLock }) {
     const [isOpen, setIsOpen] = useState(false);
     const optionsRef = useRef(null);
+    const { chat } = usePreferenceTexts();
 
     function toggleChatLock() {
         handleToggleChannelLock({
@@ -44,7 +46,7 @@ function ChatHeaderOptions({ activeChannel, isChatLocked, handleToggleChannelLoc
             <div className="chat-header-options" hidden={!isOpen}>
                 <p className="chat-header-option" onClick={toggleChatLock}>
                     {isChatLocked ? <Unlock /> : <Lock />}
-                    {isChatLocked ? "Unlock chat" : "Lock chat"}
+                    {isChatLocked ? chat.unlockChat : chat.lockChat}
                 </p>
             </div>
         </div>

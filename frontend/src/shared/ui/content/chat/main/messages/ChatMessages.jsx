@@ -1,7 +1,7 @@
 import "./ChatMessages.css";
 import ChatMessage from "./message/ChatMessage.jsx";
 
-function ChatMessages({ timeline, messagesRef, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage }) {
+function ChatMessages({ timeline, messagesRef, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage, handleToggleReaction }) {
     return (
         <div className="chat-content-main-messages" ref={messagesRef}>
             {timeline.map((message) => {
@@ -22,6 +22,7 @@ function ChatMessages({ timeline, messagesRef, currentUser, activeChannel, handl
                             activeChannel={activeChannel}
                             handleSetFixedMessage={handleSetFixedMessage}
                             handleDeleteMessage={handleDeleteMessage}
+                            handleToggleReaction={handleToggleReaction}
                         />;
                     default:
                         return null;

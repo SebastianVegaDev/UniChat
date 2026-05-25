@@ -1,9 +1,9 @@
 .app-top-bar {
     display: flex;
     width: 100%;
-    padding: 15px;
-    background-color: #222222;
-    border-bottom: 2px solid #3f3f3f;
+    padding: 12px 18px;
+    background-color: var(--app-surface);
+    border-bottom: 1px solid var(--app-border-color);
     align-items: center;
 }
 
@@ -19,7 +19,7 @@
     font-family: "Inter";
     font-size: 24px;
     font-weight: 750;
-    color: #f37021;
+    color: var(--app-accent-color);
     display: flex;
     align-items: center;
     margin-left: 20px;
@@ -29,7 +29,7 @@
     font-family: "Inter";
     font-size: 24px;
     font-weight: 750;
-    color: #ffffff;
+    color: var(--app-text-color);
     display: flex;
     align-items: center;
 }
@@ -46,10 +46,10 @@
 }
 
 .app-top-bar-user {
-    border: 2px solid #494949;
+    border: 1px solid var(--app-border-color);
     border-radius: 999px;
-    background-color: #222222;
-    color: #ffffff;
+    background-color: var(--app-background);
+    color: var(--app-text-color);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -59,7 +59,7 @@
 
 .app-top-bar-user > span,
 .app-top-bar-user > img {
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
     width: 28px;
     height: 28px;
     border-radius: 999px;
@@ -90,9 +90,9 @@
     right: 0;
     z-index: 20;
     width: 260px;
-    background-color: #414141;
-    border: 2px solid #5d5d5d;
-    border-radius: 10px;
+    background-color: var(--app-surface);
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
     padding: 12px;
     display: flex;
     gap: 10px;
@@ -104,7 +104,7 @@
     height: 46px;
     border-radius: 999px;
     flex: 0 0 46px;
-    background-color: #f37021;
+    background-color: var(--app-accent-color);
 }
 
 .app-top-bar-user-info > img {
@@ -121,7 +121,7 @@
 }
 
 .app-top-bar-user-info p {
-    color: #ffffff;
+    color: var(--app-text-color);
     font-size: 15px;
     font-weight: 800;
 }
@@ -129,14 +129,32 @@
 .app-top-bar-user-info span,
 .app-top-bar-user-info small {
     display: block;
-    color: #ffffff;
+    color: var(--app-text-color);
     font-size: 13px;
     margin-top: 3px;
 }
 
 .app-top-bar-help {
-    border: none;
+    width: 38px;
+    height: 38px;
+    border: 1px solid transparent;
+    border-radius: 8px;
     background-color: transparent;
-    color: #ffffff;
+    color: var(--app-text-color);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-top-bar-help:hover,
+.app-top-bar-help.active {
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color);
+}
+
+@media (max-width: 760px) {
+    .app-top-bar-user > p {
+        display: none;
+    }
 }

@@ -1,3 +1,5 @@
+import { getPreferenceTexts } from "../../preferences/constants/preferences.constants.js";
+
 function formatTimeLabel(dateValue) {
     if (!dateValue) return "";
 
@@ -7,17 +9,17 @@ function formatTimeLabel(dateValue) {
     });
 }
 
-function formatDateLabel(dateValue) {
+function formatDateLabel(dateValue, locale) {
     if (!dateValue) return "";
 
-    return new Date(dateValue).toLocaleDateString("en-us", {
+    return new Date(dateValue).toLocaleDateString(locale, {
         day: "2-digit",
         month: "short"
     });
 }
 
-function getFullName(user) {
-    if (!user) return "Unknown user";
+function getFullName(user, commonTexts) {
+    if (!user) return commonTexts.unknownUser;
 
     if (user.role === "teacher") {
         return `Prof. ${user.firstName} ${user.lastName}`;
@@ -90,12 +92,12 @@ function getClassStatus(classSession, now = new Date()) {
     return "finished";
 }
 
-function mapCurrentUser(session, usersById) {
+function mapCurrentUser(session, usersById, commonTexts) {
     const user = usersById[session.currentUserId];
 
     return {
         "id": user?.id,
-        "name": user?.firstName ?? "User",
+        "name": user?.firstName ?? commonTexts.user,
         "role": user?.role ?? "student"
     };
 }
@@ -107,23 +109,25 @@ function mapSummary(classSessions, now) {
     };
 }
 
-function mapTodayClass(classSession, coursesById, classroomsById, now) {
+function mapTodayClass(classSession, coursesById, classroomsById, now, texts) {
     const course = coursesById[classSession.courseId];
     const classroom = classroomsById[classSession.classroomId];
+    const statusLabel = getClassStatus(classSession, now);
 
     return {
         "id": classSession.id,
         "startTime": formatTimeLabel(classSession.startsAt),
         "endTime": formatTimeLabel(classSession.endsAt),
         "topic": classSession.topic ?? "",
-        "statusLabel": getClassStatus(classSession, now),
-        "classroom": classroom?.name ?? "No classroom",
+        "statusLabel": statusLabel,
+        "statusText": texts.home.statuses[statusLabel] ?? statusLabel,
+        "classroom": classroom?.name ?? texts.common.noClassroom,
         "route": `/course/${course?.slug ?? ""}`,
-        "title": course?.title ?? "Course"
+        "title": course?.title ?? texts.common.course
     };
 }
 
-function mapNextClass(classSession, coursesById, classroomsById, usersById) {
+function mapNextClass(classSession, coursesById, classroomsById, usersById, texts) {
     if (!classSession) return null;
 
     const course = coursesById[classSession?.courseId];
@@ -131,39 +135,40 @@ function mapNextClass(classSession, coursesById, classroomsById, usersById) {
     const teacher = usersById[course?.teacherId];
 
     return {
-        "title": course?.title ?? "Course",
+        "title": course?.title ?? texts.common.course,
         "startTime": formatTimeLabel(classSession?.startsAt),
         "endTime": formatTimeLabel(classSession?.endsAt),
-        "teacher": getFullName(teacher),
-        "classroom": classroom?.name ?? "No classroom",
+        "teacher": getFullName(teacher, texts.common),
+        "classroom": classroom?.name ?? texts.common.noClassroom,
         "route": `/course/${course?.slug ?? ""}`
     };
 }
 
-function mapCourseShortcut(course, usersById, classroomsById) {
+function mapCourseShortcut(course, usersById, classroomsById, texts) {
     const teacher = usersById[course.teacherId];
     const classroom = classroomsById[course.classroomId];
 
     return {
         "id": course.id,
         "shortName": course.shortName ?? "",
-        "title": course.title ?? "Course",
+        "title": course.title ?? texts.common.course,
         "route": `/course/${course.slug ?? ""}`,
-        "teacher": getFullName(teacher),
-        "classroom": classroom?.name ?? "No classroom"
+        "teacher": getFullName(teacher, texts.common),
+        "classroom": classroom?.name ?? texts.common.noClassroom
     };
 }
 
-function mapHomeNews(announcement) {
+function mapHomeNews(announcement, texts) {
     return {
         "id": announcement.id,
-        "title": announcement.title ?? "Untitled news",
+        "title": announcement.title ?? texts.home.untitledNews,
         "description": announcement.body ?? "",
-        "dateLabel": formatDateLabel(announcement.publishedAt)
+        "dateLabel": formatDateLabel(announcement.publishedAt, texts.locale)
     };
 }
 
-export function mapHomeData(data) {
+export function mapHomeData(data, preferenceTexts = getPreferenceTexts("English")) {
+    const texts = preferenceTexts;
     const now = new Date();
     const session = data?.session ?? {};
     const users = data?.users ?? [];
@@ -187,11 +192,11 @@ export function mapHomeData(data) {
         ?? null;
 
     return {
-        "currentUser": mapCurrentUser(session, usersById),
+        "currentUser": mapCurrentUser(session, usersById, texts.common),
         "summary": mapSummary(todayClassSessions, now),
-        "todayClasses": todayClasses.map((classSession) => mapTodayClass(classSession, coursesById, classroomsById, now)),
-        "nextClass": mapNextClass(nextClass, coursesById, classroomsById, usersById),
-        "courses": courses.map((course) => mapCourseShortcut(course, usersById, classroomsById)),
-        "news": announcements.map(mapHomeNews)
+        "todayClasses": todayClasses.map((classSession) => mapTodayClass(classSession, coursesById, classroomsById, now, texts)),
+        "nextClass": mapNextClass(nextClass, coursesById, classroomsById, usersById, texts),
+        "courses": courses.map((course) => mapCourseShortcut(course, usersById, classroomsById, texts)),
+        "news": announcements.map((announcement) => mapHomeNews(announcement, texts))
     };
 }

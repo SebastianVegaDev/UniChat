@@ -1,14 +1,14 @@
 .section-hero {
     line-height: 1.5;
-    padding-bottom: 30px;
-    border-bottom: 2px solid #5c5c5c;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--app-border-color);
 }
 
 .section-hero-eyebrow {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #f37021;
+    color: var(--app-accent-color);
     font-family: "Inter";
     font-size: 16px;
     font-weight: 650;
@@ -20,14 +20,14 @@
 }
 
 .section-hero > h2 {
-    color: #ffffff;
+    color: var(--app-text-color);
     font-family: "Inter";
-    font-size: 34px;
+    font-size: 30px;
     font-weight: 750;
 }
 
 .section-hero > span {
-    color: #b3b3b3;
+    color: var(--app-muted-text-color);
     font-family: "Inter";
     font-size: 17px;
     font-weight: 400;

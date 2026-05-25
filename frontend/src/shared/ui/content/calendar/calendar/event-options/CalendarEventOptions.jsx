@@ -1,9 +1,11 @@
 import "./CalendarEventOptions.css";
 import { useState } from "react";
 import CreateForm from "../../../../forms/create/CreateForm.jsx";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CalendarEventOptions({eventOptionsRef, position, course, closeOptions, handleEditEvent, handleCancelEvent, handleDeleteEvent}) {
     const [isEditing, setIsEditing] = useState(false);
+    const { common } = usePreferenceTexts();
 
     function editEvent() {
         setIsEditing(true);
@@ -35,9 +37,9 @@ function CalendarEventOptions({eventOptionsRef, position, course, closeOptions, 
             }}
             onClick={(event) => event.stopPropagation()}
         >
-            <p className="calendar-event-option" onClick={editEvent}>Edit</p>
-            <p className="calendar-event-option" onClick={cancelEvent}>Cancel</p>
-            <p className="calendar-event-option" onClick={deleteEvent}>Delete</p>
+            <p className="calendar-event-option" onClick={editEvent}>{common.edit}</p>
+            <p className="calendar-event-option" onClick={cancelEvent}>{common.cancel}</p>
+            <p className="calendar-event-option" onClick={deleteEvent}>{common.delete}</p>
 
             {isEditing && (
                 <CreateForm

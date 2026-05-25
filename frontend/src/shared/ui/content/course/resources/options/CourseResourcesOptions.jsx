@@ -2,11 +2,13 @@ import "./CourseResourcesOptions.css";
 import { Ellipsis } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import ResourceForm from "../../../../forms/create/ResourceForm.jsx";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CourseResourcesOptions({ course, handleUploadResource }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const optionsRef = useRef(null);
+    const { course: courseTexts } = usePreferenceTexts();
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -42,7 +44,7 @@ function CourseResourcesOptions({ course, handleUploadResource }) {
                 </button>
 
                 <div className="course-resources-options" hidden={!isOpen}>
-                    <p className="course-resources-option" onClick={openCreateForm}>Add Resource</p>
+                    <p className="course-resources-option" onClick={openCreateForm}>{courseTexts.addResource}</p>
                 </div>
             </div>
 

@@ -1,0 +1,89 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [6 0 R 8 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Length 2814 >>
+stream
+BT /F2 18 Tf 50 790.00 Td (Sistemas Operativos - Semana 2) Tj ET
+BT /F1 11 Tf 50 751.70 Td (Material demo para UniChat. Curso OS. Tema: Procesos y estados.) Tj ET
+BT /F2 13 Tf 50 718.85 Td (Resumen de la semana) Tj ET
+BT /F1 11 Tf 50 693.30 Td (Esta lectura resume la semana 2 del curso Sistemas Operativos. El tema central es) Tj ET
+BT /F1 11 Tf 50 676.45 Td (Procesos y estados.) Tj ET
+BT /F1 11 Tf 50 655.60 Td (La idea principal es entender como un programa pasa de nuevo a listo, ejecucion,) Tj ET
+BT /F1 11 Tf 50 638.75 Td (bloqueado y terminado y aplicarlo en ejercicios pequenos antes de pasar a casos mas) Tj ET
+BT /F1 11 Tf 50 621.90 Td (grandes.) Tj ET
+BT /F1 11 Tf 50 601.05 Td (Usa este documento como base para hacer preguntas a la IA, preparar una practica o) Tj ET
+BT /F1 11 Tf 50 584.20 Td (repasar antes de clase.) Tj ET
+BT /F1 11 Tf 50 563.35 Td () Tj ET
+BT /F2 13 Tf 50 540.50 Td (Conceptos clave) Tj ET
+BT /F1 11 Tf 50 514.95 Td (1. Definicion: Procesos y estados se estudia para reconocer problemas reales y decidir) Tj ET
+BT /F1 11 Tf 50 498.10 Td (una solucion ordenada.) Tj ET
+BT /F1 11 Tf 50 477.25 Td (2. Criterio: no basta memorizar; hay que justificar por que una alternativa funciona) Tj ET
+BT /F1 11 Tf 50 460.40 Td (mejor que otra.) Tj ET
+BT /F1 11 Tf 50 439.55 Td (3. Error comun: saltar directo a la respuesta sin revisar restricciones, datos) Tj ET
+BT /F1 11 Tf 50 422.70 Td (disponibles y resultado esperado.) Tj ET
+BT /F1 11 Tf 50 401.85 Td (4. Buena practica: escribir supuestos, pasos y una conclusion corta despues de cada) Tj ET
+BT /F1 11 Tf 50 385.00 Td (ejercicio.) Tj ET
+BT /F1 11 Tf 50 364.15 Td () Tj ET
+BT /F2 13 Tf 50 341.30 Td (Ejemplo guiado) Tj ET
+BT /F1 11 Tf 50 315.75 Td (Un navegador espera datos de red mientras otro proceso imprime un archivo. Cada) Tj ET
+BT /F1 11 Tf 50 298.90 Td (proceso cambia de estado segun el recurso que necesita.) Tj ET
+BT /F1 11 Tf 50 278.05 Td (Primero identifica el contexto, luego separa datos importantes, despues compara) Tj ET
+BT /F1 11 Tf 50 261.20 Td (alternativas y al final valida la respuesta.) Tj ET
+BT /F1 11 Tf 50 240.35 Td (Si el resultado no se entiende, vuelve al enunciado y pregunta que informacion falta) Tj ET
+BT /F1 11 Tf 50 223.50 Td (antes de resolver.) Tj ET
+BT /F1 11 Tf 50 202.65 Td () Tj ET
+BT /F2 13 Tf 50 179.80 Td (Actividad sugerida) Tj ET
+BT /F1 11 Tf 50 154.25 Td (Describe el ciclo de vida de tres procesos: reproductor de musica, editor de texto y) Tj ET
+BT /F1 11 Tf 50 137.40 Td (descarga de archivo.) Tj ET
+BT /F1 11 Tf 50 116.55 Td (Entrega una respuesta breve, con pasos claros y una conclusion de maximo cinco lineas.) Tj ET
+BT /F1 11 Tf 50 95.70 Td (Marca las dudas que no puedas resolver para llevarlas al chat del curso.) Tj ET
+BT /F1 9 Tf 50 30 Td (UniChat demo - pagina 1 de 2) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 651 >>
+stream
+BT /F1 11 Tf 50 790.00 Td () Tj ET
+BT /F2 13 Tf 50 767.15 Td (Preguntas para practicar con la IA) Tj ET
+BT /F1 11 Tf 50 741.60 Td (Explicame con un ejemplo sencillo el tema de Procesos y estados.) Tj ET
+BT /F1 11 Tf 50 720.75 Td (Que partes de la semana 2 son mas importantes para estudiar antes de una practica?) Tj ET
+BT /F1 11 Tf 50 699.90 Td (Crea 3 preguntas tipo examen sobre Procesos y estados y dame una pista para cada una.) Tj ET
+BT /F1 11 Tf 50 679.05 Td (Revisa si mi explicacion sobre Procesos y estados esta completa y dime que me falta.) Tj ET
+BT /F1 11 Tf 50 658.20 Td () Tj ET
+BT /F1 9 Tf 50 30 Td (UniChat demo - pagina 2 de 2) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 7 0 R >>
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000224 00000 n 
+0000000326 00000 n 
+0000003192 00000 n 
+0000003328 00000 n 
+0000004030 00000 n 
+trailer
+<< /Size 9 /Root 1 0 R >>
+startxref
+4166
+%%EOF

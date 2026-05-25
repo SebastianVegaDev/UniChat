@@ -4,14 +4,16 @@ import NewsContent from "../../../shared/ui/content/news/NewsContent.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { mapNewsData } from "../mappers/news.mapper.js";
+import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
 
 function NewsPage() {
     const { data, isLoading, error } = useBootstrap();
+    const texts = usePreferenceTexts();
 
     if (isLoading) return <LoadingLayout />;
     if (error) return <p>{error}</p>;
 
-    const newsData = mapNewsData(data);
+    const newsData = mapNewsData(data, texts);
     const { hero, news } = newsData;
 
     return (

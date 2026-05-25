@@ -1,7 +1,10 @@
 import "./ChatHeader.css";
 import ChatHeaderOptions from "./options/ChatHeaderOptions.jsx";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatHeader({ activeChannel, isChatLocked, currentUser, handleToggleChannelLock }) {
+    const { chat } = usePreferenceTexts();
+
     return (
         <div className="chat-content-main-header">
             <div>
@@ -10,7 +13,7 @@ function ChatHeader({ activeChannel, isChatLocked, currentUser, handleToggleChan
             </div>
             <div className="chat-content-main-header-actions">
                 {isChatLocked && (
-                    <span className="chat-content-main-header-badge">Chat bloqueado</span>
+                    <span className="chat-content-main-header-badge">{chat.lockedBadge}</span>
                 )}
                 {currentUser.role === "teacher" ? (
                     <ChatHeaderOptions

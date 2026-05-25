@@ -1,10 +1,10 @@
-import { getcourseStatsService } from "./courseStats.service.js";
+import { getCourseStatsService } from "./courseStats.service.js";
 
-export async function getcourseStats(req, res, next) {
+export async function getCourseStats(req, res, next) {
     try {
         const userId = req.user.id;
 
-        const courseStats = await getcourseStatsService(userId);
+        const courseStats = await getCourseStatsService(userId);
 
         res.json(courseStats)
     } catch (error) {

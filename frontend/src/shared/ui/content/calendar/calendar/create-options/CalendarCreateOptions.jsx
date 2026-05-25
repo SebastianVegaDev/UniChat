@@ -2,10 +2,12 @@ import "./CalendarCreateOptions.css";
 import { CalendarPlus } from "lucide-react";
 import CreateForm from "../../../../forms/create/CreateForm.jsx";
 import { useState, useEffect, useRef } from "react";
+import { usePreferenceTexts } from "../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function CalendarCreateOptions({ course, handleCreateEvent }) {
     const [isOpen, setIsOpen] = useState(false);
     const optionsRef = useRef(null);
+    const { calendar } = usePreferenceTexts();
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -32,7 +34,7 @@ function CalendarCreateOptions({ course, handleCreateEvent }) {
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <CalendarPlus />
-                Create event
+                {calendar.createEvent}
             </button>
             <div className="calendar-create-form" hidden={!isOpen}>
                 <CreateForm

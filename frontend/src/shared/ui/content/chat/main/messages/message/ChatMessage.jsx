@@ -2,13 +2,23 @@ import "./ChatMessage.css";
 import { CheckCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ChatMessageOptions from "./options/ChatMessageOptions.jsx";
+import ChatMessageReactions from "./reactions/ChatMessageReactions.jsx";
+import { getApiAssetUrl } from "../../../../../../api/config.js";
+import { usePreferenceTexts } from "../../../../../../../feature/preferences/context/PreferencesContext.js";
 
-function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage }) {
+function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage, handleToggleReaction }) {
     const [showOptions, setShowOptions] = useState(false);
     const messageRef = useRef(null);
     const pressTimerRef = useRef(null);
+    const { chat } = usePreferenceTexts();
     const isMyMessage = message.type === "message-me";
     const isDeleted = message.isDeleted;
+    const hasReactions = (message.reactions ?? []).length > 0;
+    const author = isMyMessage ? chat.me : message.author;
+    const body = isDeleted ? chat.deletedMessage : message.body;
+    const photoUrl = !isDeleted && message.attachmentType === "photo"
+        ? getApiAssetUrl(message.attachmentUrl)
+        : "";
     const messageClassName = isMyMessage
         ? "chat-content-main-message-me"
         : "chat-content-main-message-other";
@@ -23,6 +33,15 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
 
     function cancelLongPress() {
         clearTimeout(pressTimerRef.current);
+    }
+
+    function toggleEmoji(emoji) {
+        handleToggleReaction({
+            messageId: message.id,
+            emoji
+        });
+
+        setShowOptions(false);
     }
 
     useEffect(() => {
@@ -42,7 +61,7 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
 
     const content = (
         <div
-            className={`chat-content-main-message ${isDeleted ? "deleted-message" : ""}`}
+            className={`chat-content-main-message ${isDeleted ? "deleted-message" : ""} ${hasReactions ? "has-reactions" : ""}`}
             ref={messageRef}
             onPointerDown={isDeleted ? undefined : startLongPress}
             onPointerUp={isDeleted ? undefined : cancelLongPress}
@@ -52,7 +71,7 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
             {!isDeleted && (
                 <div className="chat-content-main-message-header">
                     <h4>
-                        {message.author}
+                        {author}
                         {message.roleLabel && (
                             <span className={`chat-content-main-message-role ${message.roleClass}`}>
                                 {message.roleLabel}
@@ -62,8 +81,20 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
                     <span>{message.timeLabel}</span>
                 </div>
             )}
-            <p>{message.body}</p>
-            {!isDeleted && <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />}
+            {photoUrl && (
+                <a
+                    className="chat-content-main-message-photo"
+                    href={photoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img src={photoUrl} alt={message.attachmentName || chat.selectPhoto} />
+                </a>
+            )}
+            {body && <p>{body}</p>}
+            {!isDeleted && isMyMessage && (
+                <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
+            )}
             {showOptions && !isDeleted && (
                 <ChatMessageOptions
                     body={message.body}
@@ -76,6 +107,13 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
                     handleDeleteMessage={handleDeleteMessage}
                 />
             )}
+            {!isDeleted && (
+                <ChatMessageReactions
+                    showReactions={showOptions}
+                    reactions={message.reactions ?? []}
+                    handleToggleEmoji={toggleEmoji}
+                />
+            )}
         </div>
     );
 
@@ -83,15 +121,15 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
         <MessageAvatar
             avatarUrl={message.avatarUrl}
             initial={message.initial}
-            author={message.author}
+            author={author}
         />
     );
 
     return (
-        <div className={`${messageClassName} ${isDeleted ? "message-deleted" : ""}`} data-message-id={message.id}>
-            {isMyMessage || isDeleted ? content : avatar}
-            {isMyMessage || isDeleted ? null : content}
-            {isMyMessage && !isDeleted ? avatar : null}
+        <div className={`${messageClassName} ${isDeleted ? "message-deleted" : ""} ${hasReactions ? "has-reactions" : ""}`} data-message-id={message.id}>
+            {isMyMessage ? content : avatar}
+            {isMyMessage ? null : content}
+            {isMyMessage ? avatar : null}
         </div>
     );
 }

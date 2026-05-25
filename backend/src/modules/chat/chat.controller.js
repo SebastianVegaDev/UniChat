@@ -1,5 +1,7 @@
-import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, sendChatMessageService } from "./chat.service.js";
-import { validateDeleteChatMessage, validateSendChatMessage } from "../../validators/chat.validator.js";
+import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, markChatChannelAsReadService, sendChatMessageService, toggleChatMessageReactionService } from "./chat.service.js";
+import { validateDeleteChatMessage, validateMarkChatChannelAsRead, validateSendChatMessage, validateToggleChatMessageReaction } from "../../validators/chat.validator.js";
+import { emitToChatChannel } from "../../socket/socket.js";
+import { getChatPhotoData } from "./chat.helper.js";
 
 export async function getChatChannels(req, res, next) {
     try {
@@ -28,12 +30,18 @@ export async function getChatMessages(req, res, next) {
 export async function sendChatMessage(req, res, next) {
     try {
         const userId = req.user.id;
-        const data = validateSendChatMessage(req.body);
+        const attachmentData = getChatPhotoData(req.file);
+        const data = validateSendChatMessage(req.body, {
+            hasAttachment: Boolean(attachmentData.attachmentUrl)
+        });
 
         const message = await sendChatMessageService({
             ...data,
+            ...attachmentData,
             userId
         });
+
+        emitToChatChannel(message.channelId, "chat:message-created", message);
 
         res.status(201).json(message);
     } catch (error) {
@@ -48,7 +56,54 @@ export async function deleteChatMessage(req, res, next) {
         const userId = req.user.id;
         const deletedMessage = await deleteChatMessageService({messageId, userId});
 
+        emitToChatChannel(deletedMessage.channelId, "chat:message-deleted", {
+            messageId: deletedMessage.id,
+            deletedMessage
+        });
+
         res.json(deletedMessage);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export async function toggleChatMessageReaction(req, res, next) {
+    try {
+        const userId = req.user.id;
+        const data = validateToggleChatMessageReaction(req.body);
+
+        const result = await toggleChatMessageReactionService({
+            ...data,
+            userId
+        });
+
+        emitToChatChannel(result.channelId, "chat:message-reactions-updated", {
+            messageId: result.messageId,
+            userId,
+            reactions: result.reactions
+        });
+
+        res.json(result.reactions);
+    } catch (error) {
+        next(error)
+    }
+}
+
+export async function markChatChannelAsRead(req, res, next) {
+    try {
+        const userId = req.user.id;
+        const data = validateMarkChatChannelAsRead(req.body);
+
+        const result = await markChatChannelAsReadService({
+            ...data,
+            userId
+        });
+        emitToChatChannel(result.channelId, "chat:messages-read", {
+            ...result,
+            userId
+        });
+
+        res.json(result)
     } catch (error) {
         next(error);
     }
