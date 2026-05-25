@@ -11,7 +11,6 @@ import { getAnnouncementsService } from "../announcements/announcements.service.
 import { getChatChannelsService } from "../chat/chat.service.js";
 import { getChatMessagesService } from "../chat/chat.service.js";
 
-
 export async function getBootstrapService(userId) {
     const [
         session,

@@ -10,6 +10,7 @@ export async function findUserByCode(code) {
             email,
             password_hash,
             role,
+            is_blocked,
             avatar_url
         FROM users
         WHERE code = $1
@@ -27,6 +28,7 @@ export async function findUserByEmailOrCode(email, code) {
             last_name,
             email,
             role,
+            is_blocked,
             avatar_url
         FROM users
         WHERE email = $1
@@ -48,6 +50,7 @@ export async function insertUser({firstName, lastName, email, code, passwordHash
             last_name,
             email,
             role,
+            is_blocked,
             avatar_url;
     `, [code, firstName, lastName, email, passwordHash])
 

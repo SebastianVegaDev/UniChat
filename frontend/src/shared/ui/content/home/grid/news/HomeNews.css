@@ -26,11 +26,11 @@
 }
 
 .home-grid-new {
-    border: 2px solid var(--app-border-color);
+    border: 1px solid var(--app-border-color);
     border-left: 3.8px solid var(--app-accent-color);
     background-color: var(--app-surface-soft);
     padding: 13px 15px;
-    border-radius: 10px;
+    border-radius: 8px;
     flex: 0 0 auto;
 }
 

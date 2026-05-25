@@ -1,11 +1,11 @@
 .app-sidebar {
     display: flex;
     flex-direction: column;
-    padding: 17px;
-    flex: 0 0 87px;
-    gap: 15px;
-    background-color: var(--app-background);
-    border-right: 2px solid var(--app-border-color);
+    padding: 14px;
+    flex: 0 0 80px;
+    gap: 12px;
+    background-color: var(--app-surface);
+    border-right: 1px solid var(--app-border-color);
     overflow: visible;
 }
 
@@ -18,9 +18,9 @@
     border: none;
     width: 100%;
     height: 55px;
-    border-radius: 12px;
+    border-radius: 8px;
     background-color: var(--app-surface-soft);
-    border: 2px solid var(--app-border-color);
+    border: 1px solid var(--app-border-color);
     color: var(--app-text-color);
     font-family: "Inter";
     font-size: 15px;
@@ -46,9 +46,9 @@
     min-width: 21px;
     height: 21px;
     padding: 0 6px;
-    border: 2px solid var(--app-text-color);
+    border: 2px solid var(--app-surface);
     border-radius: 999px;
-    background-color: #ff0000ff;
+    background-color: #dc2626;
     color: white;
     font-size: 11px;
     font-weight: 800;
@@ -59,7 +59,7 @@
 .app-sidebar-course:hover {
     cursor: pointer;
     background-color: var(--app-surface);
-    border: 2px solid var(--app-accent-color);
+    border: 1px solid var(--app-accent-color);
     color: var(--app-accent-color);
 }
 
@@ -72,8 +72,8 @@
 .app-sidebar-section:hover {
     cursor: pointer;
     background-color: var(--app-accent-hover-color);
-    border: 2px solid var(--app-accent-color);
-    color: var(--app-text-color);
+    border: 1px solid var(--app-accent-color);
+    color: white;
 }
 
 .app-sidebar-logout {
@@ -95,7 +95,7 @@
 
 .app-sidebar-course.active {
     background-color: var(--app-surface);
-    border: 2px solid var(--app-accent-color);
+    border: 1px solid var(--app-accent-color);
     color: var(--app-accent-color);
 }
 
@@ -106,7 +106,7 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: var(--app-background);
-    border: 2px solid var(--app-border-color);
+    border: 1px solid var(--app-border-color);
     color: var(--app-text-color);
     padding: 8px 12px;
     border-radius: 8px;

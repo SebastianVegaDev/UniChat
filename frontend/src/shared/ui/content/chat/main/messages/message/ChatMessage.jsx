@@ -3,6 +3,7 @@ import { CheckCheck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ChatMessageOptions from "./options/ChatMessageOptions.jsx";
 import ChatMessageReactions from "./reactions/ChatMessageReactions.jsx";
+import { getApiAssetUrl } from "../../../../../../api/config.js";
 import { usePreferenceTexts } from "../../../../../../../feature/preferences/context/PreferencesContext.js";
 
 function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessage, handleDeleteMessage, handleToggleReaction }) {
@@ -15,6 +16,9 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
     const hasReactions = (message.reactions ?? []).length > 0;
     const author = isMyMessage ? chat.me : message.author;
     const body = isDeleted ? chat.deletedMessage : message.body;
+    const photoUrl = !isDeleted && message.attachmentType === "photo"
+        ? getApiAssetUrl(message.attachmentUrl)
+        : "";
     const messageClassName = isMyMessage
         ? "chat-content-main-message-me"
         : "chat-content-main-message-other";
@@ -77,7 +81,17 @@ function ChatMessage({ message, currentUser, activeChannel, handleSetFixedMessag
                     <span>{message.timeLabel}</span>
                 </div>
             )}
-            <p>{body}</p>
+            {photoUrl && (
+                <a
+                    className="chat-content-main-message-photo"
+                    href={photoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img src={photoUrl} alt={message.attachmentName || chat.selectPhoto} />
+                </a>
+            )}
+            {body && <p>{body}</p>}
             {!isDeleted && isMyMessage && (
                 <CheckCheck className={`chat-content-main-message-checks ${message.wasRead ? "read" : ""}`} />
             )}

@@ -1,10 +1,8 @@
 import "./CourseResources.css";
 import CourseResourcesOptions from "./options/CourseResourcesOptions.jsx";
 import CourseResource from "./resource/CourseResource.jsx";
+import { getApiAssetUrl } from "../../../../api/config.js";
 import { usePreferenceTexts } from "../../../../../feature/preferences/context/PreferencesContext.js";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const FILE_BASE_URL = API_URL.replace("/api", "");
 
 function CourseResources({ currentUser, course, resourcesSummary, resourcesByWeek, resourcesRef, handleUploadResource, handleEditResource, handleToggleResource, handleDeleteResource }) {
     const { course: courseTexts } = usePreferenceTexts();
@@ -15,11 +13,7 @@ function CourseResources({ currentUser, course, resourcesSummary, resourcesByWee
 
         if (isUnavailable || !fileUrl) return;
 
-        const fullFileUrl = fileUrl.startsWith("http")
-            ? fileUrl
-            : `${FILE_BASE_URL}${fileUrl}`;
-
-        window.open(fullFileUrl, "_blank", "noopener,noreferrer");
+        window.open(getApiAssetUrl(fileUrl), "_blank", "noopener,noreferrer");
     }
 
     return (

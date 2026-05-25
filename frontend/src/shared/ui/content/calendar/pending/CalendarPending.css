@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border-radius: 12px;
+    border-radius: 8px;
     overflow-y: auto;
 }
 
@@ -34,12 +34,19 @@
     align-items: center;
     gap: 12px;
     padding: 12px;
-    border-radius: 9px;
-    border: 2px solid var(--app-border-color);
+    border-radius: 8px;
+    border: 1px solid var(--app-border-color);
     background-color: var(--app-background);
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+}
+
+@media (max-width: 980px) {
+    .calendar-pending {
+        width: 100%;
+        flex: 0 0 auto;
+    }
 }
 
 .calendar-pending-card > span {

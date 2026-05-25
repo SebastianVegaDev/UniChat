@@ -128,6 +128,13 @@ export function mapCourseCalendarData(data, courseSlug, preferenceTexts = getPre
     const calendarEvents = data?.calendarEvents ?? [];
     const classSessions = data?.classSessions ?? [];
     const course = findCourse(courses, courseSlug);
+
+    if (!course) {
+        return {
+            notFound: true
+        };
+    }
+
     const courseCalendarEvents = filterCourseCalendarEvents(calendarEvents, course);
     const courseClassSessions = filterCourseClassSessions(classSessions, course);
     const usersById = Object.fromEntries(users.map((user) => [user.id, user]));

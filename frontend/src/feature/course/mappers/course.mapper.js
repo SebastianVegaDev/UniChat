@@ -69,12 +69,35 @@ function findCourseDelegates(courseMembers, users, course) {
     const delegates = courseMembers.filter((courseMember) => {
         const courseRole = courseMember.courseRole ?? courseMember.role;
 
-        return courseMember.courseId === course.id && courseRole === "delegate";
+        return courseMember.courseId === course.id
+            && courseRole === "delegate"
+            && courseMember.status === "active";
     });
 
     const delegateUsers = users.filter((user) => delegates.some((delegate) => delegate.userId === user.id));
     
     return delegateUsers;
+}
+
+function findDelegateCandidates(courseMembers, users, course, texts) {
+    const candidates = courseMembers.filter((courseMember) => {
+        const courseRole = courseMember.courseRole ?? courseMember.role;
+
+        return courseMember.courseId === course.id
+            && courseRole === "delegate"
+            && courseMember.status === "pending_delegate";
+    });
+
+    return candidates.map((candidate) => {
+        const user = users.find((user) => user.id === candidate.userId);
+
+        return {
+            id: user?.id,
+            code: user?.code ?? "",
+            name: formatUserName(user, texts.common),
+            status: candidate.status
+        };
+    });
 }
 
 function formatKindLabel(kind, courseTexts) {
@@ -200,14 +223,8 @@ export function mapCourseData(data, courseSlug, preferenceTexts = getPreferenceT
     const course = findCourse(courses, courseSlug);
 
     if (!course) {
-        const fallbackCourse = { slug: courseSlug };
-
         return {
-            "course": mapCourse(fallbackCourse, null, null, null, texts),
-            "actions": mapCourseActions(fallbackCourse, null, texts),
-            "resourcesSummary": mapResourcesSummary(null),
-            "resourcesByWeek": [],
-            "information": mapCourseInformation(fallbackCourse, null, [], null, texts)
+            "notFound": true
         };
     }
     
@@ -215,6 +232,7 @@ export function mapCourseData(data, courseSlug, preferenceTexts = getPreferenceT
     const classroom = findClassroom(classrooms, course);
     const stats = findCourseStats(courseStats, course);
     const delegates = findCourseDelegates(courseMembers, users, course);
+    const delegateCandidates = findDelegateCandidates(courseMembers, users, course, texts);
 
     const usersById = Object.fromEntries(users.map((user) => [user.id, user]));
 
@@ -226,6 +244,7 @@ export function mapCourseData(data, courseSlug, preferenceTexts = getPreferenceT
         "actions": mapCourseActions(course, stats, texts),
         "resourcesSummary": mapResourcesSummary(stats),
         "resourcesByWeek": mapResourcesByWeek(resources, usersById, texts),
-        "information": mapCourseInformation(course, teacher, delegates, stats, texts)
+        "information": mapCourseInformation(course, teacher, delegates, stats, texts),
+        "delegateCandidates": delegateCandidates
     };
 }

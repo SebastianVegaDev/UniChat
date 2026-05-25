@@ -25,7 +25,7 @@ export async function getChatMessagesService(userId) {
 }
 
 export async function sendChatMessageService(data) {
-    const { channelId, userId, body } = data;
+    const { channelId, userId, body, attachmentType, attachmentUrl, attachmentName } = data;
 
     const access = await findUserChannelAccess({
         userId,
@@ -43,7 +43,10 @@ export async function sendChatMessageService(data) {
     const message = await createChatMessage({
         channelId,  
         userId, 
-        body
+        body,
+        attachmentType,
+        attachmentUrl,
+        attachmentName
     })
 
     return message;

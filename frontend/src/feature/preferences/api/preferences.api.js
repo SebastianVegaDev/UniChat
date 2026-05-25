@@ -13,15 +13,20 @@ export async function fetchPreferencesFormData() {
 }
 
 export async function savePreferencesFormData(preferencesData) {
-    const { chatWallpaperFile, chatWallpaperName, ...values } = preferencesData;
+    const { chatWallpaperFile, chatWallpaperName, removeChatWallpaper, ...values } = preferencesData;
+    const nextValues = {
+        ...values,
+        chatWallpaperName: removeChatWallpaper ? "" : chatWallpaperName,
+        chatWallpaperUrl: removeChatWallpaper ? "" : values.chatWallpaperUrl
+    };
 
     if (!chatWallpaperFile) {
-        return apiPatch("/preferences", values);
+        return apiPatch("/preferences", nextValues);
     }
 
     const formData = new FormData();
 
-    Object.entries(values).forEach(([key, value]) => {
+    Object.entries(nextValues).forEach(([key, value]) => {
         formData.append(key, value);
     });
 
@@ -69,6 +74,7 @@ export function getPreferencesFormSchema(preferences = {}) {
                         title: preferencesTexts.chatWallpaper,
                         description: preferencesTexts.chatWallpaperDescription,
                         emptyLabel: preferencesTexts.noWallpaperSelected,
+                        removeLabel: preferencesTexts.removeWallpaper,
                         value: preferences.chatWallpaperName ?? "",
                         fileUrl: preferences.chatWallpaperUrl ?? ""
                     },

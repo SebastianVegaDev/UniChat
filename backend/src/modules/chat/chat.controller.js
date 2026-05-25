@@ -1,6 +1,7 @@
 import { deleteChatMessageService, getChatChannelsService, getChatMessagesService, markChatChannelAsReadService, sendChatMessageService, toggleChatMessageReactionService } from "./chat.service.js";
 import { validateDeleteChatMessage, validateMarkChatChannelAsRead, validateSendChatMessage, validateToggleChatMessageReaction } from "../../validators/chat.validator.js";
 import { emitToChatChannel } from "../../socket/socket.js";
+import { getChatPhotoData } from "./chat.helper.js";
 
 export async function getChatChannels(req, res, next) {
     try {
@@ -29,10 +30,14 @@ export async function getChatMessages(req, res, next) {
 export async function sendChatMessage(req, res, next) {
     try {
         const userId = req.user.id;
-        const data = validateSendChatMessage(req.body);
+        const attachmentData = getChatPhotoData(req.file);
+        const data = validateSendChatMessage(req.body, {
+            hasAttachment: Boolean(attachmentData.attachmentUrl)
+        });
 
         const message = await sendChatMessageService({
             ...data,
+            ...attachmentData,
             userId
         });
 

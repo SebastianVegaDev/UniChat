@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import jwt from "jsonwebtoken";
 import { findAllChatChannels } from "../modules/chat/chat.repository.js";
+import { createCorsOptions } from "../config/cors.js";
 
 let io = null;
 
@@ -10,10 +11,7 @@ function getChatChannelRoom(channelId) {
 
 export function initSocket(server) {
     io = new Server(server, {
-        cors: {
-            origin: "http://localhost:5173",
-            credentials: true
-        }
+        cors: createCorsOptions()
     });
 
     io.use((socket, next) => {

@@ -7,7 +7,7 @@
     min-height: 0;
     min-width: 0;
     background-color: var(--chat-main-background, #222222);
-    border: 2px solid var(--chat-main-border-color, #3f3f3f);
+    border: 1px solid var(--chat-main-border-color, #3f3f3f);
     border-radius: 8px;
     box-sizing: border-box;
     color: var(--chat-text-color, #ffffff);
@@ -17,7 +17,7 @@
 .chat-content-main-pinned {
     position: absolute;
     top: 88px;
-    right: 36px;
+    left: 36px;
     z-index: 5;
     width: min(420px, calc(100% - 72px));
     border: 1px solid var(--chat-accent-color, #f37021);
@@ -28,6 +28,12 @@
     padding: 9px 12px;
     text-align: left;
     cursor: pointer;
+}
+
+@media (max-width: 980px) {
+    .chat-content-main {
+        min-height: 620px;
+    }
 }
 
 .chat-content-main-pinned:hover {

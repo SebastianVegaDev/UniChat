@@ -16,7 +16,7 @@
 
 .home-grid-class {
     display: flex;
-    border: 2px solid var(--app-border-color);
+    border: 1px solid var(--app-border-color);
     background-color: var(--app-background);
     justify-content: space-between;
     align-items: center;
@@ -32,7 +32,8 @@
 
 .home-grid-class:hover {
     transform: translateY(-2px);
-    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--app-accent-border-color);
+    background-color: var(--app-accent-soft-color);
 }
 
 .home-grid-class > div {
@@ -139,4 +140,19 @@
 .home-grid-class-state.upcoming {
     color: #8fb1ff;
     background-color: rgba(85, 130, 228, 0.18);
+}
+
+@media (max-width: 760px) {
+    .home-grid-class {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .home-grid-class > div {
+        padding: 0;
+    }
+
+    .home-grid-class-info > div:first-child {
+        width: 104px;
+    }
 }

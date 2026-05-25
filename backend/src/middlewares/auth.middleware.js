@@ -37,3 +37,7 @@ export function requireTeacher(role) {
         next();
     }
 }
+
+export function requireRole(role) {
+    return requireTeacher(role);
+}

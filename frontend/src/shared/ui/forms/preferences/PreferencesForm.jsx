@@ -1,5 +1,5 @@
 import "./PreferencesForm.css";
-import { Image, Upload } from "lucide-react";
+import { Image, Trash2, Upload } from "lucide-react";
 import { useState } from "react";
 
 function findPreferenceField(preferences, fieldId) {
@@ -12,7 +12,9 @@ function getPreferencesFormValues(preferences) {
     return {
         language: findPreferenceField(preferences, "language")?.value ?? "English",
         chatWallpaperName: findPreferenceField(preferences, "chatWallpaper")?.value ?? "",
+        chatWallpaperUrl: findPreferenceField(preferences, "chatWallpaper")?.fileUrl ?? "",
         chatWallpaperFile: null,
+        removeChatWallpaper: false,
         colorPalette: findPreferenceField(preferences, "colorPalette")?.activePaletteId ?? "dark",
         chatFontSize: findPreferenceField(preferences, "chatFontSize")?.value ?? "Medium",
         showReadCheck: findPreferenceField(preferences, "showReadCheck")?.defaultChecked ?? true
@@ -48,13 +50,26 @@ function PreferencesField({ field, values, updateValue, updateWallpaper }) {
                     <p>{values.chatWallpaperName || field.emptyLabel}</p>
                     <Upload />
                 </div>
+                {(values.chatWallpaperName || values.chatWallpaperUrl) && (
+                    <button
+                        className="preferences-form-remove-wallpaper"
+                        type="button"
+                        onClick={(event) => {
+                            event.preventDefault();
+                            updateWallpaper(null, true);
+                        }}
+                    >
+                        <Trash2 />
+                        {field.removeLabel}
+                    </button>
+                )}
                 <input
                     type="file"
                     accept="image/png,image/jpeg,image/webp"
                     onChange={(event) => {
                         const file = event.target.files?.[0];
 
-                        updateWallpaper(file);
+                        updateWallpaper(file, false);
                     }}
                 />
             </label>
@@ -131,11 +146,13 @@ function PreferencesForm({ preferences, handleSubmitPreferences }) {
         setValues(nextValues);
     }
 
-    function updateWallpaper(file) {
+    function updateWallpaper(file, shouldRemove) {
         const nextValues = {
             ...values,
             chatWallpaperName: file?.name ?? "",
-            chatWallpaperFile: file ?? null
+            chatWallpaperUrl: "",
+            chatWallpaperFile: file ?? null,
+            removeChatWallpaper: shouldRemove
         };
 
         setValues(nextValues);

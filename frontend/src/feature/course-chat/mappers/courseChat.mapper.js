@@ -200,10 +200,11 @@ function mapPinnedMessage(message, usersById, chatTexts = DEFAULT_CHAT_TEXTS) {
     if (!message || message.isDeleted) return null;
 
     const user = usersById[message.senderId];
+    const body = message.body || (message.attachmentType === "photo" ? chatTexts.selectPhoto : "");
 
     return {
         "id": message.id,
-        "body": message.body,
+        "body": body,
         "timeLabel": formatTimeLabel(message.createdAt),
         "author": getFullName(user, chatTexts)
     }
@@ -220,6 +221,9 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "id": message.id,
             "type": "message-me",
             "body": body,
+            "attachmentType": isDeleted ? "" : message.attachmentType,
+            "attachmentUrl": isDeleted ? "" : message.attachmentUrl,
+            "attachmentName": isDeleted ? "" : message.attachmentName,
             "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": chatTexts.me,
@@ -237,6 +241,9 @@ function mapTimelineItem(message, usersById, currentUserId, courseMembers, cours
             "id": message.id,
             "type": "message-other",
             "body": body,
+            "attachmentType": isDeleted ? "" : message.attachmentType,
+            "attachmentUrl": isDeleted ? "" : message.attachmentUrl,
+            "attachmentName": isDeleted ? "" : message.attachmentName,
             "isDeleted": isDeleted,
             "timeLabel": formatTimeLabel(message.createdAt),
             "author": getFullName(user, chatTexts),
@@ -301,11 +308,7 @@ export function mapCourseChatData(data, courseSlug, activeChannelId, chatTexts =
 
     if (!course) {
         return {
-            "course": mapCourse({ slug: courseSlug }, null, chatTexts),
-            "channels": [],
-            "activeChannel": mapActiveChannel(null, chatTexts),
-            "pinnedMessage": null,
-            "timeline": []
+            "notFound": true
         };
     }
 

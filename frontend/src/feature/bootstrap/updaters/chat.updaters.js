@@ -83,6 +83,9 @@ export function markChatMessageDeleted(data, messageId, deletedMessage) {
             return {
                 ...message,
                 body: deletedMessage.body,
+                attachmentType: deletedMessage.attachmentType ?? "",
+                attachmentUrl: deletedMessage.attachmentUrl ?? "",
+                attachmentName: deletedMessage.attachmentName ?? "",
                 isPinned: false,
                 isDeleted: true
             };

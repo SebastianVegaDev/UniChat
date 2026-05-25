@@ -5,7 +5,7 @@ import {
 } from "./common.validator.js";
 
 const LANGUAGES = ["English", "Spanish", "Portuguese"];
-const COLOR_PALETTES = ["dark", "white", "pink", "gamer"];
+const COLOR_PALETTES = ["dark", "white", "pink", "dark-orange", "white-orange"];
 const CHAT_FONT_SIZES = ["Small", "Medium", "Large"];
 
 function normalizeBoolean(value) {

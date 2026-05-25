@@ -4,6 +4,7 @@ import {
 import {
     getPreferencePalette
 } from "./colors.js";
+import { getApiAssetUrl } from "../../../shared/api/config.js";
 
 export {
     CHAT_FONT_SIZES,
@@ -20,16 +21,8 @@ export {
     getPreferenceTexts
 } from "./texts.js";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const API_ASSET_URL = API_URL.replace(/\/api\/?$/, "");
-
 export function getPreferenceAssetUrl(fileUrl) {
-    if (!fileUrl) return "";
-    if (fileUrl.startsWith("http")) return fileUrl;
-    if (fileUrl.startsWith("blob:")) return fileUrl;
-    if (fileUrl.startsWith("data:")) return fileUrl;
-
-    return `${API_ASSET_URL}${fileUrl}`;
+    return getApiAssetUrl(fileUrl);
 }
 
 export function getPreferenceAppClassName(preferences) {

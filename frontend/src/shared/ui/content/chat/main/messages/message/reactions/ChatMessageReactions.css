@@ -42,8 +42,8 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-    background-color: var(--chat-main-surface, #303030);
-    border: 2px solid var(--chat-main-border-color, #3f3f3f);
+    background-color: color-mix(in srgb, var(--chat-main-surface, #303030) 88%, var(--chat-accent-color, #f37021));
+    border: 2px solid var(--chat-accent-border-color, rgba(243, 112, 33, 0.42));
     border-radius: 999px;
     color: var(--chat-text-color, #ffffff);
     cursor: pointer;
@@ -51,13 +51,13 @@
 }
 
 .chat-content-main-message-reactions button.selected {
-    background-color: var(--chat-accent-soft-color, rgba(243, 112, 33, 0.16));
+    background-color: color-mix(in srgb, var(--chat-accent-color, #f37021) 24%, var(--chat-main-surface, #303030));
     border-color: var(--chat-accent-color, #f37021);
 }
 
 .chat-content-main-message-me .chat-content-main-message-reactions button.selected {
-    background-color: var(--chat-main-surface, #303030);
-    border-color: var(--chat-main-border-color, #3f3f3f);
+    background-color: color-mix(in srgb, var(--chat-accent-color, #f37021) 18%, var(--chat-main-surface, #303030));
+    border-color: var(--chat-accent-border-color, rgba(243, 112, 33, 0.42));
 }
 
 .chat-content-main-message-reactions span {

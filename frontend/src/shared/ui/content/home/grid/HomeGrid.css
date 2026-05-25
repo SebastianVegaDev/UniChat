@@ -12,8 +12,21 @@
 
 .home-grid > div {
     background-color: var(--app-surface);
-    border: 2px solid var(--app-border-color);
-    border-radius: 10px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
     padding: 14px;
     min-height: 0;
+}
+
+@media (max-width: 1180px) {
+    .home-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+    .home-grid > div {
+        grid-column: auto;
+        grid-row: auto;
+    }
 }

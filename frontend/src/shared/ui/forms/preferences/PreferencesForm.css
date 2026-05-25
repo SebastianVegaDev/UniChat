@@ -115,6 +115,33 @@
     display: none;
 }
 
+.preferences-form-remove-wallpaper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    min-height: 34px;
+    border: 2px solid var(--chat-main-border-color, #3f3f3f);
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--chat-message-muted-color, #b3b3b3);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.preferences-form-remove-wallpaper > svg {
+    width: 15px;
+    height: 15px;
+}
+
+.preferences-form-remove-wallpaper:hover {
+    border-color: var(--chat-accent-color, #f37021);
+    color: var(--chat-accent-color, #f37021);
+}
+
 .preferences-form-palettes {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));

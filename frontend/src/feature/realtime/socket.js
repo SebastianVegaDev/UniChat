@@ -1,6 +1,5 @@
 import { io } from "socket.io-client";
-
-const SOCKET_URL  = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000";
+import { SOCKET_URL } from "../../shared/api/config.js";
 
 let socket = null;
 

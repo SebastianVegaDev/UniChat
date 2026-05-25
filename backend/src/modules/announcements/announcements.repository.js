@@ -8,8 +8,10 @@ export async function findAllAnnouncements() {
             announcements.body,
             announcements.category,
             announcements.author_id AS "authorId",
-            announcements.published_at AS "publishedAt"
+            announcements.published_at AS "publishedAt",
+            announcements.status
         FROM announcements
+        WHERE announcements.is_deleted = FALSE
         ORDER BY announcements.published_at DESC;
     `);
 

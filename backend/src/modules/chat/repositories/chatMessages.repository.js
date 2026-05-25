@@ -2,7 +2,20 @@ import { pool } from "../../../config/db.js";
 
 export async function findAllChatMessages(userId) {
     const { rows } = await pool.query(`
-        WITH user_courses AS(
+        WITH auth_user AS (
+            SELECT role
+            FROM users
+            WHERE id = $1
+        ),
+        user_courses AS(
+            SELECT id AS course_id
+            FROM courses
+            WHERE EXISTS (
+                SELECT 1
+                FROM auth_user
+                WHERE role = 'admin'
+            )
+            UNION
             SELECT course_id
             FROM course_members
             WHERE user_id = $1
@@ -26,6 +39,9 @@ export async function findAllChatMessages(userId) {
             chat_messages.channel_id AS "channelId",
             chat_messages.sender_id AS "senderId",
             chat_messages.body,
+            chat_messages.attachment_type AS "attachmentType",
+            chat_messages.attachment_url AS "attachmentUrl",
+            chat_messages.attachment_name AS "attachmentName",
             chat_messages.is_pinned AS "isPinned",
             chat_messages.is_deleted AS "isDeleted",
             chat_messages.created_at AS "createdAt",
@@ -66,26 +82,32 @@ export async function findAllChatMessages(userId) {
     return rows;
 }
 
-export async function createChatMessage({channelId, userId, body}) {
+export async function createChatMessage({channelId, userId, body, attachmentType = "", attachmentUrl = "", attachmentName = ""}) {
     const { rows } = await pool.query(`
         INSERT INTO
         chat_messages (
             channel_id,
             sender_id,
-            body
+            body,
+            attachment_type,
+            attachment_url,
+            attachment_name
         )
-        VALUES ($1, $2, $3)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING
             id,
             channel_id AS "channelId",
             sender_id AS "senderId",
             body,
+            attachment_type AS "attachmentType",
+            attachment_url AS "attachmentUrl",
+            attachment_name AS "attachmentName",
             is_pinned AS "isPinned",
             is_deleted AS "isDeleted",
             created_at AS "createdAt",
             ARRAY[]::text[] AS "readBy",
             '[]'::jsonb AS reactions;
-    `, [channelId, userId, body])
+    `, [channelId, userId, body, attachmentType, attachmentUrl, attachmentName])
 
     return rows[0];
 }
@@ -94,6 +116,9 @@ export async function softDeleteChatMessage({messageId}) {
     const {rows} = await pool.query(`
         UPDATE chat_messages
         SET body = 'Este mensaje fue eliminado',
+            attachment_type = '',
+            attachment_url = '',
+            attachment_name = '',
             is_deleted = TRUE,
             is_pinned = FALSE
         WHERE id = $1
@@ -101,6 +126,9 @@ export async function softDeleteChatMessage({messageId}) {
         RETURNING
             id,
             body,
+            attachment_type AS "attachmentType",
+            attachment_url AS "attachmentUrl",
+            attachment_name AS "attachmentName",
             is_deleted AS "isDeleted",
             is_pinned AS "isPinned";
     `, [messageId])

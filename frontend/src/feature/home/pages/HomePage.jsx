@@ -5,6 +5,7 @@ import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx"
 import { mapHomeData } from "../../home/mappers/home.mapper.js";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
+import { Navigate } from "react-router-dom";
 
 function HomePage() {
     const now = new Date();
@@ -17,6 +18,10 @@ function HomePage() {
     const homeData = mapHomeData(data, texts);
     const { currentUser, summary, todayClasses, nextClass, news, courses } = homeData;
     const isTeacher = currentUser.role === "teacher";
+
+    if (currentUser.role === "admin") {
+        return <Navigate to="/admin" replace />;
+    }
 
     const date = now.toLocaleDateString(texts.locale, {
         weekday: "long",

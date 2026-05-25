@@ -29,6 +29,7 @@ export async function updatePreferencesService(userId, data) {
 export async function updatePreferencesWithWallpaperService(userId, data, file) {
     const currentPreferences = await createDefaultUserPreferences(userId);
     const wallpaperData = getPreferenceWallpaperData(file);
+    const shouldRemoveWallpaper = data.chatWallpaperName === "" && data.chatWallpaperUrl === "";
     const preferences = validatePreferences({
         ...currentPreferences,
         ...data,
@@ -48,7 +49,7 @@ export async function updatePreferencesWithWallpaperService(userId, data, file) 
         throw error;
     }
 
-    if (wallpaperData && currentPreferences.chatWallpaperUrl !== savedPreferences.chatWallpaperUrl) {
+    if ((wallpaperData || shouldRemoveWallpaper) && currentPreferences.chatWallpaperUrl !== savedPreferences.chatWallpaperUrl) {
         await deletePreferenceWallpaper(currentPreferences.chatWallpaperUrl);
     }
 

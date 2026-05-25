@@ -14,7 +14,9 @@ import usersRoutes from "./modules/users/users.routes.js";
 import courseStatsRoutes from "./modules/courseStats/courseStats.routes.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import teacherRoutes from "./modules/teacher/teacher.routes.js";
-import { authMiddleware, requireTeacher } from "./middlewares/auth.middleware.js";
+import adminRoutes from "./modules/admin/admin.routes.js";
+import aiRoutes from "./modules/ai/ai.routes.js";
+import { authMiddleware, requireRole, requireTeacher } from "./middlewares/auth.middleware.js";
 
 const router = Router();
 
@@ -35,7 +37,9 @@ router.use("/preferences", preferencesRoutes);
 router.use("/session", sessionRoutes);
 router.use("/users", usersRoutes);
 router.use("/courseStats", courseStatsRoutes);
+router.use("/ai", aiRoutes);
 
 router.use("/teacher", requireTeacher("teacher"), teacherRoutes);
+router.use("/admin", requireRole("admin"), adminRoutes);
 
 export default router;

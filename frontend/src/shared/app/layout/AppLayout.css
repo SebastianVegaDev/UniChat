@@ -1,32 +1,32 @@
 .app-layout {
-    --app-background: #222222;
-    --app-surface: #303030;
-    --app-surface-soft: #373737;
-    --app-border-color: #3f3f3f;
-    --app-text-color: #ffffff;
-    --app-muted-text-color: #b3b3b3;
-    --app-accent-color: #f37021;
-    --app-accent-hover-color: #bb5515;
-    --app-accent-soft-color: rgba(243, 112, 33, 0.14);
-    --app-accent-border-color: rgba(243, 112, 33, 0.42);
-    --chat-main-background: #222222;
-    --chat-main-surface: #303030;
-    --chat-main-surface-soft: #373737;
-    --chat-main-border-color: #3f3f3f;
-    --chat-text-color: #ffffff;
-    --chat-accent-color: #f37021;
-    --chat-accent-hover-color: #bb5515;
-    --chat-accent-soft-color: rgba(243, 112, 33, 0.14);
-    --chat-accent-border-color: rgba(243, 112, 33, 0.42);
-    --chat-me-message-color: #f37021;
+    --app-background: #f6f7f9;
+    --app-surface: #ffffff;
+    --app-surface-soft: #eef2f6;
+    --app-border-color: #d7dde5;
+    --app-text-color: #111827;
+    --app-muted-text-color: #5b6472;
+    --app-accent-color: #2563eb;
+    --app-accent-hover-color: #1d4ed8;
+    --app-accent-soft-color: rgba(37, 99, 235, 0.10);
+    --app-accent-border-color: rgba(37, 99, 235, 0.28);
+    --chat-main-background: #f6f7f9;
+    --chat-main-surface: #ffffff;
+    --chat-main-surface-soft: #eef2f6;
+    --chat-main-border-color: #d7dde5;
+    --chat-text-color: #111827;
+    --chat-accent-color: #2563eb;
+    --chat-accent-hover-color: #1d4ed8;
+    --chat-accent-soft-color: rgba(37, 99, 235, 0.10);
+    --chat-accent-border-color: rgba(37, 99, 235, 0.28);
+    --chat-me-message-color: #2563eb;
     --chat-me-message-text-color: #ffffff;
-    --chat-other-message-color: transparent;
-    --chat-other-message-text-color: #ffffff;
-    --chat-other-message-border-color: #3f3f3f;
-    --chat-resource-background: #373737;
-    --chat-message-muted-color: #b3b3b3;
+    --chat-other-message-color: #ffffff;
+    --chat-other-message-text-color: #111827;
+    --chat-other-message-border-color: #d7dde5;
+    --chat-resource-background: #eef2f6;
+    --chat-message-muted-color: #5b6472;
     --chat-message-font-size: 15px;
-    --chat-read-check-color: #1d4ed8;
+    --chat-read-check-color: #0ea5e9;
     --chat-wallpaper-image: none;
 
     display: flex;
@@ -48,9 +48,15 @@
     position: relative;
     flex: 1 1 auto;
     min-height: 0;
-    padding: 20px 30px;
+    padding: 22px 30px;
     overflow-y: auto;
     background-color: var(--app-background);
+}
+
+@media (max-width: 1120px) {
+    .app-layout-main {
+        padding: 18px;
+    }
 }
 
 .app-layout-page {

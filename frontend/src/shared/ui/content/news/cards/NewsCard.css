@@ -4,7 +4,7 @@
     padding: 15px;
     background-color: var(--app-surface);
     border: 1px solid var(--app-border-color);
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .news-card-header {

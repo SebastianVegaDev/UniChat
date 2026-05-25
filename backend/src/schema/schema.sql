@@ -6,6 +6,7 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password_hash TEXT,
     role TEXT NOT NULL CHECK (role IN ('student', 'teacher', 'admin')),
+    is_blocked BOOLEAN NOT NULL DEFAULT false,
     avatar_url TEXT DEFAULT 'https://i.postimg.cc/DzKtGYCx/nouserphoto.png',
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -23,6 +24,7 @@ CREATE TABLE courses (
     slug VARCHAR(120) NOT NULL UNIQUE,
     teacher_id INTEGER NOT NULL REFERENCES users(id),
     classroom_id INTEGER REFERENCES classrooms(id),
+    secondary_classroom_id INTEGER REFERENCES classrooms(id),
     current_week INTEGER NOT NULL DEFAULT 1 CHECK (current_week > 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -32,7 +34,7 @@ CREATE TABLE course_members (
     course_id INTEGER NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     course_role TEXT NOT NULL DEFAULT 'student' CHECK (course_role IN ('student', 'delegate')),
-    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
+    status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'pending_delegate')),
     joined_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     UNIQUE (course_id, user_id)
 );
@@ -77,6 +79,14 @@ CREATE TABLE resources (
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE resource_definitions (
+    resource_id INTEGER PRIMARY KEY REFERENCES resources(id) ON DELETE CASCADE,
+    definition TEXT NOT NULL,
+    model TEXT NOT NULL DEFAULT '',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE announcements (
     id SERIAL PRIMARY KEY,
     title VARCHAR(150) NOT NULL,
@@ -84,7 +94,8 @@ CREATE TABLE announcements (
     category TEXT NOT NULL CHECK (category IN ('academic', 'campus', 'systems', 'general')),
     author_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     published_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    status TEXT NOT NULL DEFAULT 'published' CHECK (status IN ('draft', 'published', 'archived'))
+    status TEXT NOT NULL DEFAULT 'published' CHECK (status IN ('draft', 'published', 'archived')),
+    is_deleted BOOLEAN NOT NULL DEFAULT false
 );
 
 CREATE TABLE chat_channels (
@@ -103,6 +114,9 @@ CREATE TABLE chat_messages (
     channel_id INTEGER NOT NULL REFERENCES chat_channels(id) ON DELETE CASCADE,
     sender_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     body TEXT NOT NULL,
+    attachment_type TEXT NOT NULL DEFAULT '' CHECK (attachment_type IN ('', 'photo')),
+    attachment_url TEXT NOT NULL DEFAULT '',
+    attachment_name TEXT NOT NULL DEFAULT '',
     is_pinned BOOLEAN NOT NULL DEFAULT FALSE,
     is_deleted BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -128,13 +142,14 @@ CREATE TABLE user_preferences (
     language TEXT NOT NULL DEFAULT 'English' CHECK (language IN ('English', 'Spanish', 'Portuguese')),
     chat_wallpaper_name TEXT NOT NULL DEFAULT '',
     chat_wallpaper_url TEXT NOT NULL DEFAULT '',
-    color_palette TEXT NOT NULL DEFAULT 'dark' CHECK (color_palette IN ('dark', 'white', 'pink', 'gamer')),
+    color_palette TEXT NOT NULL DEFAULT 'white' CHECK (color_palette IN ('dark', 'white', 'pink', 'dark-orange', 'white-orange')),
     chat_font_size TEXT NOT NULL DEFAULT 'Medium' CHECK (chat_font_size IN ('Small', 'Medium', 'Large')),
     show_read_check BOOLEAN NOT NULL DEFAULT TRUE,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX idx_course_members_user_id ON course_members(user_id);
+CREATE INDEX idx_users_is_blocked ON users(is_blocked);
 CREATE INDEX idx_course_members_course_id ON course_members(course_id);
 CREATE INDEX idx_courses_teacher_id ON courses(teacher_id);
 CREATE INDEX idx_class_sessions_course_id ON class_sessions(course_id);
@@ -142,6 +157,8 @@ CREATE INDEX idx_calendar_events_course_id ON calendar_events(course_id);
 CREATE INDEX idx_calendar_events_is_deleted ON calendar_events(is_deleted);
 CREATE INDEX idx_resources_course_id ON resources(course_id);
 CREATE INDEX idx_resources_is_deleted ON resources(is_deleted);
+CREATE INDEX idx_resource_definitions_updated_at ON resource_definitions(updated_at);
+CREATE INDEX idx_announcements_is_deleted ON announcements(is_deleted);
 CREATE INDEX idx_chat_channels_course_id ON chat_channels(course_id);
 CREATE INDEX idx_chat_messages_channel_id ON chat_messages(channel_id);
 CREATE INDEX idx_chat_messages_is_deleted ON chat_messages(is_deleted);

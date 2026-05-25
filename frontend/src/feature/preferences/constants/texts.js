@@ -24,12 +24,19 @@ const ENGLISH_TEXTS = {
     sidebar: {
         home: "Home",
         news: "News",
+        admin: "Admin",
         logout: "Log out",
         logoutSuccess: "Logout successful!"
     },
     topbar: {
         user: "User",
         created: "Created"
+    },
+    notFound: {
+        eyebrow: "404",
+        title: "Page not found",
+        description: "This route does not exist or you do not have access.",
+        goHome: "Go home"
     },
     home: {
         title: "My Day",
@@ -55,9 +62,111 @@ const ENGLISH_TEXTS = {
         untitled: "Untitled news",
         categories: {
             academic: "Academic",
+            campus: "Campus",
+            systems: "Systems",
             event: "Event",
             general: "General",
             announcement: "Announcement"
+        }
+    },
+    admin: {
+        sidebarLabel: "Admin",
+        eyebrow: "Administration",
+        title: "Security",
+        description: "Manage access, courses, news, and users from one place.",
+        sections: {
+            security: "Security",
+            courses: "Courses",
+            news: "News",
+            users: "Users"
+        },
+        actions: {
+            cancel: "Cancel",
+            createCourse: "Create course",
+            editCourse: "Edit course",
+            deleteCourse: "Delete course",
+            saveCourse: "Save course",
+            requestDelegate: "Request delegate",
+            removeDelegate: "Remove delegate",
+            newNews: "New news",
+            editNews: "Edit news",
+            deleteNews: "Delete news",
+            publishNews: "Publish news",
+            archiveNews: "Archive news",
+            saveDraft: "Save draft",
+            blockUser: "Block user",
+            unblockUser: "Unblock user",
+            approve: "Approve",
+            reject: "Reject",
+            addUser: "Add user"
+        },
+        labels: {
+            totalUsers: "Total users",
+            admins: "Admins",
+            teachers: "Teachers",
+            students: "Students",
+            pendingDelegates: "Pending delegates",
+            systemRules: "System rules",
+            courseList: "Course list",
+            courseUsers: "Course users",
+            courseDetails: "Course details",
+            professor: "Professor",
+            classroom: "Classroom",
+            noClassroom: "No classroom",
+            secondClassroom: "Second classroom",
+            noSecondClassroom: "No second classroom",
+            currentWeek: "Current week",
+            members: "Members",
+            newsEditor: "News editor",
+            title: "Title",
+            body: "Body",
+            category: "Category",
+            status: "Status",
+            author: "Author",
+            publishedAt: "Published",
+            userActivity: "User activity",
+            joinedAt: "Joined",
+            role: "Role",
+            courses: "Courses",
+            lastActivity: "Last activity",
+            active: "Active",
+            blocked: "Blocked",
+            currentSession: "Your account",
+            createCourse: "Create course",
+            teacher: "Teacher",
+            shortName: "Short name",
+            slug: "Slug",
+            userCode: "User code",
+            searchUser: "Search by name or code",
+            deleteCourseTitle: "Delete course",
+            deleteCourseDescription: (courseTitle) => `Are you sure you want to delete ${courseTitle}? This action will remove its related course data.`
+        },
+        roleLabels: {
+            admin: "Admin",
+            teacher: "Teacher",
+            student: "Student",
+            delegate: "Delegate"
+        },
+        statusLabels: {
+            active: "Active",
+            pending: "Pending",
+            pending_delegate: "Pending delegate",
+            inactive: "Inactive",
+            draft: "Draft",
+            published: "Published",
+            archived: "Archived"
+        },
+        rules: {
+            courses: "Courses connect teachers, classrooms, sessions, resources, calendar events, and chat channels. Admins can edit courses directly.",
+            members: "Course users come from course_members. Students can be normal members or delegates, and delegate changes need admin approval.",
+            news: "News uses status to separate draft, published, and archived items. Drafts are prepared before students see them.",
+            deletion: "When a feature supports it, deleting should hide records with is_deleted so old relations do not break."
+        },
+        empty: {
+            noCourses: "No courses yet",
+            noUsers: "No users yet",
+            noPendingDelegates: "No pending delegate requests",
+            selectNews: "Select or create a news item"
         }
     },
     course: {
@@ -79,6 +188,9 @@ const ENGLISH_TEXTS = {
         addResource: "Add Resource",
         toggleAvailability: "Toggle availability",
         noDelegates: "No delegates",
+        delegateCandidates: "Delegate candidates",
+        delegateCodePlaceholder: "Student code",
+        noDelegateCandidates: "No pending candidates",
         noRecentActivity: "No recent activity",
         updatedJustNow: "Updated just now",
         updatedMinutesAgo: (value) => `Updated ${value} min ago`,
@@ -142,6 +254,7 @@ const ENGLISH_TEXTS = {
         chatWallpaper: "Chat wallpaper",
         chatWallpaperDescription: "Upload an image for chat backgrounds.",
         noWallpaperSelected: "No wallpaper selected",
+        removeWallpaper: "Remove wallpaper",
         colorPalette: "Color palette",
         chatFontSize: "Chat font size",
         messageBehavior: "Message behavior",
@@ -155,10 +268,11 @@ const ENGLISH_TEXTS = {
             Portuguese: "Portuguese"
         },
         paletteLabels: {
-            dark: "Dark",
-            white: "White",
+            dark: "Graphite",
+            white: "Snow",
             pink: "Pink",
-            gamer: "Gamer"
+            "dark-orange": "Copper Night",
+            "white-orange": "Copper Ivory"
         },
         fontSizeLabels: {
             Small: "Small",
@@ -244,12 +358,19 @@ export const LANGUAGE_TEXTS = {
         sidebar: {
             home: "Inicio",
             news: "Noticias",
+            admin: "Admin",
             logout: "Cerrar sesion",
             logoutSuccess: "Sesion cerrada"
         },
         topbar: {
             user: "Usuario",
             created: "Creado"
+        },
+        notFound: {
+            eyebrow: "404",
+            title: "Pagina no encontrada",
+            description: "Esta ruta no existe o no tienes acceso.",
+            goHome: "Ir al inicio"
         },
         home: {
             title: "Mi dia",
@@ -275,9 +396,111 @@ export const LANGUAGE_TEXTS = {
             untitled: "Noticia sin titulo",
             categories: {
                 academic: "Academico",
+                campus: "Campus",
+                systems: "Sistemas",
                 event: "Evento",
                 general: "General",
                 announcement: "Aviso"
+            }
+        },
+        admin: {
+            sidebarLabel: "Admin",
+            eyebrow: "Administracion",
+            title: "Seguridad",
+            description: "Administra accesos, cursos, noticias y usuarios desde un solo lugar.",
+            sections: {
+                security: "Seguridad",
+                courses: "Cursos",
+                news: "Noticias",
+                users: "Usuarios"
+            },
+            actions: {
+                cancel: "Cancelar",
+                createCourse: "Crear curso",
+            editCourse: "Editar curso",
+            deleteCourse: "Eliminar curso",
+            saveCourse: "Guardar curso",
+            requestDelegate: "Solicitar delegado",
+            removeDelegate: "Quitar delegado",
+            newNews: "Nueva noticia",
+            editNews: "Editar noticia",
+            deleteNews: "Eliminar noticia",
+            publishNews: "Publicar noticia",
+            archiveNews: "Archivar noticia",
+            saveDraft: "Guardar borrador",
+            blockUser: "Bloquear usuario",
+            unblockUser: "Desbloquear usuario",
+            approve: "Aceptar",
+            reject: "Rechazar",
+            addUser: "Agregar usuario"
+            },
+            labels: {
+                totalUsers: "Usuarios",
+                admins: "Admins",
+                teachers: "Profesores",
+                students: "Estudiantes",
+                pendingDelegates: "Delegados pendientes",
+                systemRules: "Reglas del sistema",
+                courseList: "Lista de cursos",
+                courseUsers: "Usuarios del curso",
+                courseDetails: "Detalle del curso",
+                professor: "Profesor",
+            classroom: "Aula",
+            noClassroom: "Sin aula",
+            secondClassroom: "Segunda aula",
+            noSecondClassroom: "Sin segunda aula",
+            currentWeek: "Semana actual",
+                members: "Miembros",
+                newsEditor: "Editor de noticia",
+                title: "Titulo",
+                body: "Contenido",
+                category: "Categoria",
+                status: "Estado",
+                author: "Autor",
+                publishedAt: "Publicado",
+                userActivity: "Actividad del usuario",
+                joinedAt: "Ingreso",
+                role: "Rol",
+                courses: "Cursos",
+                lastActivity: "Ultima actividad",
+            active: "Activo",
+            blocked: "Bloqueado",
+            currentSession: "Tu cuenta",
+            createCourse: "Crear curso",
+            teacher: "Profesor",
+            shortName: "Codigo corto",
+            slug: "Slug",
+            userCode: "Codigo de usuario",
+            searchUser: "Buscar por nombre o codigo",
+            deleteCourseTitle: "Eliminar curso",
+            deleteCourseDescription: (courseTitle) => `Seguro que quieres eliminar ${courseTitle}? Esta accion eliminara la informacion relacionada del curso.`
+            },
+            roleLabels: {
+                admin: "Admin",
+                teacher: "Profesor",
+                student: "Estudiante",
+                delegate: "Delegado"
+            },
+            statusLabels: {
+                active: "Activo",
+                pending: "Pendiente",
+                pending_delegate: "Delegado pendiente",
+                inactive: "Inactivo",
+                draft: "Borrador",
+                published: "Publicado",
+                archived: "Archivado"
+            },
+            rules: {
+            courses: "Los cursos conectan profesores, aulas, sesiones, recursos, calendario y canales de chat. Los admins pueden editar cursos directo.",
+            members: "Los usuarios del curso viven en course_members. Pueden ser estudiantes o delegados, y los cambios de delegado necesitan aprobacion admin.",
+            news: "Las noticias usan estado para separar borrador, publicado y archivado. Un borrador se prepara antes de mostrarse a estudiantes.",
+            deletion: "Cuando una funcion lo permita, borrar deberia ocultar registros con is_deleted para no romper relaciones antiguas."
+            },
+            empty: {
+                noCourses: "Aun no hay cursos",
+                noUsers: "Aun no hay usuarios",
+            noPendingDelegates: "Sin solicitudes de delegado",
+            selectNews: "Selecciona o crea una noticia"
             }
         },
         course: {
@@ -299,6 +522,9 @@ export const LANGUAGE_TEXTS = {
             addResource: "Agregar recurso",
             toggleAvailability: "Cambiar disponibilidad",
             noDelegates: "Sin delegados",
+            delegateCandidates: "Postulaciones de delegado",
+            delegateCodePlaceholder: "Codigo del estudiante",
+            noDelegateCandidates: "Sin postulaciones pendientes",
             noRecentActivity: "Sin actividad reciente",
             updatedJustNow: "Actualizado ahora",
             updatedMinutesAgo: (value) => `Actualizado hace ${value} min`,
@@ -362,6 +588,7 @@ export const LANGUAGE_TEXTS = {
             chatWallpaper: "Fondo del chat",
             chatWallpaperDescription: "Sube una imagen para el fondo del chat.",
             noWallpaperSelected: "Sin fondo seleccionado",
+            removeWallpaper: "Quitar fondo",
             colorPalette: "Paleta de colores",
             chatFontSize: "Tamano del texto",
             messageBehavior: "Comportamiento",
@@ -375,10 +602,11 @@ export const LANGUAGE_TEXTS = {
                 Portuguese: "Portugues"
             },
             paletteLabels: {
-                dark: "Oscuro",
-                white: "Blanco",
+                dark: "Grafito",
+                white: "Nieve",
                 pink: "Rosado",
-                gamer: "Gamer"
+                "dark-orange": "Cobre Nocturno",
+                "white-orange": "Marfil Cobre"
             },
             fontSizeLabels: {
                 Small: "Pequeno",
@@ -461,12 +689,19 @@ export const LANGUAGE_TEXTS = {
         sidebar: {
             home: "Inicio",
             news: "Noticias",
+            admin: "Admin",
             logout: "Sair",
             logoutSuccess: "Sessao encerrada"
         },
         topbar: {
             user: "Usuario",
             created: "Criado"
+        },
+        notFound: {
+            eyebrow: "404",
+            title: "Pagina nao encontrada",
+            description: "Esta rota nao existe ou voce nao tem acesso.",
+            goHome: "Ir ao inicio"
         },
         home: {
             title: "Meu dia",
@@ -492,9 +727,111 @@ export const LANGUAGE_TEXTS = {
             untitled: "Noticia sem titulo",
             categories: {
                 academic: "Academico",
+                campus: "Campus",
+                systems: "Sistemas",
                 event: "Evento",
                 general: "Geral",
                 announcement: "Aviso"
+            }
+        },
+        admin: {
+            sidebarLabel: "Admin",
+            eyebrow: "Administracao",
+            title: "Seguranca",
+            description: "Gerencie acessos, cursos, noticias e usuarios em um so lugar.",
+            sections: {
+                security: "Seguranca",
+                courses: "Cursos",
+                news: "Noticias",
+                users: "Usuarios"
+            },
+            actions: {
+                cancel: "Cancelar",
+                createCourse: "Criar curso",
+            editCourse: "Editar curso",
+            deleteCourse: "Excluir curso",
+            saveCourse: "Salvar curso",
+            requestDelegate: "Solicitar delegado",
+            removeDelegate: "Remover delegado",
+            newNews: "Nova noticia",
+            editNews: "Editar noticia",
+            deleteNews: "Excluir noticia",
+            publishNews: "Publicar noticia",
+            archiveNews: "Arquivar noticia",
+            saveDraft: "Salvar rascunho",
+            blockUser: "Bloquear usuario",
+            unblockUser: "Desbloquear usuario",
+            approve: "Aprovar",
+            reject: "Rejeitar",
+            addUser: "Adicionar usuario"
+            },
+            labels: {
+                totalUsers: "Usuarios",
+                admins: "Admins",
+                teachers: "Professores",
+                students: "Estudantes",
+                pendingDelegates: "Delegados pendentes",
+                systemRules: "Regras do sistema",
+                courseList: "Lista de cursos",
+                courseUsers: "Usuarios do curso",
+                courseDetails: "Detalhe do curso",
+                professor: "Professor",
+            classroom: "Sala",
+            noClassroom: "Sem sala",
+            secondClassroom: "Segunda sala",
+            noSecondClassroom: "Sem segunda sala",
+            currentWeek: "Semana atual",
+                members: "Membros",
+                newsEditor: "Editor de noticia",
+                title: "Titulo",
+                body: "Conteudo",
+                category: "Categoria",
+                status: "Estado",
+                author: "Autor",
+                publishedAt: "Publicado",
+                userActivity: "Atividade do usuario",
+                joinedAt: "Entrada",
+                role: "Perfil",
+                courses: "Cursos",
+                lastActivity: "Ultima atividade",
+            active: "Ativo",
+            blocked: "Bloqueado",
+            currentSession: "Sua conta",
+            createCourse: "Criar curso",
+            teacher: "Professor",
+            shortName: "Codigo curto",
+            slug: "Slug",
+            userCode: "Codigo do usuario",
+            searchUser: "Buscar por nome ou codigo",
+            deleteCourseTitle: "Excluir curso",
+            deleteCourseDescription: (courseTitle) => `Tem certeza que deseja excluir ${courseTitle}? Esta acao removera os dados relacionados do curso.`
+            },
+            roleLabels: {
+                admin: "Admin",
+                teacher: "Professor",
+                student: "Estudante",
+                delegate: "Delegado"
+            },
+            statusLabels: {
+                active: "Ativo",
+                pending: "Pendente",
+                pending_delegate: "Delegado pendente",
+                inactive: "Inativo",
+                draft: "Rascunho",
+                published: "Publicado",
+                archived: "Arquivado"
+            },
+            rules: {
+            courses: "Cursos conectam professores, salas, aulas, recursos, calendario e canais de chat. Admins podem editar cursos diretamente.",
+            members: "Usuarios do curso ficam em course_members. Podem ser estudantes ou delegados, e mudancas de delegado precisam de aprovacao admin.",
+            news: "Noticias usam status para separar rascunho, publicado e arquivado. Um rascunho e preparado antes de aparecer aos estudantes.",
+            deletion: "Quando uma funcao permitir, excluir deve ocultar registros com is_deleted para nao quebrar relacoes antigas."
+            },
+            empty: {
+                noCourses: "Ainda nao ha cursos",
+                noUsers: "Ainda nao ha usuarios",
+            noPendingDelegates: "Sem solicitacoes de delegado",
+            selectNews: "Selecione ou crie uma noticia"
             }
         },
         course: {
@@ -516,6 +853,9 @@ export const LANGUAGE_TEXTS = {
             addResource: "Adicionar recurso",
             toggleAvailability: "Alterar disponibilidade",
             noDelegates: "Sem delegados",
+            delegateCandidates: "Candidatos a delegado",
+            delegateCodePlaceholder: "Codigo do estudante",
+            noDelegateCandidates: "Sem candidatos pendentes",
             noRecentActivity: "Sem atividade recente",
             updatedJustNow: "Atualizado agora",
             updatedMinutesAgo: (value) => `Atualizado ha ${value} min`,
@@ -579,6 +919,7 @@ export const LANGUAGE_TEXTS = {
             chatWallpaper: "Fundo do chat",
             chatWallpaperDescription: "Envie uma imagem para o fundo do chat.",
             noWallpaperSelected: "Sem fundo selecionado",
+            removeWallpaper: "Remover fundo",
             colorPalette: "Paleta de cores",
             chatFontSize: "Tamanho do texto",
             messageBehavior: "Comportamento",
@@ -592,10 +933,11 @@ export const LANGUAGE_TEXTS = {
                 Portuguese: "Portugues"
             },
             paletteLabels: {
-                dark: "Escuro",
-                white: "Branco",
+                dark: "Grafite",
+                white: "Neve",
                 pink: "Rosa",
-                gamer: "Gamer"
+                "dark-orange": "Cobre Noturno",
+                "white-orange": "Marfim Cobre"
             },
             fontSizeLabels: {
                 Small: "Pequeno",

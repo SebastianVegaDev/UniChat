@@ -40,6 +40,7 @@ export function mapPreferencesFormData(preferencesData = DEFAULT_PREFERENCES) {
                 title: field.title ?? "",
                 description: field.description ?? "",
                 emptyLabel: field.emptyLabel ?? "",
+                removeLabel: field.removeLabel ?? "",
                 defaultChecked: Boolean(field.defaultChecked),
                 value: field.value ?? "",
                 fileUrl: field.fileUrl ?? "",

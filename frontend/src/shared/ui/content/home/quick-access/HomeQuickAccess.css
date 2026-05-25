@@ -11,9 +11,9 @@
 
 .home-quick-access-course {
     background-color: var(--app-surface);
-    border: 2px solid var(--app-border-color);
+    border: 1px solid var(--app-border-color);
     flex: 0 0 calc((100% - 45px) / 4);
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -25,6 +25,23 @@
 .home-quick-access-course:hover {
     transform: translateY(-2px);
     border-color: var(--app-accent-color);
+}
+
+@media (max-width: 1180px) {
+    .home-quick-access-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .home-quick-access-course {
+        flex: initial;
+    }
+}
+
+@media (max-width: 760px) {
+    .home-quick-access-list {
+        grid-template-columns: 1fr;
+    }
 }
 
 .home-quick-access-course > div {

@@ -8,6 +8,7 @@ import { mapCourseCalendarData } from "../mappers/courseCalendar.mapper.js";
 import { useCourseCalendarActions } from "../hooks/courseCalendar.hooks.js";
 import { useParams } from "react-router-dom";
 import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
+import NotFoundPage from "../../not-found/pages/NotFoundPage.jsx";
 
 function CourseCalendarPage() {
     const { data, updateBootstrap, isLoading, error } = useBootstrap();
@@ -24,6 +25,8 @@ function CourseCalendarPage() {
     if (error) return <p>{error}</p>
 
     const courseCalendarData = mapCourseCalendarData(data, courseSlug, texts);
+    if (courseCalendarData.notFound) return <NotFoundPage />;
+
     const { course, currentUser, events, pendingItems } = courseCalendarData;
     
     return (

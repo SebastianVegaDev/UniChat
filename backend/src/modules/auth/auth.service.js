@@ -8,6 +8,10 @@ import { validateGoogleEmail } from "../../validators/auth.validator.js";
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 function createSession(user) {
+    if (user.is_blocked) {
+        throw new UnauthorizedError("User is blocked");
+    }
+
     const token = jwt.sign(
         {
             id: user.id,

@@ -23,6 +23,26 @@
     gap: 7px;
 }
 
+.chat-content-main-message > p {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.chat-content-main-message-photo {
+    display: block;
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
+}
+
+.chat-content-main-message-photo > img {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    max-height: 320px;
+    object-fit: cover;
+}
+
 .chat-content-main-message-role {
     padding: 2px 7px;
     border-radius: 999px;
@@ -62,6 +82,7 @@
     align-items: flex-end;
     gap: 8px;
     justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .chat-content-main-message-me {
@@ -99,23 +120,23 @@ span.chat-content-main-message-avatar {
 }
 
 .chat-content-main-message-other .chat-content-main-message {
-    border: 2px solid var(--chat-other-message-border-color, #3f3f3f);
+    border: 1px solid var(--chat-other-message-border-color, #3f3f3f);
     background-color: var(--chat-other-message-color, transparent);
     color: var(--chat-other-message-text-color, #ffffff);
     width: fit-content;
-    max-width: 360px;
+    max-width: min(420px, 72%);
 }
 
 .chat-content-main-message-me .chat-content-main-message {
     background-color: var(--chat-me-message-color, #f37021);
     color: var(--chat-me-message-text-color, #ffffff);
     width: fit-content;
-    max-width: 360px;
+    max-width: min(420px, 72%);
 }
 
 .chat-content-main-message.deleted-message {
     background-color: color-mix(in srgb, var(--chat-accent-color, #f37021) 16%, var(--chat-main-background, #222222));
-    border: 2px solid var(--chat-main-border-color, #3f3f3f);
+    border: 1px solid var(--chat-main-border-color, #3f3f3f);
     color: var(--chat-message-muted-color, #b3b3b3);
 }
 

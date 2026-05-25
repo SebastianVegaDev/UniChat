@@ -6,6 +6,7 @@ import { useState } from "react";
 import PreferencesPanel from "../../../feature/preferences/components/PreferencesPanel.jsx";
 import { usePreferences } from "../../../feature/preferences/hooks/usePreferences.js";
 import { PreferencesContext } from "../../../feature/preferences/context/PreferencesContext.js";
+import PublicAiWidget from "../../ui/ai/PublicAiWidget.jsx";
 
 function AppLayout() {
     const location = useLocation();
@@ -69,6 +70,7 @@ function AppLayout() {
                         )}
                     </div>
                 </div>
+                <PublicAiWidget />
             </div>
         </PreferencesContext.Provider>
     );

@@ -9,3 +9,10 @@
     overflow-y: auto;
     min-height: 0;
 }
+
+@media (max-width: 980px) {
+    .news-content {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+}

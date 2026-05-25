@@ -1,15 +1,26 @@
 import {
     validateEnum,
+    validateOptionalString,
     validateRequiredId,
     validateRequiredString
 } from "./common.validator.js";
+import { BadRequestError } from "../errors/index.js";
 
 const CHAT_REACTION_EMOJIS = ["👍", "😂", "❤️", "🔥", "😮", "😢", "🙏"];
 
-export function validateSendChatMessage(body = {}) {
+export function validateSendChatMessage(body = {}, options = {}) {
+    const hasAttachment = Boolean(options.hasAttachment);
+    const messageBody = hasAttachment
+        ? validateOptionalString(body.body, "Message body", 2000)
+        : validateRequiredString(body.body, "Message body", 2000);
+
+    if (!messageBody && !hasAttachment) {
+        throw new BadRequestError("Message body is required");
+    }
+
     return {
         channelId: validateRequiredId(body.channelId, "Channel id"),
-        body: validateRequiredString(body.body, "Message body", 2000)
+        body: messageBody
     };
 }
 
