@@ -1,7 +1,7 @@
 import { Server } from "socket.io";
-import jwt from "jsonwebtoken";
-import { findAllChatChannels } from "../modules/chat/chat.repository.js";
 import { createCorsOptions } from "../config/cors.js";
+import { findAllChatChannels } from "../modules/chat/chat.repository.js";
+import { verifyJwtToken } from "../shared/auth/jwtSession.js";
 
 let io = null;
 
@@ -9,31 +9,24 @@ function getChatChannelRoom(channelId) {
     return `chat:channel:${channelId}`;
 }
 
+function authenticateSocket(socket, next) {
+    const token = socket.handshake.auth?.token;
+
+    try {
+        socket.user = verifyJwtToken(token);
+
+        next();
+    } catch (error) {
+        next(new Error(error.message));
+    }
+}
+
 export function initSocket(server) {
     io = new Server(server, {
         cors: createCorsOptions()
     });
 
-    io.use((socket, next) => {
-        const token = socket.handshake.auth?.token;
-
-        if (!token) {
-            return next(new Error("Token required"));
-        }
-
-        try {
-            const payload = jwt.verify(token, process.env.JWT_SECRET);
-
-            socket.user = {
-                id: payload.id,
-                role: payload.role
-            };
-
-            next();
-        } catch {
-            next(new Error("Invalid or expired token"));
-        }
-    });
+    io.use(authenticateSocket);
 
     io.on("connection", (socket) => {
         socket.on("chat:join-channels", async (channelIds = []) => {
@@ -51,7 +44,7 @@ export function initSocket(server) {
                 validChannelIds.forEach((channelId) => {
                     socket.join(getChatChannelRoom(channelId));
                 });
-            } catch (error) {
+            } catch {
                 socket.emit("socket:error", {
                     message: "Could not join chat channels"
                 });

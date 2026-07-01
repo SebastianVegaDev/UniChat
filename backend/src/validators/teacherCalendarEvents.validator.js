@@ -1,8 +1,6 @@
-import { BadRequestError } from "../errors/index.js";
 import {
-    validateDate,
+    validateEndDateAfterStartDate,
     validateEnum,
-    validateOptionalDate,
     validateOptionalString,
     validateRequiredId,
     validateRequiredString
@@ -11,12 +9,10 @@ import {
 const EVENT_TYPES = ["assignment", "exam", "reminder", "announcement", "other"];
 
 function validateCalendarEventFields(body = {}) {
-    const startsAt = validateDate(body.startsAt, "Start date");
-    const endsAt = validateOptionalDate(body.endsAt, "End date");
-
-    if (endsAt && new Date(endsAt) <= new Date(startsAt)) {
-        throw new BadRequestError("End date must be after start date");
-    }
+    const { startsAt, endsAt } = validateEndDateAfterStartDate({
+        startsAt: body.startsAt,
+        endsAt: body.endsAt
+    });
 
     return {
         title: validateRequiredString(body.title, "Title", 120),

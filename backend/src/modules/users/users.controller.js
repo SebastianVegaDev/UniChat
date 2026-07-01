@@ -1,25 +1,18 @@
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
 import { getCurrentUserService, getUsersService } from "./users.service.js";
 
-export async function getUsers(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const getUserss = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const users = await getUsersService(userId);
+    const users = await getUsersService(userId);
 
-        res.json(users);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(users);
+});
 
-export async function getCurrentUser(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const getCurrentUsers = asyncHandlerr(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const user = await getCurrentUserService(userId);
+    const user = await getCurrentUserService(userId);
 
-        res.json(user);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(user);
+});

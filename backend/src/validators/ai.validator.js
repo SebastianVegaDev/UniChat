@@ -1,3 +1,4 @@
+import { env } from "../config/env.js";
 import { validateRequiredString } from "./common.validator.js";
 
 function validateAiHistory(history) {
@@ -21,7 +22,7 @@ function validateAiHistory(history) {
         .filter((message) => message.body);
 }
 
-export function validateResourceAiQuestion(body = {}) {
+export function validateAcademicQuestionRequest(body = {}) {
     return {
         question: validateRequiredString(body.question, "Question", 1000),
         history: validateAiHistory(body.history)
@@ -29,7 +30,7 @@ export function validateResourceAiQuestion(body = {}) {
 }
 
 export function validateAiSpeechRequest(body = {}) {
-    const maxLength = Number(process.env.AWS_POLLY_MAX_CHARS ?? 2500);
+    const maxLength = env.aws.polly.maxChars;
 
     return {
         text: validateRequiredString(body.text, "Text", maxLength)

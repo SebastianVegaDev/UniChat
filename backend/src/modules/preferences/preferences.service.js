@@ -30,15 +30,15 @@ export async function updatePreferencesWithWallpaperService(userId, data, file) 
     const currentPreferences = await createDefaultUserPreferences(userId);
     const wallpaperData = getPreferenceWallpaperData(file);
     const shouldRemoveWallpaper = data.chatWallpaperName === "" && data.chatWallpaperUrl === "";
-    const preferences = validatePreferences({
-        ...currentPreferences,
-        ...data,
-        ...(wallpaperData ?? {})
-    });
-
     let savedPreferences;
 
     try {
+        const preferences = validatePreferences({
+            ...currentPreferences,
+            ...data,
+            ...(wallpaperData ?? {})
+        });
+
         savedPreferences = await updateUserPreferences({
             userId,
             ...preferences

@@ -1,11 +1,8 @@
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
 import { getAnnouncementsService } from "./announcements.service.js";
 
-export async function getAnnouncements(req, res, next) {
-    try {
-        const announcements = await getAnnouncementsService();
+export const getAnnouncements = asyncHandler(async (req, res, next) => {
+    const announcements = await getAnnouncementsService();
 
-        res.json(announcements)
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(announcements)
+});

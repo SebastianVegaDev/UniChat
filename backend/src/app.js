@@ -5,11 +5,12 @@ import rateLimit from "express-rate-limit";
 import routes from "./routes.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import { createCorsOptions } from "./config/cors.js";
+import { env } from "./config/env.js";
 
 const app = express();
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    limit: Number(process.env.RATE_LIMIT_MAX_REQUESTS || 600),
+    limit: Number(env.http.rateLimitMaxRequests),
     standardHeaders: "draft-8",
     legacyHeaders: false
 });
@@ -22,7 +23,7 @@ app.use(helmet({
 }));
 app.use(cors(createCorsOptions()));
 app.use(express.json({
-    limit: process.env.JSON_BODY_LIMIT || "1mb"
+    limit: env.http.jsonBodyLimit
 }));
 app.use("/api", apiLimiter);
 app.use("/api", routes);

@@ -1,3 +1,5 @@
+import { env } from "./env.js";
+
 const DEFAULT_CLIENT_ORIGINS = ["http://localhost:5173", "http://localhost:8080"];
 
 function parseOrigins(value = "") {
@@ -11,7 +13,7 @@ export function getClientOrigins() {
     return [
         ...new Set([
             ...DEFAULT_CLIENT_ORIGINS,
-            ...parseOrigins(process.env.CLIENT_ORIGINS || process.env.CORS_ORIGINS)
+            ...parseOrigins(env.clientOrigins)
         ])
     ];
 }

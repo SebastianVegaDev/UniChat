@@ -1,13 +1,10 @@
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
 import { getCalendarEventsService } from "./calendarEvents.service.js";
 
-export async function getCalendarEvents(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const getCalendarEvents = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const calendarEvents = await getCalendarEventsService(userId);
-        
-        res.json(calendarEvents)
-    } catch (error) {
-        next(error);
-    }
-}
+    const calendarEvents = await getCalendarEventsService(userId);
+    
+    res.json(calendarEvents)
+});

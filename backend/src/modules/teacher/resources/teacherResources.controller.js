@@ -12,79 +12,64 @@ import {
 } from "../../../validators/teacherResources.validator.js";
 import { getResourceFileData } from "./teacherResources.helper.js";
 import { BadRequestError } from "../../../errors/index.js";
+import { asyncHandler } from "../../../shared/http/asyncHandler.js";
 
-export async function deleteTeacherResource(req, res, next) {
-    try {
-        const teacherId = req.user.id;
-        const { resourceId } = validateDeleteTeacherResource(req.body);
+export const deleteTeacherResource = asyncHandler (async (req, res, next) => {
+    const teacherId = req.user.id;
+    const { resourceId } = validateDeleteTeacherResource(req.body);
 
-        const deleteResource = await deleteTeacherResourceService({resourceId, teacherId});
+    const deleteResource = await deleteTeacherResourceService({resourceId, teacherId});
 
-        res.json(deleteResource)
-    } catch (error) {
-        next(error)
+    res.json(deleteResource)
+});
+
+export const editTeacherResource = asyncHandler(async (req, res, next) => {
+    const teacherId = req.user.id;
+    const fileData = getResourceFileData(req.file);
+
+    const data = await validateEditTeacherResource({
+        ...req.body,
+        ...(fileData ?? {})
+    });
+
+    const editResource = await editTeacherResourceService({
+        ...data,
+        teacherId,
+        oldFileUrl: req.body.fileUrl
+    });
+
+    res.json(editResource)
+});
+
+export const toggleTeacherResource = asyncHandler(async (req, res, next) => {
+    const teacherId = req.user.id;
+    const data = validateToggleTeacherResource(req.body);
+
+    const toggleResource = await toggleTeacherResourceService({
+        ...data,
+        teacherId
+    });
+
+    res.json(toggleResource)
+});
+
+export const uploadTeacherResource = asyncHandler(async (req, res, next) => {
+    const uploadedById = req.user.id;
+    const fileData = getResourceFileData(req.file);
+
+    if (!fileData) {
+        throw new BadRequestError("Resource file is required");
     }
-}
 
-export async function editTeacherResource(req, res, next) {
-    try {
-        const teacherId = req.user.id;
-        const fileData = getResourceFileData(req.file);
+    const data = validateUploadTeacherResource({
+        ...req.body,
+        ...(fileData ?? {})
+    });
 
-        const data = await validateEditTeacherResource({
-            ...req.body,
-            ...(fileData ?? {})
-        });
+    const uploadResource = await uploadTeacherResourceService({
+        ...data,
+        uploadedById,
+    });
 
-        const editResource = await editTeacherResourceService({
-            ...data,
-            teacherId,
-            oldFileUrl: req.body.fileUrl
-        });
-
-        res.json(editResource)
-    } catch (error) {
-        next(error)
-    }
-}
-
-export async function toggleTeacherResource(req, res, next) {
-    try {
-        const teacherId = req.user.id;
-        const data = validateToggleTeacherResource(req.body);
-
-        const toggleResource = await toggleTeacherResourceService({
-            ...data,
-            teacherId
-        });
-
-        res.json(toggleResource)
-    } catch (error) {
-        next(error)
-    }
-}
-
-export async function uploadTeacherResource(req, res, next) {
-    try {
-        const uploadedById = req.user.id;
-        const fileData = getResourceFileData(req.file);
-
-        if (!fileData) {
-            throw new BadRequestError("Resource file is required");
-        }
-
-        const data = validateUploadTeacherResource({
-            ...req.body,
-            ...(fileData ?? {})
-        });
-
-        const uploadResource = await uploadTeacherResourceService({
-            ...data,
-            uploadedById,
-        });
-
-        res.json(uploadResource)
-    } catch (error) {
-        next(error)
-    }
-}
+    res.json(uploadResource)
+});

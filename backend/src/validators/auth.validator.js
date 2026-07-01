@@ -1,7 +1,6 @@
 import { BadRequestError } from "../errors/index.js";
-import {
-    validateRequiredString
-} from "./common.validator.js";
+import { getUlimaEmailIdentity } from "../modules/auth/domain/ulimaEmail.js";
+import { validateRequiredString } from "./common.validator.js";
 
 function validateCode(code) {
     const cleanCode = validateRequiredString(code, "Code", 8);
@@ -14,22 +13,10 @@ function validateCode(code) {
 }
 
 function validateEmail(email) {
-    const cleanEmail = validateRequiredString(email, "Email", 255).toLowerCase();
+    const cleanEmail = validateRequiredString(email, "Email", 255);
 
-    const emailRegex = /^\d{8}@aloe\.ulima\.edu\.pe$/;
-
-    if (!emailRegex.test(cleanEmail)) {
-        throw new BadRequestError("Email is invalid");
-    }
-
-    const code = cleanEmail.slice(0, 8);
-
-    return {
-        email: cleanEmail,
-        code
-    };
+    return getUlimaEmailIdentity(cleanEmail);
 }
-
 
 function validatePassword(password) {
     const cleanPassword = validateRequiredString(password, "Password");
@@ -51,7 +38,7 @@ export function validateLogin(body = {}) {
 export function validateRegister(body = {}) {
     const password = validatePassword(body.password);
     const repeatPassword = validateRequiredString(body.repeatPassword, "Repeat password");
-    const { email, code } = validateEmail(body.email)
+    const { email, code } = validateEmail(body.email);
 
     if (password !== repeatPassword) {
         throw new BadRequestError("Passwords do not match");

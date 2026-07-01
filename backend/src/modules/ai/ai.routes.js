@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { answerResourceAiQuestion, synthesizeSpeech } from "./ai.controller.js";
+import { answerAcademicQuestion, synthesizeSpeech } from "./ai.controller.js";
 
 const router = Router();
 
-router.post("/resources/ask", answerResourceAiQuestion);
+router.post("/resources/ask", answerAcademicQuestion);
 router.post("/speech", synthesizeSpeech);
 
 export default router;

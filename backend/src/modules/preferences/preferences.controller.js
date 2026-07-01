@@ -1,41 +1,30 @@
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
 import {
     getPreferencesService,
     updatePreferenceWallpaperService,
     updatePreferencesWithWallpaperService
 } from "./preferences.service.js";
 
-export async function getPreferences(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const getPreferences = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const preferences = await getPreferencesService(userId);
+    const preferences = await getPreferencesService(userId);
 
-        res.json(preferences);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(preferences);
+});
 
-export async function updatePreferences(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const updatePreferences = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const preferences = await updatePreferencesWithWallpaperService(userId, req.body, req.file);
+    const preferences = await updatePreferencesWithWallpaperService(userId, req.body, req.file);
 
-        res.json(preferences);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(preferences);
+});
 
-export async function updatePreferenceWallpaper(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const updatePreferenceWallpaper = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const preferences = await updatePreferenceWallpaperService(userId, req.file);
+    const preferences = await updatePreferenceWallpaperService(userId, req.file);
 
-        res.json(preferences);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(preferences);
+});

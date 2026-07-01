@@ -1,12 +1,8 @@
-import path from "node:path";
-import fs from "node:fs/promises";
+import { UPLOAD_PUBLIC_PATHS } from "../../../shared/files/uploadPaths.js";
+import { deleteUploadFileByUrl, getUploadedFileUrl } from "../../../shared/files/uploadedFileStorage.js";
 
 export async function deleteResourceFile(fileUrl) {
-    if (!fileUrl?.startsWith("/uploads/resources/")) return;
-
-    const filePath = path.resolve(`.${fileUrl}`);
-
-    await fs.unlink(filePath).catch(() => null);
+    await deleteUploadFileByUrl(fileUrl, UPLOAD_PUBLIC_PATHS.resources);
 }
 
 export function getResourceFileData(file) {
@@ -15,7 +11,7 @@ export function getResourceFileData(file) {
     return {
         kind: getResourceKind(file),
         sizeBytes: file.size,
-        fileUrl: `/uploads/resources/${file.filename}`
+        fileUrl: getUploadedFileUrl(file, UPLOAD_PUBLIC_PATHS.resources)
     };
 }
 

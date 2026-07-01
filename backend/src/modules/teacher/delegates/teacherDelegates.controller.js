@@ -1,8 +1,8 @@
+import { asyncHandler } from "../../../shared/http/asyncHandler.js";
 import { validateTeacherDelegateRequest } from "../../../validators/teacherDelegates.validator.js";
 import { requestTeacherDelegateService } from "./teacherDelegates.service.js";
 
-export async function requestTeacherDelegate(req, res, next) {
-    try {
+export const requestTeacherDelegate = asyncHandler(async (req, res, next) => {
         const teacherId = req.user.id;
         const data = validateTeacherDelegateRequest(req.body);
 
@@ -12,7 +12,4 @@ export async function requestTeacherDelegate(req, res, next) {
         });
 
         res.json(courseMember);
-    } catch (error) {
-        next(error);
-    }
-}
+});

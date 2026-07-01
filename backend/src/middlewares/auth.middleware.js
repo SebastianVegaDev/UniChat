@@ -1,35 +1,15 @@
-import jwt from "jsonwebtoken";
-import { UnauthorizedError, ForbiddenError } from "../errors/index.js";
+import { ForbiddenError } from "../errors/index.js";
+import { getBearerToken, verifyJwtToken } from "../shared/auth/jwtSession.js";
 
 export function authMiddleware(req, res, next) {
-    const authHeader = req.headers.authorization;
-    const jwtSecret = process.env.JWT_SECRET;
-
-    if (!authHeader) {
-        return next(new UnauthorizedError("Token required"));
-    }
-
-    const [scheme, token] = authHeader.split(" ");
-
-    if (scheme !== "Bearer" || !token) {
-        return next(new UnauthorizedError("Token required"));
-    }
-
-    if (!jwtSecret) {
-        return next(new UnauthorizedError("Auth is not configured"));
-    }
-
     try {
-        const payload = jwt.verify(token, jwtSecret);
+        const token = getBearerToken(req.headers.authorization);
 
-        req.user = {
-            id: payload.id,
-            role: payload.role
-        };
+        req.user = verifyJwtToken(token);
 
-        next()
-    } catch {
-        return next(new UnauthorizedError("Invalid or expired token"));
+        next();
+    } catch (error) {
+        next(error);
     }
 }
 
@@ -40,7 +20,7 @@ export function requireTeacher(role) {
         }
 
         next();
-    }
+    };
 }
 
 export function requireRole(role) {

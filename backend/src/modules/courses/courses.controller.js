@@ -1,13 +1,10 @@
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
 import { getCoursesService } from "./courses.service.js";
 
-export async function getCourses(req, res, next) {
-    try {
-        const userId = req.user.id;
+export const getCourses = asyncHandler(async (req, res, next) => {
+    const userId = req.user.id;
 
-        const courses = await getCoursesService(userId);
-        
-        res.json(courses)
-    } catch (error) {
-        next(error);
-    }
-}
+    const courses = await getCoursesService(userId);
+    
+    res.json(courses)
+});

@@ -1,4 +1,4 @@
-import { pool } from "../../config/db.js";
+import { pool } from "../../../config/db.js";
 
 export async function findUserByCode(code) {
     const { rows } = await pool.query(`
@@ -16,7 +16,7 @@ export async function findUserByCode(code) {
         WHERE code = $1
     `, [code]);
 
-    return rows[0];
+    return rows[0] ?? null;
 }
 
 export async function findUserByEmailOrCode(email, code) {
@@ -35,13 +35,19 @@ export async function findUserByEmailOrCode(email, code) {
             OR code = $2;
     `, [email, code]);
 
-    return rows[0];
+    return rows[0] ?? null;
 }
 
-export async function insertUser({firstName, lastName, email, code, passwordHash}) {
+export async function insertUser({ firstName, lastName, email, code, passwordHash }) {
     const { rows } = await pool.query(`
-        INSERT INTO users
-        (code, first_name, last_name, email, password_hash, role)
+        INSERT INTO users (
+            code,
+            first_name,
+            last_name,
+            email,
+            password_hash,
+            role
+        )
         VALUES ($1, $2, $3, $4, $5, 'student')
         RETURNING
             id,
@@ -52,7 +58,7 @@ export async function insertUser({firstName, lastName, email, code, passwordHash
             role,
             is_blocked,
             avatar_url;
-    `, [code, firstName, lastName, email, passwordHash])
+    `, [code, firstName, lastName, email, passwordHash]);
 
-    return rows[0];
+    return rows[0] ?? null;
 }

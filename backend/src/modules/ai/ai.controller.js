@@ -1,32 +1,23 @@
-import { validateAiSpeechRequest, validateResourceAiQuestion } from "../../validators/ai.validator.js";
-import { answerResourceAiQuestionService } from "./ai.service.js";
-import { synthesizeSpeechService } from "./polly.service.js";
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
+import { validateAcademicQuestionRequest, validateAiSpeechRequest } from "../../validators/ai.validator.js";
+import { answerAcademicQuestionUseCase } from "./application/answerAcademicQuestion.usecase.js";
+import { synthesizeSpeechUseCase } from "./application/synthesizeSpeech.usecase.js";
 
-export async function answerResourceAiQuestion(req, res, next) {
-    try {
-        const { question, history } = validateResourceAiQuestion(req.body);
-        const result = await answerResourceAiQuestionService({
-            userId: req.user.id,
-            question,
-            history
-        });
+export const answerAcademicQuestion = asyncHandler(async (req, res) => {
+    const { question, history } = validateAcademicQuestionRequest(req.body);
+    const result = await answerAcademicQuestionUseCase({
+        userId: req.user.id,
+        question,
+        history
+    });
 
-        res.json(result);
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(result);
+});
 
-export async function synthesizeSpeech(req, res, next) {
-    try {
-        const { text } = validateAiSpeechRequest(req.body);
-        const result = await synthesizeSpeechService({ text });
 
-        res.json({
-            provider: "amazon-polly",
-            ...result
-        });
-    } catch (error) {
-        next(error);
-    }
-}
+export const synthesizeSpeech = asyncHandler(async (req, res, next) => {
+    const { text } = validateAiSpeechRequest(req.body);
+    const result = await synthesizeSpeechUseCase({ text });
+
+    res.json(result);
+});

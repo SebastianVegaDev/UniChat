@@ -1,6 +1,4 @@
-import dotenv from "dotenv";
-
-dotenv.config();
+import { env } from "../../../../config/env.js";
 
 const OPENAI_RESPONSES_URL = "https://api.openai.com/v1/responses";
 
@@ -17,18 +15,13 @@ function getOutputText(response) {
         .trim();
 }
 
-export async function askOpenAi({ instructions, input, maxOutputTokens }) {
-    if (!process.env.OPENAI_API_KEY) {
-        dotenv.config();
-    }
-
-    const apiKey = process.env.OPENAI_API_KEY?.trim();
-    const model = process.env.OPENAI_MODEL || "gpt-5-nano";
+function buildOpenAiRequestBody({ instructions, input, maxOutputTokens }) {
+    const model = env.openAi.model;
     const requestBody = {
         model,
         instructions,
         input,
-        max_output_tokens: Number(maxOutputTokens ?? process.env.OPENAI_MAX_OUTPUT_TOKENS ?? 500),
+        max_output_tokens: Number(maxOutputTokens ?? env.openAi.maxOutputTokens),
         store: false
     };
 
@@ -36,7 +29,19 @@ export async function askOpenAi({ instructions, input, maxOutputTokens }) {
         requestBody.reasoning = { effort: "minimal" };
     }
 
+    return requestBody;
+}
+
+export async function askOpenAi({ instructions, input, maxOutputTokens }) {
+    const apiKey = env.openAi.apiKey;
+
     if (!apiKey) return null;
+
+    const requestBody = buildOpenAiRequestBody({
+        instructions,
+        input,
+        maxOutputTokens
+    });
 
     const response = await fetch(OPENAI_RESPONSES_URL, {
         method: "POST",
@@ -55,6 +60,6 @@ export async function askOpenAi({ instructions, input, maxOutputTokens }) {
 
     return {
         text: getOutputText(result),
-        model
+        model: requestBody.model
     };
 }

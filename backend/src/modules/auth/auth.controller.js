@@ -1,38 +1,26 @@
-import { loginService, registerService, googleAuthService } from "./auth.service.js"
-import { validateLogin, validateRegister, validateGoogleAuth } from "../../validators/auth.validator.js";
+import { asyncHandler } from "../../shared/http/asyncHandler.js";
+import { validateGoogleAuth, validateLogin, validateRegister } from "../../validators/auth.validator.js";
+import { googleAuthUseCase } from "./application/googleAuth.usecase.js";
+import { loginUseCase } from "./application/login.usecase.js";
+import { registerUseCase } from "./application/register.usecase.js";
 
-export async function login(req, res, next) {
-    try {
-        const data = validateLogin(req.body);
+export const login = asyncHandler(async (req, res) => {
+    const data = validateLogin(req.body);
+    const session = await loginUseCase(data);
 
-        const session = await loginService(data);
+    res.json(session);
+});
 
-        res.json(session)
+export const register = asyncHandler(async (req, res) => {
+    const data = validateRegister(req.body);
+    const user = await registerUseCase(data);
 
-    } catch (error) {
-        next(error)
-    }
-}
+    res.json(user);
+});
 
-export async function register(req, res, next) {
-    try {
-        const data = await validateRegister(req.body);
+export const googleAuth = asyncHandler(async (req, res) => {
+    const data = validateGoogleAuth(req.body);
+    const session = await googleAuthUseCase(data);
 
-        const user = await registerService(data);
-
-        res.json(user)
-    } catch (error) {
-        next(error);
-    }
-}
-
-export async function googleAuth(req, res, next) {
-    try {
-        const data = await validateGoogleAuth(req.body);
-        const session = await googleAuthService(data);
-
-        res.json(session)
-    } catch (error) {
-        next(error);
-    }
-}
+    res.json(session);
+});
