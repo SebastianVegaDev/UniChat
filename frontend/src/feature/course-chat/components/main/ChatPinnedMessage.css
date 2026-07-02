@@ -1,0 +1,39 @@
+.chat-pinned-message {
+    position: absolute;
+    top: 82px;
+    left: 36px;
+    z-index: 4;
+    width: min(420px, calc(100% - 72px));
+    padding: 10px 12px;
+    border: 1px solid var(--app-accent-color);
+    border-left: 4px solid var(--app-accent-color);
+    border-radius: 8px;
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-text-color);
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.chat-pinned-message:hover {
+    background-color: color-mix(in srgb, var(--app-accent-color) 18%, var(--app-surface));
+}
+
+.chat-pinned-message > span {
+    display: block;
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.chat-pinned-message > p {
+    margin-top: 3px;
+    overflow: hidden;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

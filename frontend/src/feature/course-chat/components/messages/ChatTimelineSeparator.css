@@ -1,0 +1,21 @@
+.chat-timeline-separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.chat-timeline-separator::before,
+.chat-timeline-separator::after {
+    flex: 1;
+    height: 1px;
+    background-color: var(--app-border-color);
+    content: "";
+}
+
+.chat-timeline-separator-unread {
+    color: var(--app-accent-color);
+}

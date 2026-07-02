@@ -1,0 +1,82 @@
+.icon-button {
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.icon-button > svg {
+    width: 18px;
+    height: 18px;
+}
+
+.icon-button-sm {
+    width: 34px;
+    height: 34px;
+}
+
+.icon-button-md {
+    width: 42px;
+    height: 42px;
+}
+
+.icon-button-lg {
+    width: 48px;
+    height: 48px;
+}
+
+.icon-button-primary {
+    background-color: var(--app-accent-color);
+    border-color: var(--app-accent-color);
+    color: #ffffff;
+}
+
+.icon-button-primary:hover {
+    background-color: var(--app-accent-hover-color);
+    border-color: var(--app-accent-hover-color);
+}
+
+.icon-button-secondary {
+    background-color: var(--app-surface-soft);
+    border-color: var(--app-border-color);
+    color: var(--app-muted-text-color);
+}
+
+.icon-button-secondary:hover {
+    background-color: var(--app-surface);
+    color: var(--app-text-color);
+}
+
+.icon-button-soft {
+    background-color: var(--app-accent-soft-color);
+    border-color: var(--app-accent-border-color);
+    color: var(--app-accent-color);
+}
+
+.icon-button-soft:hover {
+    border-color: var(--app-accent-color);
+}
+
+.icon-button-danger {
+    background-color: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.25);
+    color: #dc2626;
+}
+
+.icon-button-danger:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    color: #ffffff;
+}
+
+.icon-button:active {
+    transform: scale(0.94);
+}
+
+.icon-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+}

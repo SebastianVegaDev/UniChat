@@ -1,0 +1,20 @@
+.chat-header-menu-wrapper {
+    position: relative;
+    display: flex;
+}
+
+.chat-header-menu {
+    top: 42px;
+    right: 0;
+}
+
+.chat-header-menu .floating-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-header-menu .floating-menu-button > svg {
+    width: 16px;
+    height: 16px;
+}

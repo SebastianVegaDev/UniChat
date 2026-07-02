@@ -1,0 +1,115 @@
+.admin-news-panel {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 16px;
+    min-height: 0;
+}
+
+.admin-news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 14px;
+    overflow-y: auto;
+}
+
+.admin-news-option {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+    padding: 12px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-news-option:hover,
+.admin-news-option.active {
+    border-color: var(--app-accent-color);
+    background-color: var(--app-accent-soft-color);
+}
+
+.admin-news-option strong {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+}
+
+.admin-news-option span {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 12px;
+}
+
+.admin-news-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.admin-news-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.admin-news-form label > span {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.admin-news-form input,
+.admin-news-form select,
+.admin-news-form textarea {
+    width: 100%;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    padding: 9px 10px;
+}
+
+.admin-news-form input,
+.admin-news-form select {
+    min-height: 40px;
+}
+
+.admin-news-form textarea {
+    min-height: 180px;
+    resize: vertical;
+}
+
+.admin-news-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.admin-news-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 1050px) {
+    .admin-news-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .admin-news-form-grid {
+        grid-template-columns: 1fr;
+    }
+}

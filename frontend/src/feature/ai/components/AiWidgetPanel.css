@@ -1,0 +1,79 @@
+.ai-widget-panel {
+    position: absolute;
+    right: 0;
+    bottom: 80px;
+    display: flex;
+    width: min(650px, calc(100vw - 32px));
+    min-height: 550px;
+    max-height: 80vh;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.ai-widget-panel-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border-bottom: 1px solid var(--app-border-color);
+    background-color: var(--app-surface);
+}
+
+.ai-widget-panel-header > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--app-text-color);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.ai-widget-panel-header svg {
+    width: 20px;
+    height: 20px;
+    color: var(--app-accent-color);
+}
+
+@media (max-width: 900px) {
+    .ai-widget-panel {
+        width: min(550px, calc(100vw - 32px));
+        min-height: 500px;
+    }
+}
+
+@media (max-width: 700px) {
+    .ai-widget-panel {
+        width: min(calc(100vw - 24px), 500px);
+        min-height: 480px;
+        max-height: 85vh;
+    }
+
+    .ai-widget-panel-header {
+        padding: 14px;
+    }
+
+    .ai-widget-panel-header > div {
+        gap: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-widget-panel {
+        width: calc(100vw - 20px);
+        min-height: 450px;
+    }
+
+    .ai-widget-panel-header {
+        padding: 12px;
+    }
+
+    .ai-widget-panel-header > div {
+        font-size: 13px;
+    }
+}

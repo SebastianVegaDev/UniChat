@@ -1,0 +1,48 @@
+.ai-question-form {
+    display: flex;
+    flex-shrink: 0;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid var(--app-border-color);
+    background-color: var(--app-surface-soft);
+}
+
+.ai-question-input {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+.ai-question-input::placeholder {
+    color: var(--app-muted-text-color);
+}
+
+.ai-question-input:focus {
+    border-color: var(--app-accent-color);
+    outline: none;
+}
+
+.ai-question-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+@media (max-width: 700px) {
+    .ai-question-form {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .ai-question-input {
+        min-height: 40px;
+    }
+}

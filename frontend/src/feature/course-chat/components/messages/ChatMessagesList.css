@@ -1,0 +1,19 @@
+.chat-messages-list {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    gap: 20px;
+    padding: 14px 6px 14px 0;
+    border-radius: 8px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-image: var(--chat-wallpaper-image, none);
+    background-position: center;
+    background-size: cover;
+}
+
+.chat-messages-list::before {
+    content: "";
+    margin-top: auto;
+}

@@ -1,0 +1,48 @@
+.ai-widget-button {
+    display: flex;
+    width: 66px;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--app-accent-border-color);
+    border-radius: 16px;
+    background-color: var(--app-surface);
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ai-widget-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+}
+
+.ai-widget-button > img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+@media (max-width: 700px) {
+    .ai-widget-button {
+        width: 62px;
+        height: 62px;
+    }
+
+    .ai-widget-button > img {
+        width: 49px;
+        height: 49px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-widget-button {
+        width: 58px;
+        height: 58px;
+    }
+
+    .ai-widget-button > img {
+        width: 45px;
+        height: 45px;
+    }
+}

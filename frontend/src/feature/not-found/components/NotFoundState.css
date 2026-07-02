@@ -1,0 +1,80 @@
+.not-found-state {
+    display: flex;
+    height: 100%;
+    min-height: 360px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    text-align: center;
+}
+
+.not-found-state-icon {
+    display: flex;
+    width: 78px;
+    height: 78px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 14px;
+    background-color: var(--app-surface);
+    color: var(--app-accent-color);
+}
+
+.not-found-state-icon > svg {
+    width: 36px;
+    height: 36px;
+}
+
+.not-found-state > p {
+    margin-bottom: 8px;
+    color: var(--app-accent-color);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.not-found-state > h2 {
+    margin-bottom: 8px;
+    font-size: 36px;
+    font-weight: 800;
+}
+
+.not-found-state > span {
+    max-width: 460px;
+    margin-bottom: 22px;
+    color: var(--app-muted-text-color);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.not-found-state-action {
+    display: inline-flex;
+    min-height: 42px;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    border: 1px solid var(--app-accent-color);
+    border-radius: 10px;
+    background-color: var(--app-accent-color);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.not-found-state-action > svg {
+    width: 18px;
+    height: 18px;
+}
+
+.not-found-state-action:hover {
+    border-color: var(--app-accent-hover-color);
+    background-color: var(--app-accent-hover-color);
+}
+
+.not-found-state-action:active {
+    transform: scale(0.98);
+}

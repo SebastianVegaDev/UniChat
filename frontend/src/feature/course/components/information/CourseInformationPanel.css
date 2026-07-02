@@ -1,0 +1,33 @@
+.course-information-panel {
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.course-information-week {
+    padding: 15px;
+    border: 1px solid var(--app-accent-border-color);
+    border-radius: 8px;
+    background-color: var(--app-accent-soft-color);
+}
+
+.course-information-week > h3 {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 24px;
+    font-weight: 850;
+}
+
+.course-information-week > h4 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 450;
+}
+
+.course-information-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

@@ -1,0 +1,62 @@
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 26px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--app-border-color);
+    background-color: var(--app-surface-soft);
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.status-pill-active,
+.status-pill-published {
+    background-color: rgba(22, 163, 74, 0.1);
+    border-color: rgba(22, 163, 74, 0.25);
+    color: #16a34a;
+}
+
+.status-pill-blocked,
+.status-pill-danger,
+.status-pill-archived {
+    background-color: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.25);
+    color: #dc2626;
+}
+
+.status-pill-draft,
+.status-pill-pending,
+.status-pill-pending_delegate {
+    background-color: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.28);
+    color: #d97706;
+}
+
+.status-pill-inactive {
+    background-color: var(--app-surface-soft);
+    border-color: var(--app-border-color);
+    color: var(--app-muted-text-color);
+}
+
+.status-pill-now {
+    background-color: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.28);
+    color: #16a34a;
+}
+
+.status-pill-upcoming {
+    background-color: rgba(59, 130, 246, 0.12);
+    border-color: rgba(59, 130, 246, 0.28);
+    color: #2563eb;
+}
+
+.status-pill-finished {
+    background-color: var(--app-surface-soft);
+    border-color: var(--app-border-color);
+    color: var(--app-muted-text-color);
+}

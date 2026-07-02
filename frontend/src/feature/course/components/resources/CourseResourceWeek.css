@@ -1,0 +1,28 @@
+.course-resource-week {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 15px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+}
+
+.course-resource-week > h4 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.course-resource-week-files {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+@media (max-width: 900px) {
+    .course-resource-week-files {
+        grid-template-columns: 1fr;
+    }
+}

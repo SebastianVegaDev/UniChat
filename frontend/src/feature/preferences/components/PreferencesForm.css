@@ -1,0 +1,63 @@
+.preferences-form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 15;
+    display: flex;
+    width: 370px;
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px;
+    border-left: 1px solid var(--app-border-color);
+    background-color: var(--app-surface);
+    color: var(--app-text-color);
+}
+
+.preferences-form-header {
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--app-border-color);
+}
+
+.preferences-form-header p {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 18px;
+    font-weight: 850;
+}
+
+.preferences-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding-right: 2px;
+    overflow-y: auto;
+}
+
+.preferences-form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.preferences-form-section h2 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.preferences-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: auto;
+}
+
+@media (max-width: 780px) {
+    .preferences-form {
+        left: 0;
+        right: 0;
+        width: auto;
+    }
+}

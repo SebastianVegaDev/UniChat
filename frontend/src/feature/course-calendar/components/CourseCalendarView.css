@@ -1,0 +1,142 @@
+.course-calendar-view {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    padding: 12px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+    overflow: hidden;
+}
+
+.course-calendar-view .fc {
+    width: 100%;
+    height: 100%;
+    font-family: "Inter";
+    font-size: 13px;
+}
+
+.course-calendar-view .fc-scrollgrid {
+    border: none !important;
+}
+
+.course-calendar-view .fc-theme-standard td,
+.course-calendar-view .fc-theme-standard th {
+    border: 4px solid var(--app-surface) !important;
+}
+
+.course-calendar-view .fc-col-header-cell {
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+}
+
+.course-calendar-view .fc-col-header-cell-cushion {
+    display: block;
+    padding: 10px 0;
+    color: var(--app-muted-text-color);
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.course-calendar-view .fc-daygrid-day {
+    border-radius: 8px;
+    background-color: var(--app-background);
+    overflow: hidden;
+}
+
+.course-calendar-view .fc-daygrid-day-frame {
+    padding: 8px;
+}
+
+.course-calendar-view .fc-daygrid-day-number {
+    padding: 0;
+    color: var(--app-muted-text-color);
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.course-calendar-view .fc-daygrid-day:hover {
+    background-color: var(--app-surface-soft);
+}
+
+.course-calendar-view .fc-day-today {
+    background-color: var(--app-accent-soft-color) !important;
+}
+
+.course-calendar-view .fc-day-other {
+    background-color: var(--app-surface);
+}
+
+.course-calendar-view .fc-event {
+    margin-top: 6px;
+    padding: 5px 7px;
+    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.course-calendar-view .calendar-class {
+    border-left: 4px solid #6d28d9;
+}
+
+.course-calendar-view .calendar-event {
+    border-left: 4px solid var(--app-accent-color);
+}
+
+.course-calendar-view .fc-event-title {
+    white-space: normal;
+}
+
+.course-calendar-view .calendar-class .fc-event-title::before,
+.course-calendar-view .calendar-event .fc-event-title::before {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 6px;
+    border-radius: 99px;
+    content: "";
+}
+
+.course-calendar-view .calendar-class .fc-event-title::before {
+    background-color: #6d28d9;
+}
+
+.course-calendar-view .calendar-event .fc-event-title::before {
+    background-color: var(--app-accent-color);
+}
+
+.course-calendar-view .fc-daygrid-day-events {
+    margin-top: 5px;
+}
+
+.course-calendar-view .fc-header-toolbar {
+    margin-bottom: 12px !important;
+    padding-right: 150px;
+}
+
+.course-calendar-view .fc-toolbar-title {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+@media (max-width: 980px) {
+    .course-calendar-view {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+
+    .course-calendar-view .fc-header-toolbar {
+        padding-top: 42px;
+        padding-right: 0;
+    }
+}

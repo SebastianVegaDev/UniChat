@@ -1,0 +1,52 @@
+.home-next-class-card {
+    grid-column: 4;
+    grid-row: 1;
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+}
+
+.home-next-class-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.home-next-class-card-body > h4 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.home-next-class-card-body > p {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.home-next-class-card-body > span {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.home-next-class-card-body .app-button {
+    margin-top: 8px;
+    width: fit-content;
+}
+
+@media (max-width: 1180px) {
+    .home-next-class-card {
+        grid-column: auto;
+        grid-row: auto;
+    }
+}

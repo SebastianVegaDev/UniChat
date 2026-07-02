@@ -1,0 +1,44 @@
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 6px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+    overflow-x: auto;
+}
+
+.admin-tabs > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 8px 14px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: transparent;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 750;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-tabs > button > svg {
+    width: 17px;
+    height: 17px;
+}
+
+.admin-tabs > button:hover {
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+}
+
+.admin-tabs > button.active {
+    background-color: var(--app-accent-soft-color);
+    border-color: var(--app-accent-border-color);
+    color: var(--app-accent-color);
+}

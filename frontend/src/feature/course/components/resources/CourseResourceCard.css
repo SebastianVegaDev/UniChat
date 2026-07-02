@@ -1,0 +1,87 @@
+.course-resource-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 15px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.course-resource-card.available {
+    cursor: pointer;
+}
+
+.course-resource-card.available:hover {
+    transform: translateY(-2px);
+    border-color: var(--app-accent-border-color);
+    background-color: var(--app-accent-soft-color);
+}
+
+.course-resource-card.menu-open:hover,
+.course-resource-card.editing:hover {
+    transform: none;
+    background-color: var(--app-surface);
+}
+
+.course-resource-card.unavailable {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.course-resource-card-info {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    line-height: 1.35;
+}
+
+.course-resource-card-icon {
+    flex: 0 0 auto;
+    margin-right: 17px;
+    color: var(--app-accent-color);
+}
+
+.course-resource-card-icon > svg {
+    width: 22px;
+    height: 22px;
+}
+
+.course-resource-card-info > div {
+    min-width: 0;
+}
+
+.course-resource-card-info h4 {
+    overflow-wrap: anywhere;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 17px;
+    font-weight: 650;
+}
+
+.course-resource-card-info p {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 350;
+}
+
+.course-resource-card-info span {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+}
+
+@media (max-width: 720px) {
+    .course-resource-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

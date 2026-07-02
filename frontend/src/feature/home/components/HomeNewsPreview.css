@@ -1,0 +1,33 @@
+.home-news-preview {
+    flex: 0 0 auto;
+    padding: 13px;
+    border: 1px solid var(--app-border-color);
+    border-left: 4px solid var(--app-accent-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+}
+
+.home-news-preview > h4 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.home-news-preview > p {
+    margin-top: 5px;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.home-news-preview > span {
+    display: block;
+    margin-top: 8px;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 650;
+}

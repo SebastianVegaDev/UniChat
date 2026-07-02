@@ -1,0 +1,15 @@
+import pg from "pg";
+import { env } from "./env.js";
+
+const { Pool } = pg;
+
+export const pool = new Pool({
+    host: env.database.host,
+    port: env.database.port,
+    database: env.database.name,
+    user: env.database.user,
+    password: env.database.password,
+    ssl: env.database.ssl
+        ? { rejectUnauthorized: env.database.sslRejectUnauthorized }
+        : undefined
+});
