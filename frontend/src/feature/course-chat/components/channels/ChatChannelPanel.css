@@ -1,0 +1,100 @@
+.chat-channel-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    min-height: 0;
+    padding: 16px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface);
+}
+
+.chat-channel-course {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+}
+
+.chat-channel-course > span {
+    display: grid;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border-radius: 8px;
+    background-color: var(--app-accent-color);
+    color: #ffffff;
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.chat-channel-course div {
+    min-width: 0;
+}
+
+.chat-channel-course p {
+    overflow: hidden;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 15px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-channel-course small {
+    display: block;
+    margin-top: 3px;
+    overflow: hidden;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-channel-search {
+    position: relative;
+}
+
+.chat-channel-search > svg {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    color: var(--app-muted-text-color);
+    transform: translateY(-50%);
+}
+
+.chat-channel-search input {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px 9px 38px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+}
+
+.chat-channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+@media (max-width: 980px) {
+    .chat-channel-panel {
+        min-height: auto;
+    }
+}

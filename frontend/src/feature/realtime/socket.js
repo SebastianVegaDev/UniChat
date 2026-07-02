@@ -1,12 +1,13 @@
 import { io } from "socket.io-client";
+import { getAuthToken } from "../../shared/auth/sessionStorage.js";
 import { SOCKET_URL } from "../../shared/api/config.js";
 
 let socket = null;
 
 export function getSocket() {
-    const token = localStorage.getItem("token");
+    const token = getAuthToken();
 
-    if(!socket) {
+    if (!socket) {
         socket = io(SOCKET_URL, {
             autoConnect: false,
             auth: {

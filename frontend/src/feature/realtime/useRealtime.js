@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { hasAuthSession } from "../../shared/auth/sessionStorage.js";
 import { getSocket } from "./socket.js";
 import {
     addChatMessage,
@@ -11,9 +12,7 @@ import {
 
 export function useRealtime({ data, updateBootstrap }) {
     useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if (!token || !data?.chatChannels?.length) return;
+        if (!hasAuthSession() || !data?.chatChannels?.length) return;
 
         const socket = getSocket();
 

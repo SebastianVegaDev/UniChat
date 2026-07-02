@@ -1,0 +1,12 @@
+.course-resources-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.course-resources-weeks {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

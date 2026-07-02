@@ -1,0 +1,15 @@
+.chat-message-menu {
+    right: 8px;
+    bottom: calc(100% + 8px);
+}
+
+.chat-message-menu .floating-menu-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chat-message-menu .floating-menu-button > svg {
+    width: 16px;
+    height: 16px;
+}

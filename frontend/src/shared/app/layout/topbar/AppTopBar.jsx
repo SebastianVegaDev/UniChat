@@ -1,6 +1,5 @@
 import "./AppTopBar.css";
 import { SlidersHorizontal, SlidersVertical } from "lucide-react";
-import icon from "../../../../../public/favicon.png";
 import { useState, useEffect, useRef } from "react";
 import { useBootstrap } from "../../../../feature/bootstrap/hooks/useBootstrap.js";
 import { usePreferenceTexts } from "../../../../feature/preferences/context/PreferencesContext.js";
@@ -48,9 +47,7 @@ function AppTopBar({ showPreferences, togglePreferences }) {
 
     useEffect(() => {
         function handleClickOutside(event) {
-            if (
-                optionsRef.current && !optionsRef.current.contains(event.target)
-            ) {
+            if (optionsRef.current && !optionsRef.current.contains(event.target)) {
                 setShowUserInfo(false);
             }
         }
@@ -65,7 +62,7 @@ function AppTopBar({ showPreferences, togglePreferences }) {
     return (
         <div className="app-top-bar">
             <div className="app-top-bar-brand">
-                <img src={icon} alt="UniChat" />
+                <img src="/favicon.png" alt="UniChat" />
                 <span className="app-top-bar-title-1">
                     Uni
                     <span className="app-top-bar-title-2">
@@ -73,6 +70,7 @@ function AppTopBar({ showPreferences, togglePreferences }) {
                     </span>
                 </span>
             </div>
+
             <div className="app-top-bar-actions">
                 <div className="app-top-bar-user-wrapper" ref={optionsRef}>
                     <button
@@ -95,6 +93,7 @@ function AppTopBar({ showPreferences, togglePreferences }) {
                         </div>
                     )}
                 </div>
+
                 <button
                     className={`app-top-bar-help ${showPreferences ? "active" : ""}`}
                     type="button"

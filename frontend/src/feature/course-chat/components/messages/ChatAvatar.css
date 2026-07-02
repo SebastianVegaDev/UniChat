@@ -1,0 +1,23 @@
+.chat-avatar {
+    display: flex;
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    border-radius: 999px;
+    object-fit: cover;
+    color: #ffffff;
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.chat-avatar-other {
+    background-color: var(--app-accent-color);
+}
+
+.chat-avatar-me {
+    background-color: #16a34a;
+}

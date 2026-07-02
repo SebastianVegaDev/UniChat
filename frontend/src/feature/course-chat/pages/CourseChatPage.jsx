@@ -1,6 +1,6 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
-import ChatContent from "../../../shared/ui/content/chat/ChatContent.jsx";
+import ChatContent from "../components/ChatContent.jsx";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { mapCourseChatData } from "../mappers/courseChat.mapper.js";
 import { useCourseChatActions } from "../hooks/courseChat.hooks.js";
@@ -24,7 +24,9 @@ function CourseChatPage() {
         timeline = [],
         activeChannel = {}
     } = courseChatData;
-    const selectedChannelId = channels.some((channel) => channel.id === activeChannelId) ? activeChannelId : activeChannel.channelId;
+    const selectedChannelId = channels.some((channel) => channel.id === activeChannelId)
+        ? activeChannelId
+        : activeChannel.channelId;
     const {
         handleSubmit,
         handleToggleChannelLock,
@@ -38,13 +40,13 @@ function CourseChatPage() {
         updateBootstrap
     });
 
-    if (isLoading) return <LoadingLayout />
-    if (error) return <p>{error}</p>
+    if (isLoading) return <LoadingLayout />;
+    if (error) return <p>{error}</p>;
     if (courseChatData.notFound) return <NotFoundPage />;
 
     return (
         <SectionLayout>
-            <ChatContent 
+            <ChatContent
                 course={course}
                 channels={channels}
                 pinnedMessage={pinnedMessage}

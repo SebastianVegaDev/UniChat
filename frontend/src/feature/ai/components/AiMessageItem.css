@@ -1,0 +1,84 @@
+.ai-message-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ai-message-wrapper.user {
+    align-items: flex-end;
+}
+
+.ai-message-wrapper.bot {
+    align-items: flex-start;
+}
+
+.ai-message-row {
+    display: flex;
+    max-width: 100%;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.ai-message-row.user {
+    justify-content: flex-end;
+}
+
+.ai-message-row.bot {
+    justify-content: flex-start;
+}
+
+.ai-message {
+    max-width: 85%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.ai-message.bot {
+    border: 1px solid var(--chat-other-message-border-color, var(--app-border-color));
+    background-color: var(--chat-other-message-color, var(--app-surface-soft));
+    color: var(--chat-other-message-text-color, var(--app-text-color));
+}
+
+.ai-message.user {
+    background-color: var(--chat-me-message-color, var(--app-accent-color));
+    color: var(--chat-me-message-text-color, #ffffff);
+}
+
+.ai-message-speech {
+    flex: 0 0 auto;
+}
+
+.ai-message-speech.speaking {
+    background-color: var(--app-accent-color);
+    border-color: var(--app-accent-color);
+    color: #ffffff;
+}
+
+@media (max-width: 900px) {
+    .ai-message {
+        max-width: 88%;
+    }
+}
+
+@media (max-width: 700px) {
+    .ai-message {
+        max-width: 90%;
+        font-size: 13px;
+    }
+
+    .ai-message-wrapper.user .ai-message {
+        max-width: 85%;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-message {
+        padding: 10px 12px;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+}

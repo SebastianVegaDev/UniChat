@@ -1,0 +1,90 @@
+.app-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-family: "Inter";
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.app-button > svg {
+    width: 17px;
+    height: 17px;
+}
+
+.app-button-sm {
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 13px;
+}
+
+.app-button-md {
+    min-height: 40px;
+    padding: 9px 14px;
+    font-size: 14px;
+}
+
+.app-button-primary {
+    background-color: var(--app-accent-color);
+    border-color: var(--app-accent-color);
+    color: #ffffff;
+}
+
+.app-button-primary:hover {
+    background-color: var(--app-accent-hover-color);
+    border-color: var(--app-accent-hover-color);
+}
+
+.app-button-secondary {
+    background-color: var(--app-surface);
+    border-color: var(--app-border-color);
+    color: var(--app-text-color);
+}
+
+.app-button-secondary:hover {
+    border-color: var(--app-accent-color);
+    color: var(--app-accent-color);
+}
+
+.app-button-soft {
+    background-color: var(--app-accent-soft-color);
+    border-color: var(--app-accent-border-color);
+    color: var(--app-accent-color);
+}
+
+.app-button-soft:hover {
+    background-color: var(--app-accent-color);
+    border-color: var(--app-accent-color);
+    color: #ffffff;
+}
+
+.app-button-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.28);
+    color: #dc2626;
+}
+
+.app-button-danger:hover {
+    background-color: #dc2626;
+    border-color: #dc2626;
+    color: #ffffff;
+}
+
+.app-button-ghost {
+    background-color: transparent;
+    border-color: transparent;
+    color: var(--app-muted-text-color);
+}
+
+.app-button-ghost:hover {
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+}
+
+.app-button:active {
+    transform: scale(0.98);
+}

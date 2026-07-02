@@ -1,4 +1,4 @@
-import PreferencesForm from "../../../shared/ui/forms/preferences/PreferencesForm.jsx";
+import PreferencesForm from "./PreferencesForm.jsx";
 
 function PreferencesPanel({ preferences, handleSubmitPreferences }) {
     return (

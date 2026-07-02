@@ -1,0 +1,36 @@
+.floating-menu {
+    position: absolute;
+    z-index: 5;
+    min-width: 170px;
+    padding: 8px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+.floating-menu-button {
+    display: block;
+    width: 100%;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 7px;
+    background-color: transparent;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 650;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.floating-menu-button:hover {
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color);
+}
+
+.floating-menu-button-danger:hover {
+    background-color: rgba(220, 38, 38, 0.1);
+    color: #dc2626;
+}

@@ -1,10 +1,9 @@
 import { Navigate } from "react-router-dom";
+import { hasAuthSession } from "../auth/sessionStorage.js";
 
 function PublicRoute({ children }) {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-        return <Navigate to="/" replace />
+    if (hasAuthSession()) {
+        return <Navigate to="/" replace />;
     }
 
     return children;

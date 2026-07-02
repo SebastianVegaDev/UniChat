@@ -1,0 +1,68 @@
+.chat-channel-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.chat-channel-item:hover {
+    transform: translateY(-2px);
+    border-color: var(--app-accent-border-color);
+    background-color: var(--app-accent-soft-color);
+}
+
+.chat-channel-item.active {
+    border-color: var(--app-accent-color);
+    background-color: var(--app-accent-soft-color);
+}
+
+.chat-channel-item-icon {
+    display: grid;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 8px;
+    background-color: var(--app-surface);
+    color: var(--app-accent-color);
+}
+
+.chat-channel-item-icon > svg {
+    width: 18px;
+    height: 18px;
+}
+
+.chat-channel-item-info {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.chat-channel-item-info p {
+    overflow: hidden;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chat-channel-item-info span {
+    display: block;
+    margin-top: 3px;
+    overflow: hidden;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

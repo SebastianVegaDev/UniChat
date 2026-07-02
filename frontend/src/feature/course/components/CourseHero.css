@@ -1,0 +1,70 @@
+.course-hero {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--app-border-color);
+    line-height: 1.4;
+}
+
+.course-hero-icon {
+    display: grid;
+    min-width: 74px;
+    min-height: 64px;
+    place-items: center;
+    padding: 5px 18px;
+    border-radius: 8px;
+    background-color: var(--app-accent-color);
+    color: #ffffff;
+    font-family: "Inter";
+    font-size: 26px;
+    font-weight: 850;
+}
+
+.course-hero-info {
+    min-width: 0;
+}
+
+.course-hero-info > p {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.course-hero-info > h1 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 30px;
+    font-weight: 750;
+}
+
+.course-hero-info > h3 {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.course-hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-top: 10px;
+}
+
+@media (max-width: 760px) {
+    .course-hero {
+        align-items: flex-start;
+    }
+
+    .course-hero-icon {
+        min-width: 58px;
+        min-height: 52px;
+        font-size: 20px;
+    }
+
+    .course-hero-info > h1 {
+        font-size: 24px;
+    }
+}

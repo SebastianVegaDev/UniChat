@@ -1,0 +1,21 @@
+.public-ai-widget {
+    position: fixed;
+    right: 34px;
+    bottom: 86px;
+    z-index: 50;
+    font-family: "Inter";
+}
+
+@media (max-width: 700px) {
+    .public-ai-widget {
+        right: 16px;
+        bottom: 78px;
+    }
+}
+
+@media (max-width: 480px) {
+    .public-ai-widget {
+        right: 12px;
+        bottom: 70px;
+    }
+}

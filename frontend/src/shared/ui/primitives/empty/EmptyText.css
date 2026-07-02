@@ -1,0 +1,10 @@
+.empty-text {
+    padding: 18px;
+    border: 1px dashed var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    text-align: center;
+}

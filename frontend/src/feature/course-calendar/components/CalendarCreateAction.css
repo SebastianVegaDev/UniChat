@@ -1,0 +1,14 @@
+.calendar-create-action {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+}
+
+@media (max-width: 980px) {
+    .calendar-create-action {
+        top: 14px;
+        left: 14px;
+        right: auto;
+    }
+}

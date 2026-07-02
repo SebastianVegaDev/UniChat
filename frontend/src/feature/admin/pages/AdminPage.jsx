@@ -1,6 +1,10 @@
+import { ShieldCheck } from "lucide-react";
+import { toast } from "react-toastify";
+import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
+import SectionHero from "../../../shared/ui/heroes/section/SectionHero.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import NotFoundPage from "../../not-found/pages/NotFoundPage.jsx";
-import AdminContent from "../../../shared/ui/content/admin/AdminContent.jsx";
+import AdminContent from "../components/AdminContent.jsx";
 import { mapAdminData } from "../mappers/admin.mapper.js";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
@@ -28,7 +32,6 @@ import {
     upsertAdminAnnouncement,
     upsertAdminCourseMember
 } from "../../bootstrap/updaters/bootstrap.updaters.js";
-import { toast } from "react-toastify";
 
 function AdminPage() {
     const { data, isLoading, error, updateBootstrap } = useBootstrap();
@@ -116,7 +119,7 @@ function AdminPage() {
             const courseMember = await fetchRejectAdminDelegate(courseId, userId);
 
             updateBootstrap((currentData) => removeAdminCourseMember(currentData, courseMember));
-            toast.success("Postulacion rechazada");
+            toast.success("Postulación rechazada");
         } catch (error) {
             toast.error(error.message);
         }
@@ -158,19 +161,26 @@ function AdminPage() {
     }
 
     return (
-        <AdminContent
-            adminData={adminData}
-            handleCreateCourse={handleCreateCourse}
-            handleAddCourseUser={handleAddCourseUser}
-            handleApproveDelegate={handleApproveDelegate}
-            handleDeleteAnnouncement={handleDeleteAnnouncement}
-            handleDeleteCourse={handleDeleteCourse}
-            handleRejectDelegate={handleRejectDelegate}
-            handleSaveAnnouncement={handleSaveAnnouncement}
-            handleToggleUserBlock={handleToggleUserBlock}
-            handleUpdateAnnouncementStatus={handleUpdateAnnouncementStatus}
-            handleUpdateCourse={handleUpdateCourse}
-        />
+        <SectionLayout>
+            <SectionHero
+                eyebrow={<><ShieldCheck /> {texts.admin.eyebrow}</>}
+                title={texts.admin.title}
+                description={texts.admin.description}
+            />
+            <AdminContent
+                adminData={adminData}
+                handleCreateCourse={handleCreateCourse}
+                handleAddCourseUser={handleAddCourseUser}
+                handleApproveDelegate={handleApproveDelegate}
+                handleDeleteAnnouncement={handleDeleteAnnouncement}
+                handleDeleteCourse={handleDeleteCourse}
+                handleRejectDelegate={handleRejectDelegate}
+                handleSaveAnnouncement={handleSaveAnnouncement}
+                handleToggleUserBlock={handleToggleUserBlock}
+                handleUpdateAnnouncementStatus={handleUpdateAnnouncementStatus}
+                handleUpdateCourse={handleUpdateCourse}
+            />
+        </SectionLayout>
     );
 }
 

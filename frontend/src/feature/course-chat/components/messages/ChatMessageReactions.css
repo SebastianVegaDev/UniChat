@@ -1,0 +1,75 @@
+.chat-message-emoji-picker {
+    position: absolute;
+    right: 8px;
+    bottom: calc(100% + 8px);
+    z-index: 6;
+    display: flex;
+    gap: 6px;
+    padding: 7px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 999px;
+    background-color: var(--app-surface);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+.chat-message-emoji-picker button,
+.chat-message-reactions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 30px;
+    border: none;
+    border-radius: 999px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.chat-message-emoji-picker button:hover {
+    background-color: var(--app-accent-soft-color);
+}
+
+.chat-message-reactions {
+    position: absolute;
+    right: 8px;
+    bottom: -18px;
+    z-index: 2;
+    display: flex;
+    gap: 5px;
+    padding: 4px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 999px;
+    background-color: var(--app-surface);
+}
+
+.chat-message-reactions button {
+    gap: 4px;
+    min-width: 34px;
+    height: 26px;
+    border: 1px solid var(--app-border-color);
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+}
+
+.chat-message-reactions button.selected {
+    border-color: var(--app-accent-color);
+    background-color: var(--app-accent-soft-color);
+}
+
+.chat-message-reactions span {
+    color: var(--app-muted-text-color);
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.chat-message-row-other .chat-message-emoji-picker,
+.chat-message-row-other .chat-message-reactions {
+    left: 8px;
+    right: auto;
+}
+
+.chat-message-row-me .chat-message-reactions {
+    left: 8px;
+    right: auto;
+}

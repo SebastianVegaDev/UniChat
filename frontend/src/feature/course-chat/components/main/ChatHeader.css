@@ -1,0 +1,39 @@
+.chat-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--app-border-color);
+}
+
+.chat-header p {
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 650;
+}
+
+.chat-header h3 {
+    margin-top: 2px;
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 23px;
+    font-weight: 850;
+}
+
+.chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-header-actions .status-pill {
+    gap: 6px;
+}
+
+.chat-header-actions .status-pill > svg {
+    width: 14px;
+    height: 14px;
+}

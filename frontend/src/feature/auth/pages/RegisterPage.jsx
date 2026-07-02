@@ -1,7 +1,9 @@
-import AuthLayout from "../../../shared/ui/layouts/auth/AuthLayout.jsx";
-import RegisterForm from "../../../shared/ui/forms/register/RegisterForm.jsx";
+import AuthLayout from "../components/AuthLayout.jsx";
+import RegisterForm from "../components/RegisterForm.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
 import { fetchGoogleAuth, fetchRegister } from "../api/auth.api.js";
+import { isGoogleAuthEnabled } from "../../../shared/config/env.js";
+import { saveAuthSession } from "../../../shared/auth/sessionStorage.js";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from "@react-oauth/google";
@@ -18,12 +20,11 @@ function RegisterPage() {
     });
 
     function saveSession(data, message) {
-        if (data?.token) {
-            localStorage.setItem("user", JSON.stringify(data.user));
-            localStorage.setItem("token", data.token);
-            navigate("/");
-            toast.success(message);
-        }
+        if (!data?.token) return;
+
+        saveAuthSession(data);
+        navigate("/");
+        toast.success(message);
     }
 
     async function handleSubmit(registerData) {
@@ -54,16 +55,26 @@ function RegisterPage() {
         }
     }
 
-    if (loading) return <LoadingLayout/>
+    function handleGoogleButtonClick() {
+        if (!isGoogleAuthEnabled) {
+            toast.error("Google login is not configured");
+            return;
+        }
+
+        googleLogin();
+    }
+
+    if (loading) return <LoadingLayout />;
 
     return (
         <AuthLayout>
             <RegisterForm
                 handleSubmit={handleSubmit}
-                handleGoogleSubmit={() => googleLogin()}
+                handleGoogleSubmit={handleGoogleButtonClick}
+                showGoogleLogin={isGoogleAuthEnabled}
             />
         </AuthLayout>
-    )
+    );
 }
 
 export default RegisterPage;

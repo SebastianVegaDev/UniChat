@@ -1,7 +1,7 @@
 import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import SectionHero from "../../../shared/ui/heroes/section/SectionHero.jsx";
-import NewsContent from "../../../shared/ui/content/news/NewsContent.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
+import NewsContent from "../components/NewsContent.jsx";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { mapNewsData } from "../mappers/news.mapper.js";
 import { usePreferenceTexts } from "../../preferences/context/PreferencesContext.js";
@@ -23,9 +23,8 @@ function NewsPage() {
                 title={hero.title}
                 description={hero.description}
             />
-            <NewsContent
-                news={news}
-            />
+
+            <NewsContent news={news} />
         </SectionLayout>
     );
 }

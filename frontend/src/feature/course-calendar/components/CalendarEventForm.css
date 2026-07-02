@@ -1,0 +1,120 @@
+.calendar-event-form-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+.calendar-event-form {
+    display: flex;
+    width: 520px;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 18px;
+    padding: 18px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 12px;
+    background-color: var(--app-surface);
+    color: var(--app-text-color);
+}
+
+.calendar-event-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--app-border-color);
+}
+
+.calendar-event-form-header p {
+    color: var(--app-accent-color);
+    font-family: "Inter";
+    font-size: 18px;
+    font-weight: 850;
+}
+
+.calendar-event-form-header span {
+    display: block;
+    margin-top: 5px;
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+.calendar-event-form-close {
+    display: flex;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-muted-text-color);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.calendar-event-form-close:hover {
+    color: var(--app-text-color);
+}
+
+.calendar-event-form-close:active {
+    transform: scale(0.94);
+}
+
+.calendar-event-form-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+.calendar-event-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calendar-event-form-input {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 10px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 15px;
+}
+
+.calendar-event-form-input::placeholder {
+    color: var(--app-muted-text-color);
+}
+
+.calendar-event-form-textarea {
+    min-height: 96px;
+    resize: vertical;
+}
+
+.calendar-event-form-dates {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-event-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 640px) {
+    .calendar-event-form-dates {
+        flex-direction: column;
+    }
+}

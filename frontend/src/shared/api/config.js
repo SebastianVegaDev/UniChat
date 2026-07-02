@@ -1,10 +1,8 @@
-export const API_URL = import.meta.env.VITE_API_URL || (
-    import.meta.env.DEV ? "http://localhost:3000/api" : "/api"
-);
+import { env } from "../config/env.js";
 
-export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (
-    import.meta.env.DEV ? "http://localhost:3000" : window.location.origin
-);
+export const API_URL = env.apiUrl;
+
+export const SOCKET_URL = env.socketUrl;
 
 export const API_ASSET_URL = API_URL.replace(/\/api\/?$/, "");
 

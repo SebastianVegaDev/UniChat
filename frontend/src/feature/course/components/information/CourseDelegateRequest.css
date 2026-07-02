@@ -1,0 +1,61 @@
+.course-delegate-request {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 13px;
+    border-top: 1px solid var(--app-border-color);
+}
+
+.course-delegate-request > h3 {
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.course-delegate-request-form {
+    display: flex;
+    gap: 7px;
+}
+
+.course-delegate-request-form input {
+    flex: 1;
+    min-width: 0;
+    min-height: 38px;
+    padding: 8px 10px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 8px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-text-color);
+    font-family: "Inter";
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.course-delegate-request-form .app-button > span {
+    display: none;
+}
+
+.course-delegate-candidates {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.course-delegate-candidates p {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid var(--app-border-color);
+    border-radius: 7px;
+    background-color: var(--app-surface-soft);
+    color: var(--app-muted-text-color);
+    font-family: "Inter";
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.course-delegate-candidates strong {
+    color: var(--app-accent-color);
+}

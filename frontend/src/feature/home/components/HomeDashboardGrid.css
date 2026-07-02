@@ -1,0 +1,14 @@
+.home-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    min-height: 0;
+}
+
+@media (max-width: 1180px) {
+    .home-dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+}

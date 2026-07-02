@@ -1,7 +1,7 @@
-import CourseLayout from "../../../shared/ui/layouts/course/CourseLayout.jsx";
-import CourseHero from "../../../shared/ui/heroes/course/CourseHero.jsx";
+import SectionLayout from "../../../shared/ui/layouts/section/SectionLayout.jsx";
 import LoadingLayout from "../../../shared/ui/layouts/loading/LoadingLayout.jsx";
-import CourseContent from "../../../shared/ui/content/course/CourseContent.jsx";
+import CourseContent from "../components/CourseContent.jsx";
+import CourseHero from "../components/CourseHero.jsx";
 import { useBootstrap } from "../../bootstrap/hooks/useBootstrap.js";
 import { mapCourseData } from "../mappers/course.mapper.js";
 import { useCourseResourceActions } from "../hooks/courseResources.hooks.js";
@@ -22,20 +22,28 @@ function CoursePage() {
     } = useCourseResourceActions({ updateBootstrap });
     const { handleRequestDelegate } = useCourseDelegateActions({ updateBootstrap });
 
-    if (isLoading) return <LoadingLayout />
-    if (error) return <p>{error}</p>
+    if (isLoading) return <LoadingLayout />;
+    if (error) return <p>{error}</p>;
 
     const courseData = mapCourseData(data, courseSlug, texts);
+
     if (courseData.notFound) return <NotFoundPage />;
 
-    const { currentUser, course, actions, resourcesSummary, resourcesByWeek, information, delegateCandidates } = courseData;
+    const {
+        currentUser,
+        course,
+        actions,
+        resourcesSummary,
+        resourcesByWeek,
+        information,
+        delegateCandidates
+    } = courseData;
 
     return (
-        <CourseLayout>
-            <CourseHero 
-                course={course}
-            />    
-            <CourseContent 
+        <SectionLayout>
+            <CourseHero course={course} />
+
+            <CourseContent
                 currentUser={currentUser}
                 course={course}
                 actions={actions}
@@ -48,8 +56,8 @@ function CoursePage() {
                 handleToggleResource={handleToggleResource}
                 handleDeleteResource={handleDeleteResource}
                 handleRequestDelegate={handleRequestDelegate}
-            />    
-        </CourseLayout>
+            />
+        </SectionLayout>
     );
 }
 

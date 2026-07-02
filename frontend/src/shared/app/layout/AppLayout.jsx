@@ -6,7 +6,7 @@ import { useState } from "react";
 import PreferencesPanel from "../../../feature/preferences/components/PreferencesPanel.jsx";
 import { usePreferences } from "../../../feature/preferences/hooks/usePreferences.js";
 import { PreferencesContext } from "../../../feature/preferences/context/PreferencesContext.js";
-import PublicAiWidget from "../../ui/ai/PublicAiWidget.jsx";
+import PublicAiWidget from "../../../feature/ai/components/PublicAiWidget.jsx";
 
 function AppLayout() {
     const location = useLocation();

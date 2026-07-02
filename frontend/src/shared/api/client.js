@@ -1,7 +1,8 @@
+import { getAuthToken } from "../auth/sessionStorage.js";
 import { API_URL } from "./config.js";
 
 async function request(path, options = {}) {
-    const token = localStorage.getItem("token");
+    const token = getAuthToken();
     const isFormData = options.body instanceof FormData;
 
     const response = await fetch(`${API_URL}${path}`, {

@@ -1,0 +1,40 @@
+.ai-message-list {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.ai-message-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ai-message-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ai-message-list::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: var(--app-accent-border-color);
+}
+
+.ai-message-list::-webkit-scrollbar-thumb:hover {
+    background: var(--app-accent-soft-color);
+}
+
+@media (max-width: 700px) {
+    .ai-message-list {
+        gap: 10px;
+        padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-message-list {
+        gap: 10px;
+        padding: 12px;
+    }
+}

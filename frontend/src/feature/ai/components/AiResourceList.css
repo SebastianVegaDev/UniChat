@@ -1,0 +1,38 @@
+.ai-resource-list {
+    display: flex;
+    max-width: 85%;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.ai-resource-list small {
+    color: var(--app-muted-text-color);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.ai-resource-tag {
+    width: fit-content;
+    padding: 6px 10px;
+    border: 1px solid var(--app-accent-border-color);
+    border-radius: 8px;
+    background-color: var(--app-accent-soft-color);
+    color: var(--app-accent-color) !important;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+@media (max-width: 700px) {
+    .ai-resource-tag {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-resource-tag {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+}
