@@ -136,7 +136,7 @@ Avoid using `*` for authenticated production APIs.
 The frontend build command:
 
 ```powershell
-npm --prefix frontend run build
+npm run build:frontend
 ```
 
 The built static files are served by nginx or another static server.

@@ -249,21 +249,21 @@ Backend local:
 
 ```powershell
 Copy-Item ".\backend\.env.example" ".\backend\.env"
-npm --prefix backend run dev
+npm run dev:backend
 ```
 
 Frontend local:
 
 ```powershell
 Copy-Item ".\frontend\.env.example" ".\frontend\.env"
-npm --prefix frontend run dev
+npm run dev:frontend
 ```
 
 Docker local:
 
 ```powershell
 Copy-Item ".\.env.docker.example" ".\.env.docker"
-docker compose --env-file .env.docker up --build
+npm run docker:up
 ```
 
 ## Production environment

@@ -120,8 +120,8 @@ Infra        Docker Compose · nginx · persistent database and uploads volumes
 
 ```bash
 cp .env.docker.example .env.docker
-docker compose --env-file .env.docker up --build -d
-docker compose --env-file .env.docker exec backend node dist/database/scripts/runSeed.js
+npm run docker:up
+npm run db:seed
 ```
 
 Open:
@@ -139,16 +139,15 @@ Docker starts PostgreSQL, backend, frontend, nginx proxy, and upload storage. Yo
 
 ```bash
 docker compose --env-file .env.docker up -d db
-npm --prefix backend install
-npm --prefix frontend install
-npm --prefix backend run db:seed
-npm --prefix backend run dev
+npm run install:all
+npm run db:seed
+npm run dev:backend
 ```
 
 In another terminal:
 
 ```bash
-npm --prefix frontend run dev
+npm run dev:frontend
 ```
 
 Open:
@@ -163,9 +162,8 @@ http://localhost:5173
 <summary><strong>Reset local Docker data</strong></summary>
 
 ```bash
-docker compose --env-file .env.docker down -v
-docker compose --env-file .env.docker up --build -d
-docker compose --env-file .env.docker exec backend node dist/database/scripts/runSeed.js
+npm run docker:reset
+npm run db:seed
 ```
 
 `down -v` deletes local PostgreSQL and uploads volumes.
@@ -175,12 +173,8 @@ docker compose --env-file .env.docker exec backend node dist/database/scripts/ru
 ## Scripts
 
 ```bash
-npm --prefix backend run typecheck
-npm --prefix backend run build
-npm --prefix frontend run typecheck
-npm --prefix frontend run lint
-npm --prefix frontend run build
-npm --prefix frontend run screenshots:readme
+npm run validate
+npm run screenshots:readme
 ```
 
 ## Documentation
@@ -214,6 +208,9 @@ frontend/
 
 docs/
   screenshots/      generated app screenshots used above
+
+package.json        root workflow scripts for install, dev, build, Docker, validation
+docker-compose.yml  local full-stack Docker stack
 ```
 
 ## Validation Status

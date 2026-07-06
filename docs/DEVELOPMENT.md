@@ -16,29 +16,51 @@ PostgreSQL 16+ if running database without Docker
 
 ## Install dependencies
 
-From root:
+From the project root:
 
 ```powershell
-npm --prefix backend install
-npm --prefix frontend install
+npm run install:all
+```
+
+Equivalent split commands:
+
+```powershell
+npm run install:backend
+npm run install:frontend
+```
+
+## Environment files
+
+Backend local env:
+
+```powershell
+Copy-Item ".\backend\.env.example" ".\backend\.env"
+```
+
+Frontend local env:
+
+```powershell
+Copy-Item ".\frontend\.env.example" ".\frontend\.env"
+```
+
+Docker env:
+
+```powershell
+Copy-Item ".\.env.docker.example" ".\.env.docker"
 ```
 
 ## Local development without Docker
 
-### Backend
+Run the backend:
 
 ```powershell
-Copy-Item ".\backend\.env.example" ".\backend\.env"
-npm --prefix backend install
-npm --prefix backend run dev
+npm run dev:backend
 ```
 
-### Frontend
+Run the frontend in another terminal:
 
 ```powershell
-Copy-Item ".\frontend\.env.example" ".\frontend\.env"
-npm --prefix frontend install
-npm --prefix frontend run dev
+npm run dev:frontend
 ```
 
 Frontend usually runs at:
@@ -55,16 +77,10 @@ http://localhost:3000
 
 ## Local development with Docker
 
-Create Docker env:
-
-```powershell
-Copy-Item ".\.env.docker.example" ".\.env.docker"
-```
-
 Start stack:
 
 ```powershell
-docker compose --env-file .env.docker up --build
+npm run docker:up
 ```
 
 Open:
@@ -76,14 +92,13 @@ http://localhost:8080
 Stop stack:
 
 ```powershell
-docker compose down
+npm run docker:down
 ```
 
 Reset stack data:
 
 ```powershell
-docker compose down -v
-docker compose --env-file .env.docker up --build
+npm run docker:reset
 ```
 
 Use reset only for local development.
@@ -93,43 +108,38 @@ Use reset only for local development.
 Run schema:
 
 ```powershell
-npm --prefix backend run db:schema
+npm run db:schema
 ```
 
 Run seed:
 
 ```powershell
-npm --prefix backend run db:seed
+npm run db:seed
 ```
 
 Seed is only for development/demo data.
 
-## Frontend validation
+## Validation
+
+Before merging a branch, run:
 
 ```powershell
-npm --prefix frontend run lint
-npm --prefix frontend run build
+npm run validate
 ```
 
-## Backend validation
-
-Syntax check for JavaScript backend:
+The expanded validation is:
 
 ```powershell
-Get-ChildItem ".\backend\src" -Recurse -Filter "*.js" | ForEach-Object { node --check $_.FullName }
-```
-
-If backend has a build/typecheck script after TypeScript migration:
-
-```powershell
-npm --prefix backend run typecheck
-npm --prefix backend run build
+npm run typecheck
+npm run build:backend
+npm run lint:frontend
+npm run build:frontend
 ```
 
 ## Docker validation
 
 ```powershell
-docker compose config
+docker compose --env-file .env.docker config
 ```
 
 ## Useful search commands

@@ -88,6 +88,7 @@ unichat/
   frontend/
   docs/
 
+  package.json
   docker-compose.yml
   .env.docker.example
   .gitignore

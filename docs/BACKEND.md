@@ -474,8 +474,8 @@ Secrets should never be committed.
 From the project root:
 
 ```powershell
-npm --prefix backend install
-npm --prefix backend run dev
+npm run install:backend
+npm run dev:backend
 ```
 
 Syntax check for JavaScript backend:
@@ -487,14 +487,14 @@ Get-ChildItem ".\backend\src" -Recurse -Filter "*.js" | ForEach-Object { node --
 Database setup:
 
 ```powershell
-npm --prefix backend run db:schema
-npm --prefix backend run db:seed
+npm run db:schema
+npm run db:seed
 ```
 
 Docker validation:
 
 ```powershell
-docker compose config
+docker compose --env-file .env.docker config
 ```
 
 ## Backend rules for future work
