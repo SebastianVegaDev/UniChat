@@ -488,9 +488,9 @@ Avoid creating feature-specific design systems. Features should look like the sa
 From root:
 
 ```powershell
-npm --prefix frontend install
-npm --prefix frontend run lint
-npm --prefix frontend run build
+npm run install:frontend
+npm run lint:frontend
+npm run build:frontend
 ```
 
 Search for old shared UI imports:

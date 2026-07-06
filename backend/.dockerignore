@@ -1,5 +1,12 @@
 node_modules
 dist
-npm-debug.log
-.env
+coverage
 uploads
+
+.env
+.env.*
+!.env.example
+
+npm-debug.log*
+Dockerfile
+.dockerignore

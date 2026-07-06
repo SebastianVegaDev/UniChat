@@ -9,6 +9,7 @@ Docker-related root files:
 ```txt
 docker-compose.yml
 .env.docker.example
+package.json
 ```
 
 The real `.env.docker` file should not be committed.
@@ -146,7 +147,7 @@ Never commit `.env.docker`.
 From root:
 
 ```powershell
-docker compose --env-file .env.docker up --build
+npm run docker:up
 ```
 
 Open:
@@ -158,7 +159,7 @@ http://localhost:8080
 ## Stop stack
 
 ```powershell
-docker compose down
+npm run docker:down
 ```
 
 ## Reset local Docker data
@@ -166,8 +167,7 @@ docker compose down
 Use only when you want a clean local database and clean uploads.
 
 ```powershell
-docker compose down -v
-docker compose --env-file .env.docker up --build
+npm run docker:reset
 ```
 
 This deletes:
@@ -180,7 +180,7 @@ uploads_data
 ## Validate compose
 
 ```powershell
-docker compose config
+docker compose --env-file .env.docker config
 ```
 
 This checks whether the compose file is valid.
@@ -209,8 +209,7 @@ upload limits
 If you change schema files and want Docker PostgreSQL to rerun them locally, you must reset the database volume:
 
 ```powershell
-docker compose down -v
-docker compose --env-file .env.docker up --build
+npm run docker:reset
 ```
 
 For production, do not rely on deleting volumes. Use controlled migrations or schema deployment.
@@ -222,7 +221,7 @@ Seed should not automatically run in production Docker.
 Local development seed can be run manually:
 
 ```powershell
-npm --prefix backend run db:seed
+npm run db:seed
 ```
 
 or through a temporary/dev-only command.
@@ -252,8 +251,7 @@ db_data volume already exists
 Fix for local development:
 
 ```powershell
-docker compose down -v
-docker compose --env-file .env.docker up --build
+npm run docker:reset
 ```
 
 ### Backend cannot connect to DB

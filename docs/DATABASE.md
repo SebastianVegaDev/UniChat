@@ -52,13 +52,13 @@ Seed is only for local development, demos, or testing.
 From the project root:
 
 ```powershell
-npm --prefix backend run db:schema
+npm run db:schema
 ```
 
 For development demo data:
 
 ```powershell
-npm --prefix backend run db:seed
+npm run db:seed
 ```
 
 ## Docker database setup
@@ -80,8 +80,7 @@ If the database volume already exists, PostgreSQL will not rerun init scripts au
 Use this only for local reset:
 
 ```powershell
-docker compose down -v
-docker compose --env-file .env.docker up --build
+npm run docker:reset
 ```
 
 This removes local Docker volumes, including:
