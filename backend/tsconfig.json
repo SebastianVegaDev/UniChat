@@ -6,7 +6,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "lib": ["ES2022"],
-    "types": ["node"],
+    "types": ["node", "multer"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
